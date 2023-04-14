@@ -260,8 +260,14 @@ class PrintController extends Controller
                     $msg = "Ggenerated the $docType $orsID.";
                     Auth::user()->log($request, $msg);
                 } else {
-                    $this->generateBURS($data, $data->ors->document_type, $fontScale,
-                                        $pageHeight, $pageWidth, $previewToggle);
+                    $this->generateBURS(
+                        $data,
+                        $fontScale,
+                        $pageHeight,
+                        $pageWidth,
+                        $pageUnit,
+                        $previewToggle
+                    );
                 }
                 break;
             case 'proc_iar':
