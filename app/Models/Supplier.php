@@ -67,4 +67,9 @@ class Supplier extends Model
     public static function generateUuid() {
          return Uuid::generate();
     }
+    public function po()
+{
+    return $this->hasOne(PurchaseOrder::class);
+}
+
 }

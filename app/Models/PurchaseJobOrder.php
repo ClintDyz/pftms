@@ -101,6 +101,10 @@ class PurchaseJobOrder extends Model
     public function iar() {
         return $this->hasOne('App\Models\InspectionAcceptance', 'id', 'po_id');
     }
+    public function supplier()
+    {
+        return $this->belongsTo(Supplier::class, 'awarded_to');
+    }
 
     public $sortable = [
         'po_no',
