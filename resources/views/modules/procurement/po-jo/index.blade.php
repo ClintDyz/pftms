@@ -95,6 +95,9 @@
                                         <th class="th-md" width="13%">
                                             @sortablelink('requestor.firstname', 'Requested By', [], ['class' => 'white-text'])
                                         </th>
+                                        <th class="th-md" width="13%">
+                                            @sortablelink('', 'supplier', [], ['class' => 'white-text'])
+                                        </th>
                                     </tr>
                                 </thead>
                                 <!--Table head-->
@@ -103,6 +106,8 @@
                                 <tbody>
                                     @if (count($list) > 0)
                                         @foreach ($list as $listCtr => $pr)
+                                        @foreach ($pr->po as $po) {{-- Iterate over each PurchaseOrder --}}
+
                                     <tr class="hidden-xs">
                                         <td align="center">
                                             <i class="fas fa-folder fa-lg material-tooltip-main"
@@ -124,14 +129,16 @@
                                             }}
                                         </td>
                                         <td>{{ Auth::user()->getEmployee($pr->requestor['id'])->name }}</td>
+                                        <td>{{ $po->supplier->company_name }}</td>
                                     </tr>
+                                    @endforeach
                                     <tr class="d-none show-xs">
                                         <td colspan="7" class="text-center">
                                             <b>PR NO : {{ $pr->pr_no }}</b>
                                         </td>
                                     </tr>
                                     <tr class="blue-grey lighten-2 po-jo-table-items">
-                                        <td colspan="7">
+                                        <td colspan="9">
                                             <div class="card card-cascade narrower mx-3 my-2">
                                                 <div class="card-body p-2">
                                                     <table class="table table-sm z-depth-1 mb-0">
@@ -678,6 +685,9 @@
 <script src="{{ asset('assets/js/po-jo.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/js/print.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/js/attachment.js') }}"></script>
+
+
+
 
 @if (!empty(session("success")))
     @include('modals.alert')

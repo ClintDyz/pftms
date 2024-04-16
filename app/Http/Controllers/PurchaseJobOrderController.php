@@ -127,6 +127,11 @@ class PurchaseJobOrderController extends Controller
                     ->orWhere('pr_no', 'like', "%$keyword%")
                     ->orWhere('date_pr', 'like', "%$keyword%")
                     ->orWhere('purpose', 'like', "%$keyword%")
+                    ->orWhereHas('po', function($query) use ($keyword) {
+                        $query->whereHas('supplier', function($subquery) use ($keyword) {
+                            $subquery->where('company_name', 'like', "%$keyword%");
+                        });
+                    })
                     ->orWhereHas('funding', function($query) use ($keyword) {
                         $query->where('project_title', 'like', "%$keyword%");
                     })->orWhereHas('stat', function($query) use ($keyword) {
