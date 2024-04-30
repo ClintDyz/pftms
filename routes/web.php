@@ -15,19 +15,22 @@ Auth::routes();
 
 /*===================== ACCOUNT MANAGEMENT ROUTES =====================*/
 
-// Profile Module
-Route::get('profile/registration', 'AccountController@showCreateProfile')
-     ->name('profile-registration');
-Route::post('profile/register', 'AccountController@storeProfile')
-     ->name('profile-store');
-Route::post('profile/get-province/{region_id}', 'AccountController@getProvince');
 
-// Registration Routes...
-Route::get('register', 'AccountController@showCreateProfile')
-     ->name('register');
-Route::post('register', 'AccountController@storeProfile');
+// Profile Module Routes
+Route::middleware('throttle:60,1')->group(function () {
+    Route::get('profile/registration', 'AccountController@showCreateProfile')->name('profile-registration');
+    Route::post('profile/register', 'AccountController@storeProfile')->name('profile-store');
+    Route::post('profile/get-province/{region_id}', 'AccountController@getProvince');
+});
 
-Route::middleware(['web', 'auth'])->group(function () {
+// Registration Routes
+Route::middleware('throttle:60,1')->group(function () {
+    Route::get('register', 'AccountController@showCreateProfile')->name('register');
+    Route::post('register', 'AccountController@storeProfile');
+});
+
+
+Route::middleware(['web', 'auth', 'throttle:60,1'])->group(function () {
 
     /*===================== REPORT ROUTES =====================*/
 
@@ -79,7 +82,7 @@ Route::middleware(['web', 'auth'])->group(function () {
     Route::get('notification/show-all', 'NotificationController@showAllNotifications');
 });
 
-Route::middleware(['web', 'auth', 'moduleaccess'])->group(function () {
+Route::middleware(['web', 'auth', 'moduleaccess', 'throttle:60,1'])->group(function () {
 
     /*===================== CASH ADVANCE, REIMBURSEMENT, & LIQUIDATION ROUTES =====================*/
 
@@ -2364,9 +2367,23 @@ Route::middleware(['web', 'auth', 'moduleaccess'])->group(function () {
 });
 
 // PAR,
-Route::get('/par','ParController@index')->middleware('auth');
-Route::post('/updatepar', 'ParController@edit')->middleware('auth');
+// Par Routes
+Route::middleware(['auth', 'throttle:60,1'])->group(function () {
+    Route::get('/par', 'ParController@index');
+    Route::post('/updatepar', 'ParController@edit');
+});
 
-Route::get('/ris','RisController@index')->middleware('auth');
-Route::get('/ics','IcsController@index')->middleware('auth');
-Route::get('/parrisics','PARRISICSController@index')->middleware('auth');
+// Ris Routes
+Route::middleware(['auth', 'throttle:60,1'])->group(function () {
+    Route::get('/ris', 'RisController@index');
+});
+
+// Ics Routes
+Route::middleware(['auth', 'throttle:60,1'])->group(function () {
+    Route::get('/ics', 'IcsController@index');
+});
+
+// Parrisics Routes
+Route::middleware(['auth', 'throttle:60,1'])->group(function () {
+    Route::get('/parrisics', 'PARRISICSController@index');
+});

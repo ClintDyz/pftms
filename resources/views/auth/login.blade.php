@@ -79,12 +79,12 @@
                                 </fieldset>
                                 <hr>
                                 <div class="login-buttons text-center">
-                                    <button class="btn btn-mdb-color btn-md">
+                                    <button class="btn btn-mdb-color col-md-12 btn-md">
                                         <i class="fas fa-door-open"></i> Log-in
                                     </button>
-                                    <a class="btn btn-link btn-md" href="{{ route('profile-registration') }}">
+                                    {{-- <a class="btn btn-link btn-md" href="{{ route('profile-registration') }}">
                                         Click Here to Register
-                                    </a>
+                                    </a> --}}
                                     <!--
                                     <a class="btn btn-link btn-md" href="{{ route('password.request') }}">
                                         {{ __('Forgot Your Password?') }}
