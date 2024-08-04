@@ -18,7 +18,7 @@
                     </li>
                     <li class="active">
                         <a href="{{ route('pr') }}" class="waves-effect waves-light cyan-text">
-                            Purchase Request
+                            Purchase  Request
                         </a>
                     </li>
                 </ul>
