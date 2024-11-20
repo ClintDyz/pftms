@@ -81,6 +81,9 @@
                                         <th class="th-md" width="20%">
                                             <strong>Classification</strong>
                                         </th>
+                                        <th class="th-md" width="20%">
+                                            <strong>Date Created</strong>
+                                        </th>
                                         <th class="th-md" width="3%"></th>
                                         <th class="th-md" width="3%"></th>
                                     </tr>
@@ -97,6 +100,8 @@
                                         <td>{{ $supplier->address }}</td>
                                         <td>{{ $supplier->contact_person }}</td>
                                         <td>{{ $supplier->classification }}</td>
+                                        <td>{{ \Carbon\Carbon::parse($supplier->created_at)->format('d-M-Y') }}</td>
+
                                         <td align="center">
                                             <a class="btn-floating btn-sm btn-orange p-2 waves-effect material-tooltip-main mr-0"
                                                onclick="$(this).showEdit('{{ route('supplier-show-edit',

@@ -18,7 +18,7 @@
                     </li>
                     <li class="active">
                         <a href="{{ route('pr') }}" class="waves-effect waves-light cyan-text">
-                            Purchase Request
+                            Purchase  Request
                         </a>
                     </li>
                 </ul>
@@ -34,7 +34,7 @@
                             @if ($isAllowedCreate)
                             <button type="button" class="btn btn-outline-white btn-rounded btn-sm px-2"
                                     onclick="$(this).showCreate('{{ route('pr-show-create') }}');">
-                                <i class="fas fa-pencil-alt"></i> Create
+                                <i class="fas fa-pencil-alt"></i> Create 
                             </button>
                             @endif
                         </div>
