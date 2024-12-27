@@ -133,14 +133,14 @@ class DocAbstractQuotation extends PDF {
 
                     if ($bidderCount == 3) {
                         if ($strLength > 30) {
-                            $this->Cell($bidderWidth, 3.6, substr(strtoupper($list->company_name), 0, 30) .
+                            $this->Cell($bidderWidth, 3.6, substr(strtoupper($list->company_name), 0, 31) .
                                     '...', 'RB', '', 'C');
                         } else {
                             $this->Cell($bidderWidth, 3.6, strtoupper($list->company_name), 'RB', '', 'C');
                         }
                     } else if ($bidderCount == 4) {
                         if ($strLength > 20) {
-                            $this->Cell($bidderWidth, 3.6, substr(strtoupper($list->company_name), 0, 20) .
+                            $this->Cell($bidderWidth, 3.6, substr(strtoupper($list->company_name), 0, 21) .
                                     '...', 'RB', '', 'C');
                         } else {
                             $this->Cell($bidderWidth, 3.6, strtoupper($list->company_name), 'RB', '', 'C');
