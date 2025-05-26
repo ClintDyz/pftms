@@ -101,7 +101,7 @@ class DocJobOrder extends PDF {
         $this->SetFont('Times', 'IB', 11 + ($fontScale * 11));
         $this->Cell($contentWidth * 0.16, '5', "Place of Delivery:", 0, 'L');
         $this->SetFont('Times', 'B', 11 + ($fontScale * 11));
-        $this->Cell(0, '5', "DOST-CAR ", 0, 'L');
+        $this->Cell(0, '5', $data->jo->date_delivery, 0, 'L');
 
         $this->Ln();
 
@@ -112,7 +112,7 @@ class DocJobOrder extends PDF {
         $this->SetFont('Times', 'IB', 11 + ($fontScale * 11));
         $this->Cell($contentWidth * 0.40,'5', "Payment Term:", 0, 0, 'R');
         $this->SetFont('Times', 'UB', 11 + ($fontScale * 11));
-        $this->Cell(0, '5', "After inspection and acceptance", 0, 0, 'R');
+        $this->Cell(0, '5', $data->jo->payment_term, 0, 0, 'R');
 
         $this->Ln(10);
 
