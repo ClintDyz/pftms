@@ -217,6 +217,9 @@ class AbstractQuotationController extends Controller
             $sig->module = json_decode($sig->module);
         }
 
+          // Fix: Define the variable
+        $recommendation = $instanceAbstract->recommendation;
+
         return view('modules.procurement.abstract.create', [
             'id' => $id,
             'suppliers' => $suppliers,
@@ -224,6 +227,7 @@ class AbstractQuotationController extends Controller
             'users' => $users,
             'signatories' => $signatories,
             'abstractItems' => $items,
+            'recommendation' => $recommendation,
             'canSetModeProc' => $canSetModeProc,
         ]);
     }
@@ -237,6 +241,7 @@ class AbstractQuotationController extends Controller
      * @return \Illuminate\Http\Response
      */
     private function storeUpdateAbstract($request, $id, $toggle) {
+        // dd($request->all());
         $sigChairperson = $request->sig_chairperson;
         $sigViceChairperson = $request->sig_vice_chairperson;
         $sigFirstMember = $request->sig_first_member;
@@ -245,6 +250,7 @@ class AbstractQuotationController extends Controller
         $endUser = $request->sig_end_user;
         $abstractDate = $request->date_abstract;
         $modeProcurement = $request->mode_procurement;
+        $recommendation = $request->recommendation;
 
         $sigSecondMember = !empty($sigSecondMember) ? $sigSecondMember : NULL;
         $sigThirdMember = !empty($sigThirdMember) ? $sigThirdMember : NULL;
@@ -261,6 +267,7 @@ class AbstractQuotationController extends Controller
             $instanceAbstract->sig_end_user = $endUser;
             $instanceAbstract->date_abstract = $abstractDate;
             $instanceAbstract->mode_procurement = $modeProcurement;
+            $instanceAbstract->recommendation = $recommendation;
             $instanceAbstract->save();
 
             if ($toggle == 'store') {
