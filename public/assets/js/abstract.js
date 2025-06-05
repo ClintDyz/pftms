@@ -48,7 +48,9 @@ $(function () {
             sigFirstPerson = $("#sig_first_member").val(),
             sigSecondPerson = $("#sig_second_member").val(),
             sigThirdPerson = $("#sig_third_member").val(),
+            recommendation = $("#recommendation").val();
             sigEndUser = $("#sig_end_user").val();
+
 
         $("input[name=date_abstract]").val(dateAbstract);
         $("input[name=mode_procurement]").val(modeProcurement);
@@ -57,7 +59,9 @@ $(function () {
         $("input[name=sig_first_member]").val(sigFirstPerson);
         $("input[name=sig_second_member]").val(sigSecondPerson);
         $("input[name=sig_third_member]").val(sigThirdPerson);
+        $("input[name=recommendation]").val(recommendation);
         $("input[name=sig_end_user]").val(sigEndUser);
+
 
         $("select.sel-bidder-count").each(function (grpKey, elemSelBidder) {
             const bidderCount = parseInt($(elemSelBidder).val());

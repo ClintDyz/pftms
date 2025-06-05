@@ -111,6 +111,13 @@
         </div>
     </div>
 
+    <div class="md-form grp-group">
+    <label for="exampleFormControlTextarea1">Recommendation</label>
+        <textarea id="recommendation" name="recommendation" class="form-control" rows="4">
+            {{ old('recommendation', $recommendation ?? '') }}
+        </textarea>
+  </div>
+
     <div class="row mt-3">
         <div class="col-md-2">
             <div class="md-form">
@@ -260,4 +267,6 @@
     <input type="hidden" name="sig_second_member">
     <input type="hidden" name="sig_third_member">
     <input type="hidden" name="sig_end_user">
+    <input type="hidden" name="recommendation">
+
 </form>

@@ -37,6 +37,7 @@ class AbstractQuotation extends Model
         'sig_first_member',
         'sig_second_member',
         'sig_third_member',
+        'recommendation',
         'sig_end_user',
         'sig_app',
     ];
