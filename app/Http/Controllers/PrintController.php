@@ -4237,8 +4237,8 @@ class PrintController extends Controller
         $pdf->setFontScale($fontScale);
 
         $docCode = "FM-FAS-BUD F04";
-        $docRev = "Revision 1";
-        $docRevDate = "02-28-18";
+        $docRev = "Revision 0";
+        $docRevDate = "08-31-17";
         $docTitle = "ors_" . $data->ors->id;
         $docCreator = "DOST-CAR";
         $docAuthor = "DOST-CAR";

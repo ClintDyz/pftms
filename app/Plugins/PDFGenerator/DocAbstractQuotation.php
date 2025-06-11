@@ -207,16 +207,16 @@ class DocAbstractQuotation extends PDF {
                 $this->Ln(5);
 
                 // Add actual recommendation content
-                $this->SetFont('helvetica', '', 9 + ($fontScale * 9));
-                $recommendationText = $data->abstract->recommendation ?? 'No recommendation provided.';
-                $this->MultiCell(0, 5, $recommendationText, 1, 'L');
-                $this->Ln(5);
-                
-                // $this->Cell(0, 2, "", 'B', 1, 'L', 0);
-                // $this->Cell(0, 2, "", 'B', 1, 'L', 0);
-                // $this->Cell(0, 2, "", 'B', 1, 'L', 0);
-                // $this->Cell(0, 2, "", 'B', 1, 'L', 0);
+                // $this->SetFont('helvetica', '', 9 + ($fontScale * 9));
+                // $recommendationText = $data->abstract->recommendation ?? 'No recommendation provided.';
+                // $this->MultiCell(0, 5, $recommendationText, 1, 'L');
                 // $this->Ln(5);
+
+                $this->Cell(0, 2, "", 'B', 1, 'L', 0);
+                $this->Cell(0, 2, "", 'B', 1, 'L', 0);
+                $this->Cell(0, 2, "", 'B', 1, 'L', 0);
+                $this->Cell(0, 2, "", 'B', 1, 'L', 0);
+                $this->Ln(5);
 
                 // Bids and Committee awardee
                 $this->SetFont('helvetica', 'B', 10 + ($fontScale * 10));

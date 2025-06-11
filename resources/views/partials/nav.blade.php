@@ -261,7 +261,11 @@
                                 <a href="#" class="waves-effect">PCPPE</a>
                             </li>
                             --}}
-
+                            <li>
+                                <a href="/purchase-request-monthly-report" class="waves-effect">
+                                    Purchase Request Monthly Report
+                                </a>
+                            </li>
                             <li>
                                 <a href="#" class="waves-effect">
                                     RCPPRE

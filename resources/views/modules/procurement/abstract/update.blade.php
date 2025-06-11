@@ -379,12 +379,12 @@
             </div>
         </div>
     </div>
-    <div class="md-form grp-group">
+    {{-- <div class="md-form grp-group">
     <label for="exampleFormControlTextarea1">Recommendation</label>
         <textarea id="recommendation" name="recommendation" class="form-control" rows="4">
             {{ old('recommendation', $recommendation ?? '') }}
         </textarea>
-  </div>
+  </div> --}}
     <div class="row mt-3">
         <div class="col-md-2">
             <div class="md-form">
