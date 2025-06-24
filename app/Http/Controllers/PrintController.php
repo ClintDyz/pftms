@@ -3143,7 +3143,7 @@ class PrintController extends Controller
                 'type' => 'other',
                 'data' => [['Payee', $payee,
                             'TIN/Employee No.:<br>_____________________________',
-                            'ORS/BURS No.:<br>'. ($dv->serial_no)]]
+                            'ORS/BURS No.:<br>'. ($dv->serial_no ?? 'N/A')]]
             ], [
                 'col-span' => true,
                 'col-span-key' => ['0', '1-3'],
