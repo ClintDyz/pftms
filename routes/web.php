@@ -2372,7 +2372,7 @@ Route::middleware(['auth', 'throttle:60,1'])->group(function () {
     Route::get('/report', [App\Http\Controllers\ReportController::class, 'index'])->name('report.index');
     Route::get('/report/purchase-request/print', [App\Http\Controllers\ReportController::class, 'print'])->name('report.purchase.print');
 });
- 
+
 
 // Par Routes
 Route::middleware(['auth', 'throttle:60,1'])->group(function () {

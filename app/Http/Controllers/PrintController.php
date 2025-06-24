@@ -3149,7 +3149,7 @@ class PrintController extends Controller
                 'type' => 'other',
                 'data' => [['Payee', $payee,
                             'TIN/Employee No.:<br>_____________________________',
-                            'ORS/BURS No.:<br>'. ($dv->serial_no)]]
+                            'ORS/BURS No.:<br>__________________']]
             ], [
                 'col-span' => true,
                 'col-span-key' => ['0', '1-3'],
@@ -4361,12 +4361,9 @@ class PrintController extends Controller
         $pdf->setHeaderLR(false, true);
         $pdf->setFontScale($fontScale);
 
-        // $docCode = ($data->dv->module_class == 3) ? 'FM-FAS-BUD F12': 'FM-FAS-ACCTG F01';
-        // $docRev = ($data->dv->module_class == 3) ? 'Revision 1': 'Revision 0';
-        // $docRevDate = ($data->dv->module_class == 3) ? '02-28-18': '08-31-17';
-        $docCode = "FM-FAS-ACCTG F01";
-        $docRev = "Revision 0";
-        $docRevDate = "08-31-17";
+        $docCode = ($data->dv->module_class == 3) ? 'FM-FAS-BUD F12': 'FM-FAS-ACCTG F01';
+        $docRev = ($data->dv->module_class == 3) ? 'Revision 1': 'Revision 0';
+        $docRevDate = ($data->dv->module_class == 3) ? '02-28-18': '08-31-17';
         $docTitle = "dv_" . $data->dv->id;
         $docCreator = "DOST-CAR";
         $docAuthor = "DOST-CAR";

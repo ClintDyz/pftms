@@ -5,7 +5,7 @@ use TCPDF;
 
 use Illuminate\Http\Request;
 use DB;
- 
+
 class ReportController extends Controller
 {
     /**
