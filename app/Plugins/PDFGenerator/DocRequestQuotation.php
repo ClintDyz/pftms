@@ -79,7 +79,7 @@ class DocRequestQuotation extends PDF {
             $this->MultiCell(0, 0, "1.  Lowest price shall be quoted on the item/s  inclusive of all government taxes and submit signed quotation ".
                                     "in a sealed envelope.", 0, 'L');
 
-            $this->MultiCell(0, 0, "2.  Delivery period must be ________________ as per stated on the purchase / job order for the winning bidder.".
+            $this->MultiCell(0, 0, "2.  Delivery period must be <u>" . $data->rfq->delivery_period . "</u> as per stated on the purchase / job order for the winning bidder.".
                                     " Otherwise,  a penalty of 1/10 of 1% of every day of delay shall be charged.", 0, 'L');
 
             $this->MultiCell(0, 0, "3.  Warranty shall be for a min. of 3 months for expendable goods, and min. of 1 year for non-expendable goods,".

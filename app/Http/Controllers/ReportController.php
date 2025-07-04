@@ -5,7 +5,7 @@ use TCPDF;
 
 use Illuminate\Http\Request;
 use DB;
- 
+
 class ReportController extends Controller
 {
     /**
@@ -55,7 +55,8 @@ public function print(Request $request)
               ->whereYear('pr.created_at', $request->year);
     }
 
-    $purchase = $query->get();
+    // $purchase = $query->get();
+    $purchase = $query->orderBy('pr.created_at', 'desc')->get();
 
     $pdf = new TCPDF();
     $pdf->SetMargins(15, 20, 15);
