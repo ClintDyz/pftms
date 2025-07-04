@@ -32,6 +32,7 @@ class RequestQuotation extends Model
         'date_canvass',
         'sig_rfq',
         'delivery_period',
+        'deadline',
         'canvassed_by',
     ];
 

@@ -112,10 +112,17 @@
         </div>
     </div>
 
-    <div class="col-md-3 mt-3">
-    <label for="Delivery_period" class="form-label">Delivery period:</label>
-    <input type="text" class="form-control" id="delivery_period" placeholder="Delivery Period" name="delivery_period">
+    <div class="col-md-12 row mt-3">
+    <div class="col-md-4 mt-3 md">
+    <label for="Delivery_period" class="form-label">Delivery period: <span style="color: red">*</span></label>
+    <input type="text" class="form-control" id="delivery_period" placeholder="Delivery Period" name="delivery_period" value="{{ old('delivery_period', $deliveryPeriod ?? '') }}">
   </div>
+
+      <div class="col-md-4 mt-3">
+    <label for="Delivery_period" class="form-label">Deadline for Submission: <span style="color: red">*</span></label>
+        <input type="text" class="form-control" id="deadline" placeholder="Deadline for Submission" name="deadline" value="{{ old('deadline', $deadline ?? '') }}">
+  </div>
+    </div>
 
     <div class="row mt-5">
         <div class="col-md-6">

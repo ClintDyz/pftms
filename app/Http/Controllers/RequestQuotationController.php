@@ -165,6 +165,8 @@ class RequestQuotationController extends Controller
         $prID = $rfqData->pr_id;
         $rfqDate = $rfqData->date_canvass;
         $sigRFQ = $rfqData->sig_rfq;
+        $deliveryPeriod = $rfqData->delivery_period;
+        $deadline = $rfqData->deadline;
         $canvassedBy = $rfqData->canvassed_by;
         $prItemData = PurchaseRequestItem::where('pr_id', $prID)->get();
         $unitIssues = ItemUnitIssue::orderBy('unit_name')->get();
@@ -202,6 +204,8 @@ class RequestQuotationController extends Controller
             'rfqDate' => $rfqDate,
             'sigRFQ' => $sigRFQ,
             'canvassedBy' => $canvassedBy,
+            'deliveryPeriod' => $deliveryPeriod,   // ✅ add this
+            'deadline' => $deadline                // ✅ add this
         ]);
     }
 
@@ -217,6 +221,7 @@ class RequestQuotationController extends Controller
         $groupNos = $request->canvass_group;
         $rfqDate = $request->date_canvass;
         $delivery_period = $request->delivery_period;
+        $deadline = $request->deadline;
         $sigRFQ = $request->sig_rfq;
         $canvassedBy = $request->canvassed_by;
 
@@ -226,7 +231,8 @@ class RequestQuotationController extends Controller
             $prID = $instanceRFQ->pr_id;
             $instanceRFQ->date_canvass = $rfqDate;
             $instanceRFQ->sig_rfq = $sigRFQ;
-            $instanceRFQ->delivery_period = $delivery_period; 
+            $instanceRFQ->delivery_period = $delivery_period;
+            $instanceRFQ->deadline = $deadline;
             $instanceRFQ->canvassed_by = $canvassedBy;
             $instanceRFQ->save();
 
