@@ -216,6 +216,7 @@ class RequestQuotationController extends Controller
         $itemIDs = $request->pr_item_id;
         $groupNos = $request->canvass_group;
         $rfqDate = $request->date_canvass;
+        $delivery_period = $request->delivery_period;
         $sigRFQ = $request->sig_rfq;
         $canvassedBy = $request->canvassed_by;
 
@@ -225,6 +226,7 @@ class RequestQuotationController extends Controller
             $prID = $instanceRFQ->pr_id;
             $instanceRFQ->date_canvass = $rfqDate;
             $instanceRFQ->sig_rfq = $sigRFQ;
+            $instanceRFQ->delivery_period = $delivery_period; 
             $instanceRFQ->canvassed_by = $canvassedBy;
             $instanceRFQ->save();
 

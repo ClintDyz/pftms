@@ -77,7 +77,7 @@
                         </div>
                         <div>
 
-                            <a href="/par" class="btn btn-outline-white btn-rounded btn-sm px-2">
+                            <a href="/purchase-request-monthly-report" class="btn btn-outline-white btn-rounded btn-sm px-2">
                                 <i class="fas fa-sync-alt fa-pulse"></i>
                             </a>
                         </div>

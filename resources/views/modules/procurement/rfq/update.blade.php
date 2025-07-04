@@ -112,7 +112,12 @@
         </div>
     </div>
 
-    <div class="row">
+    <div class="col-md-3 mt-3">
+    <label for="Delivery_period" class="form-label">Delivery period:</label>
+    <input type="text" class="form-control" id="delivery_period" placeholder="Delivery Period" name="delivery_period">
+  </div>
+
+    <div class="row mt-5">
         <div class="col-md-6">
             <div class="md-form">
                 <select class="mdb-select crud-select md-form" searchable="Search here.."
