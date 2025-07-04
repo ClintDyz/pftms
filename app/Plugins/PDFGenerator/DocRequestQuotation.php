@@ -79,8 +79,17 @@ class DocRequestQuotation extends PDF {
             $this->MultiCell(0, 0, "1.  Lowest price shall be quoted on the item/s  inclusive of all government taxes and submit signed quotation ".
                                     "in a sealed envelope.", 0, 'L');
 
-            $this->MultiCell(0, 0, "2.  Delivery period must be <u>" . $data->rfq->delivery_period . "</u> as per stated on the purchase / job order for the winning bidder.".
-                                    " Otherwise,  a penalty of 1/10 of 1% of every day of delay shall be charged.", 0, 'L');
+            $deliveryPeriod = $data->rfq->delivery_period ?? '____________';
+
+            $html = '
+                2. Delivery period must be <u>' . htmlspecialchars($deliveryPeriod) . '</u> as per stated on the purchase / job order for the winning bidder.
+                Otherwise, a penalty of 1/10 of 1% of every day of delay shall be charged.
+            ';
+
+            $this->writeHTMLCell(0, 0, '', '', $html, 0, 1, false, true, 'L', true);
+
+            // $this->MultiCell(0, 0, "2.  Delivery period must be ____________________ as per stated on the purchase / job order for the winning bidder.".
+            //                         " Otherwise,  a penalty of 1/10 of 1% of every day of delay shall be charged.", 0, 'L');
 
             $this->MultiCell(0, 0, "3.  Warranty shall be for a min. of 3 months for expendable goods, and min. of 1 year for non-expendable goods,".
                                    " reckoned from the date of acceptance by the procuring entity.", 0, 'L');
@@ -129,8 +138,14 @@ class DocRequestQuotation extends PDF {
             $this->Cell(0, 4, "____________________________________________");
             $this->Ln(12);
 
-            $this->Cell(0, 5,"Deadline for Submission: _____________________" . $deadlineDate);
+            $deadline = $data->rfq->deadline ?? '_____________________';
+
+            $html = 'Deadline for Submission: <u>' . htmlspecialchars($deadline) . '</u>';
+            $this->writeHTMLCell(0, 0, '', '', $html, 0, 1, false, true, 'L', true);
             $this->Ln(15);
+
+            // $this->Cell(0, 5,"Deadline for Submission: _____________________" . $deadlineDate);
+            // $this->Ln(15);
 
             $this->Cell($pageWidth * 0.55,  5, "Very truly yours,");
             $this->Cell($pageWidth * 0.188,  5, "Prices quoted above are");
