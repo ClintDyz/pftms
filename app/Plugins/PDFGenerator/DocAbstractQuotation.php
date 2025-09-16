@@ -128,32 +128,41 @@ class DocAbstractQuotation extends PDF {
                 $this->Cell($totalWidth1 * 0.04, 3.6, '(Unit', 'R', '', 'C');
 
                 foreach ($abstract->suppliers as $list) {
-                    $strLength = strlen($list->company_name);
                     $bidderLists[] = array('', $list->company_name);
 
-                    if ($bidderCount == 3) {
-                        if ($strLength > 30) {
-                            $this->Cell($bidderWidth, 3.6, substr(strtoupper($list->company_name), 0, 31) .
-                                    '...', 'RB', '', 'C');
-                        } else {
-                            $this->Cell($bidderWidth, 3.6, strtoupper($list->company_name), 'RB', '', 'C');
-                        }
-                    } else if ($bidderCount == 4) {
-                        if ($strLength > 20) {
-                            $this->Cell($bidderWidth, 3.6, substr(strtoupper($list->company_name), 0, 21) .
-                                    '...', 'RB', '', 'C');
-                        } else {
-                            $this->Cell($bidderWidth, 3.6, strtoupper($list->company_name), 'RB', '', 'C');
-                        }
-                    } else if ($bidderCount >= 5) {
-                        if ($strLength > 15) {
-                            $this->Cell($bidderWidth, 3.6, substr(strtoupper($list->company_name), 0, 15) .
-                                    '...', 'RB', '', 'C');
-                        } else {
-                            $this->Cell($bidderWidth, 3.6, strtoupper($list->company_name), 'RB', '', 'C');
-                        }
-                    }
+                    // ✅ Always display full company name (uppercase) with no cutting
+                    $this->Cell($bidderWidth, 3.6, strtoupper($list->company_name), 'RB', '', 'C');
                 }
+
+
+
+                // foreach ($abstract->suppliers as $list) {
+                //     $strLength = strlen($list->company_name);
+                //     $bidderLists[] = array('', $list->company_name);
+
+                //     if ($bidderCount == 3) {
+                //         if ($strLength > 30) {
+                //             $this->Cell($bidderWidth, 3.6, substr(strtoupper($list->company_name), 0, 31) .
+                //                     '...', 'RB', '', 'C');
+                //         } else {
+                //             $this->Cell($bidderWidth, 3.6, strtoupper($list->company_name), 'RB', '', 'C');
+                //         }
+                //     } else if ($bidderCount == 4) {
+                //         if ($strLength > 20) {
+                //             $this->Cell($bidderWidth, 3.6, substr(strtoupper($list->company_name), 0, 21) .
+                //                     '...', 'RB', '', 'C');
+                //         } else {
+                //             $this->Cell($bidderWidth, 3.6, strtoupper($list->company_name), 'RB', '', 'C');
+                //         }
+                //     } else if ($bidderCount >= 5) {
+                //         if ($strLength > 15) {
+                //             $this->Cell($bidderWidth, 3.6, substr(strtoupper($list->company_name), 0, 15) .
+                //                     '...', 'RB', '', 'C');
+                //         } else {
+                //             $this->Cell($bidderWidth, 3.6, strtoupper($list->company_name), 'RB', '', 'C');
+                //         }
+                //     }
+                // }
 
                 $this->SetFont('helvetica', 'BI', 9 + ($fontScale * 9));
                 $this->MultiCell(0, 3.5, "follows:", "RB", "C", "");
