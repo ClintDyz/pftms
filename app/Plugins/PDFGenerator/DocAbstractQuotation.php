@@ -127,25 +127,32 @@ class DocAbstractQuotation extends PDF {
                 $this->Cell($totalWidth1 * 0.13, 3.6, '', 'R', '', 'C');
                 $this->Cell($totalWidth1 * 0.04, 3.6, '(Unit', 'R', '', 'C');
 
+
                 foreach ($abstract->suppliers as $list) {
-                      $bidderLists[] = array('', $list->company_name);
+                    $bidderLists[] = array('', $list->company_name);
 
-                      // Save current position
-                      $x = $this->GetX();
-                      $y = $this->GetY();
+                    // Save current position
+                    $x = $this->GetX();
+                    $y = $this->GetY();
 
-                      // ✅ Print MultiCell (text wraps inside)
-                      $this->MultiCell(
-                          $bidderWidth,
-                          3.6,
-                          strtoupper($list->company_name),
-                          'RB',
-                          'C'
-                      );
+                    // ✅ Set smaller font size
+                    $this->SetFont('helvetica', '', 6); // <-- change "7" to smaller/larger as needed
 
-                      // ✅ Restore cursor to the right of the printed cell
-                      $this->SetXY($x + $bidderWidth, $y);
-                  }
+                    // ✅ Print MultiCell (text wraps inside)
+                    $this->MultiCell(
+                        $bidderWidth,
+                        3.6,
+                        strtoupper($list->company_name),
+                        'RB',
+                        'C'
+                    );
+
+                    // ✅ Restore cursor to the right of the printed cell
+                    $this->SetXY($x + $bidderWidth, $y);
+
+                    // ✅ Reset font back to normal (optional)
+                    $this->SetFont('Arial', '', 10);
+                }
 
 
                 // foreach ($abstract->suppliers as $list) {
