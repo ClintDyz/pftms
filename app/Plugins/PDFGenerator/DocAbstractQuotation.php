@@ -127,6 +127,22 @@ class DocAbstractQuotation extends PDF {
                 $this->Cell($totalWidth1 * 0.13, 3.6, '', 'R', '', 'C');
                 $this->Cell($totalWidth1 * 0.04, 3.6, '(Unit', 'R', '', 'C');
 
+
+                foreach ($abstract->suppliers as $list) {
+                        $bidderLists[] = array('', $list->company_name);
+
+                        // ✅ Always display full company name (uppercase) with wrapping, no cutting
+                        $this->MultiCell(
+                            $bidderWidth,                  // column width
+                            3.6,                           // row height
+                            strtoupper($list->company_name), // text
+                            'RB',                          // border (Right, Bottom)
+                            'C',                           // align Center
+                            false,                         // fill
+                            0                              // move cursor right for next cell
+                        );
+                    }
+
                 // foreach ($abstract->suppliers as $list) {
                 //     $bidderLists[] = array('', $list->company_name);
 
