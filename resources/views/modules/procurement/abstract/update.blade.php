@@ -181,6 +181,7 @@
                                             @endif
                                         </tr>
                                     </thead>
+
                                     <tbody>
                                         <tr>
                                             <td colspan="{{ $abstract->bidder_count ? $abstract->bidder_count : 1 }}" class="p-0 m-0">
@@ -189,139 +190,99 @@
                                                     <div class="tab-pane fade {{ $pageCtr == 0 ? 'show active' : '' }}"
                                                          id="page-{{ $page->first }}-{{ $page->last }}" role="tabpanel">
                                                         <table class="table p-0 m-0">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th class="text-center font-weight-bold" width="50px">#</th>
-                                                                    <th class="text-center font-weight-bold" width="300px">Item Description</th>
-                                                                    <th class="text-center font-weight-bold" width="100px">Unit</th>
-                                                                    <th class="text-center font-weight-bold" width="100px">ABC (UNIT)</th>
-                                                                    @if (!empty($abstract->suppliers) && isset($abstract->suppliers))
-                                                                        @foreach ($abstract->suppliers as $key => $supplier)
-                                                                    <th class="text-center font-weight-bold" width="320px">
+                                                         <thead>
+                                                            <tr>
+                                                                <th class="text-center font-weight-bold" width="50px">#</th>
+                                                                <th class="text-center font-weight-bold" width="300px">Item Description</th>
+                                                                <th class="text-center font-weight-bold" width="100px">Unit</th>
+                                                                <th class="text-center font-weight-bold" width="100px">ABC (UNIT)</th>
+
+                                                                @if (!empty($abstract->suppliers) && isset($abstract->suppliers))
+                                                                    @foreach ($abstract->suppliers as $key => $supplier)
+                                                                        <th class="text-center font-weight-bold" width="320px">
                                                                             @foreach ($suppliers as $supplierCounter => $bid)
                                                                                 @if ($bid->id == $supplier->id)
-                                                                        <span class="bid-head-{{ $key }}">
-                                                                            Supplier #{{ $key + 1 }} : {{ $bid->company_name }}
-                                                                        </span>
+                                                                                    <span class="bid-head-{{ $key }}">
+                                                                                        Supplier #{{ $key + 1 }} : {{ $bid->company_name }}
+                                                                                    </span>
                                                                                 @endif
                                                                             @endforeach
-                                                                    </th>
-                                                                        @endforeach
-                                                                    <th class="text-center font-weight-bold" width="320px">Awarded To</th>
-                                                                    @endif
-                                                                </tr>
-                                                            </thead>
-
-                                                            <tbody class="table-data">
-                                                                @if (!empty($abstract->pr_items) && isset($abstract->pr_items))
-                                                                    @foreach ($abstract->pr_items as $listCtr => $item)
-                                                                        @if ($page->last >= ($listCtr + 1) && $page->first <= ($listCtr + 1))
-                                                                <tr>
-                                                                    <td align="center">
-                                                                        {{ $listCtr + 1 }}
-                                                                        <input type="hidden" class="item-id"
-                                                                            value="{{ $item->item_id }}">
-                                                                    </td>
-                                                                    <td>
-                                                                        {{ (strlen($item->item_description) > 150) ?
-                                                                            substr($item->item_description, 0, 150).'...' : $item->item_description  }}
-                                                                        ({{ $item->quantity }} {{ $item->quantity > 1 ? 'pcs.' : 'pc.' }})
-                                                                    </td>
-                                                                    <td align="center">{{ $item->unit_name }}</td>
-                                                                    <td align="center">{{ $item->est_unit_cost }}</td>
-                                                                            @if ($item->abstract_item_count > 0)
-                                                                                @foreach($item->abstract_items as $absItemCtr => $absItem)
-                                                                    <td width="320px">
-                                                                        <div class="md-form form-sm">
-                                                                            <input class="quantity" type="hidden" value="{{ $item->quantity }}">
-                                                                            <input class="abstract-item-id" type="hidden" value="{{ $absItem->id }}">
-                                                                            <input type="number" class="form-control form-control-sm unit-cost required"
-                                                                                   id="unit_cost-{{ $abstract->group_no }}-{{ $listCtr }}-{{ $absItemCtr }}" min="0"
-                                                                                   value="{{ $absItem->unit_cost }}">
-                                                                            <label for="unit_cost-{{ $abstract->group_no }}-{{ $listCtr }}-{{ $absItemCtr }}"
-                                                                                   class="active">
-                                                                                Unit Cost <span class="red-text">*</span>
-                                                                            </label>
-                                                                        </div>
-                                                                        <div class="md-form form-sm">
-                                                                            <input type="number" class="form-control form-control-sm total-cost required"
-                                                                                   id="total_cost-{{ $abstract->group_no }}-{{ $listCtr }}-{{ $absItemCtr }}" min="0"
-                                                                                   value="{{ $absItem->total_cost }}">
-                                                                            <label for="total_cost-{{ $abstract->group_no }}-{{ $listCtr }}-{{ $absItemCtr }}"
-                                                                                   class="active">
-                                                                                Total Cost <span class="red-text">*</span>
-                                                                            </label>
-                                                                        </div>
-                                                                        <div class="md-form form-sm">
-                                                                            <textarea class="md-textarea form-control form-control-sm specification"
-                                                                                    id="specification-{{ $abstract->group_no }}-{{ $listCtr }}-{{ $absItemCtr }}"
-                                                                                    style="resize: none;" rows="3">{{ $absItem->specification }}</textarea>
-                                                                            <label for="specification-{{ $abstract->group_no }}-{{ $listCtr }}-{{ $absItemCtr }}"
-                                                                                   class="active">
-                                                                                Specifications
-                                                                            </label>
-                                                                        </div>
-                                                                        <div class="md-form form-sm">
-                                                                            <textarea class="md-textarea form-control form-control-sm remarks"
-                                                                                    id="remarks-{{ $abstract->group_no }}-{{ $listCtr }}-{{ $absItemCtr }}"
-                                                                                    style="resize: none;" rows="3">{{ $absItem->remarks }}</textarea>
-                                                                            <label for="remarks-{{ $abstract->group_no }}-{{ $listCtr }}-{{ $absItemCtr }}"
-                                                                                   class="active">
-                                                                                Remarks
-                                                                            </label>
-                                                                        </div>
-                                                                    </td>
-                                                                                @endforeach
-                                                                            @endif
-                                                                            @if ($abstract->bidder_count > 0)
-                                                                    <td>
-                                                                        <div class="form-group">
-                                                                            <label class="mdb-main-label">
-                                                                                Awarded To
-                                                                            </label>
-                                                                            <select class="browser-default custom-select awarded-to" searchable="Search here..">
-                                                                                <option value="" disabled selected>Choose an awardee</option>
-                                                                                <option value="">-- No awardee --</option>
-
-                                                                                @if (!empty($abstract->suppliers))
-                                                                                    @foreach ($abstract->suppliers as $bid)
-                                                                                <option value="{{ $bid->id }}" {{ $bid->id == $item->awarded_to ? 'selected' : '' }}>
-                                                                                    {{ $bid->company_name }}
-                                                                                </option>
-                                                                                    @endforeach
-                                                                                @endif
-                                                                            </select>
-                                                                        </div>
-                                                                        <div class="form-group">
-                                                                            <label class="mdb-main-label">
-                                                                                Document Type <span class="red-text">*</span>
-                                                                            </label>
-                                                                            <select class="browser-default custom-select document-type"
-                                                                                    searchable="Search here..">
-                                                                                <option value="po" {{ $item->document_type == 'po' ? 'selected' : '' }}>
-                                                                                    Purchase Order (PO)
-                                                                                </option>
-                                                                                <option value="jo" {{ $item->document_type == 'jo' ? 'selected' : '' }}>
-                                                                                    Job Order (JO)
-                                                                                </option>
-                                                                            </select>
-                                                                        </div>
-                                                                        <div class="md-form form-sm">
-                                                                            <textarea class="md-textarea form-control form-control-sm awarded-remarks"
-                                                                                    id="awarded_remarks-{{ $abstract->group_no }}-{{ $listCtr }}"
-                                                                                    style="resize: none;" rows="3">{{ $item->awarded_remarks }}</textarea>
-                                                                            <label for="awarded_remarks-{{ $abstract->group_no }}-{{ $listCtr }}"
-                                                                                   class="active">
-                                                                                Remarks
-                                                                            </label>
-                                                                        </div>
-                                                                    </td>
-                                                                            @endif
-                                                                </tr>
-                                                                        @endif
+                                                                        </th>
                                                                     @endforeach
+                                                                    {{-- Only one Awarded To column --}}
+                                                                    <th class="text-center font-weight-bold" width="320px">Awarded To</th>
                                                                 @endif
-                                                            </tbody>
+                                                            </tr>
+                                                        </thead>
+
+
+<tbody class="table-data">
+    @foreach ($abstract->pr_items as $listCtr => $item)
+        <tr>
+            <td align="center">{{ $listCtr + 1 }}</td>
+            <td>{{ $item->item_description }} ({{ $item->quantity }} pcs.)</td>
+            <td align="center">{{ $item->unit_name }}</td>
+            <td align="center">{{ $item->est_unit_cost }}</td>
+
+            {{-- Supplier columns --}}
+            @foreach($item->abstract_items as $absItemCtr => $absItem)
+                <td>
+                    {{-- Unit Cost --}}
+                    <div class="md-form form-sm">
+                        <input type="number" class="form-control form-control-sm unit-cost required"
+                            value="{{ $absItem->unit_cost }}">
+                        <label class="active">Unit Cost <span class="red-text">*</span></label>
+                    </div>
+                    {{-- Total Cost --}}
+                    <div class="md-form form-sm">
+                        <input type="number" class="form-control form-control-sm total-cost required"
+                            value="{{ $absItem->total_cost }}">
+                        <label class="active">Total Cost <span class="red-text">*</span></label>
+                    </div>
+                    {{-- Specification --}}
+                    <div class="md-form form-sm">
+                        <textarea class="md-textarea form-control form-control-sm specification"
+                            rows="3">{{ $absItem->specification }}</textarea>
+                        <label class="active">Specifications</label>
+                    </div>
+                    {{-- Remarks --}}
+                    <div class="md-form form-sm">
+                        <textarea class="md-textarea form-control form-control-sm remarks"
+                            rows="3">{{ $absItem->remarks }}</textarea>
+                        <label class="active">Remarks</label>
+                    </div>
+                </td>
+            @endforeach
+
+            {{-- Awarded To column (only once) --}}
+            <td>
+                <div class="form-group">
+                    <label>Awarded To</label>
+                    <select class="browser-default custom-select awarded-to">
+                        <option value="">-- No awardee --</option>
+                        @foreach ($abstract->suppliers as $bid)
+                            <option value="{{ $bid->id }}" {{ $bid->id == $item->awarded_to ? 'selected' : '' }}>
+                                {{ $bid->company_name }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Document Type <span class="red-text">*</span></label>
+                    <select class="browser-default custom-select document-type">
+                        <option value="po" {{ $item->document_type == 'po' ? 'selected' : '' }}>Purchase Order (PO)</option>
+                        <option value="jo" {{ $item->document_type == 'jo' ? 'selected' : '' }}>Job Order (JO)</option>
+                    </select>
+                </div>
+                <div class="md-form form-sm">
+                    <textarea class="md-textarea form-control form-control-sm awarded-remarks" rows="3">{{ $item->awarded_remarks }}</textarea>
+                    <label class="active">Remarks</label>
+                </div>
+            </td>
+        </tr>
+    @endforeach
+</tbody>
+
                                                         </table>
                                                     </div>
                                                     @endforeach
