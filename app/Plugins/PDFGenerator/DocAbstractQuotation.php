@@ -120,7 +120,7 @@ class DocAbstractQuotation extends PDF {
                 $this->MultiCell(0, 3.5, "items to be AWARDED as", "R", "C", "");
 
                 // Row group
-                $this->SetFont('helvetica', '', 6 + ($fontScale * 6));
+                $this->SetFont('helvetica', '', 6);
                 $this->Cell($totalWidth1 * 0.04, 3.6, 'NO.', 'LR', '', 'C');
                 $this->Cell($totalWidth1 * 0.04, 3.6, '', 'R', '', 'C');
                 $this->Cell($totalWidth1 * 0.04, 3.6, '', 'R', '', 'C');
