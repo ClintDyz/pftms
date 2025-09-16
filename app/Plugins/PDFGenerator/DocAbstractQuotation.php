@@ -56,7 +56,7 @@ class DocAbstractQuotation extends PDF {
             $bidderCount = $abstract->bidder_count;
             $totalWidthDisplay = $pageWidth - 20;
             $totalWidth1 = $totalWidthDisplay * 0.83;
-            $totalWidth2 = $totalWidthDisplay * 0.17;
+            $totalWidth2 = $totalWidthDisplay * 0.20;
             $bidderTotalWidth = $totalWidth1 * 0.71;
 
             if ($bidderCount != 0) {
