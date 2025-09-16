@@ -55,7 +55,7 @@ class DocAbstractQuotation extends PDF {
         foreach ($data->abstract_items as $abstract) {
             $bidderCount = $abstract->bidder_count;
             $totalWidthDisplay = $pageWidth - 20;
-            $totalWidth1 = $totalWidthDisplay * 0.83;
+            $totalWidth1 = $totalWidthDisplay * 0.80;
             $totalWidth2 = $totalWidthDisplay * 0.20;
             $bidderTotalWidth = $totalWidth1 * 0.71;
 
