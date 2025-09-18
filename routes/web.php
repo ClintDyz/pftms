@@ -17,20 +17,20 @@ Auth::routes();
 
 
 // Profile Module Routes
-Route::middleware('throttle:60,1')->group(function () {
+Route::middleware('throttle:100,1')->group(function () {
     Route::get('profile/registration', 'AccountController@showCreateProfile')->name('profile-registration');
     Route::post('profile/register', 'AccountController@storeProfile')->name('profile-store');
     Route::post('profile/get-province/{region_id}', 'AccountController@getProvince');
 });
 
 // Registration Routes
-Route::middleware('throttle:60,1')->group(function () {
+Route::middleware('throttle:100,1')->group(function () {
     Route::get('register', 'AccountController@showCreateProfile')->name('register');
     Route::post('register', 'AccountController@storeProfile');
 });
 
 
-Route::middleware(['web', 'auth', 'throttle:60,1'])->group(function () {
+Route::middleware(['web', 'auth', 'throttle:100,1'])->group(function () {
 
     /*===================== REPORT ROUTES =====================*/
 
@@ -82,7 +82,7 @@ Route::middleware(['web', 'auth', 'throttle:60,1'])->group(function () {
     Route::get('notification/show-all', 'NotificationController@showAllNotifications');
 });
 
-Route::middleware(['web', 'auth', 'moduleaccess', 'throttle:60,1'])->group(function () {
+Route::middleware(['web', 'auth', 'moduleaccess', 'throttle:100,1'])->group(function () {
 
     /*===================== CASH ADVANCE, REIMBURSEMENT, & LIQUIDATION ROUTES =====================*/
 
@@ -2367,30 +2367,30 @@ Route::middleware(['web', 'auth', 'moduleaccess', 'throttle:60,1'])->group(funct
 });
 
 // PurchaseRequestMonthlyReport
-Route::middleware(['auth', 'throttle:60,1'])->group(function () {
+Route::middleware(['auth', 'throttle:100,1'])->group(function () {
     Route::get('/purchase-request-monthly-report', 'ReportController@index');
     Route::get('/report', [App\Http\Controllers\ReportController::class, 'index'])->name('report.index');
     Route::get('/report/purchase-request/print', [App\Http\Controllers\ReportController::class, 'print'])->name('report.purchase.print');
 });
- 
+
 
 // Par Routes
-Route::middleware(['auth', 'throttle:60,1'])->group(function () {
+Route::middleware(['auth', 'throttle:100,1'])->group(function () {
     Route::get('/par', 'ParController@index');
     Route::post('/updatepar', 'ParController@edit');
 });
 
 // Ris Routes
-Route::middleware(['auth', 'throttle:60,1'])->group(function () {
+Route::middleware(['auth', 'throttle:100,1'])->group(function () {
     Route::get('/ris', 'RisController@index');
 });
 
 // Ics Routes
-Route::middleware(['auth', 'throttle:60,1'])->group(function () {
+Route::middleware(['auth', 'throttle:100,1'])->group(function () {
     Route::get('/ics', 'IcsController@index');
 });
 
 // Parrisics Routes
-Route::middleware(['auth', 'throttle:60,1'])->group(function () {
+Route::middleware(['auth', 'throttle:100,1'])->group(function () {
     Route::get('/parrisics', 'PARRISICSController@index');
 });
