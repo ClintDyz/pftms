@@ -55,8 +55,8 @@ class DocAbstractQuotation extends PDF {
         foreach ($data->abstract_items as $abstract) {
             $bidderCount = $abstract->bidder_count;
             $totalWidthDisplay = $pageWidth - 20;
-            $totalWidth1 = $totalWidthDisplay * 0.80;
-            $totalWidth2 = $totalWidthDisplay * 0.20;
+            $totalWidth1 = $totalWidthDisplay * 0.83;
+            $totalWidth2 = $totalWidthDisplay * 0.17;
             $bidderTotalWidth = $totalWidth1 * 0.71;
 
             if ($bidderCount != 0) {
@@ -120,7 +120,7 @@ class DocAbstractQuotation extends PDF {
                 $this->MultiCell(0, 3.5, "items to be AWARDED as", "R", "C", "");
 
                 // Row group
-                $this->SetFont('helvetica', '', 6);
+                $this->SetFont('helvetica', '', 8 + ($fontScale * 8));
                 $this->Cell($totalWidth1 * 0.04, 3.6, 'NO.', 'LR', '', 'C');
                 $this->Cell($totalWidth1 * 0.04, 3.6, '', 'R', '', 'C');
                 $this->Cell($totalWidth1 * 0.04, 3.6, '', 'R', '', 'C');
@@ -128,62 +128,32 @@ class DocAbstractQuotation extends PDF {
                 $this->Cell($totalWidth1 * 0.04, 3.6, '(Unit', 'R', '', 'C');
 
                 foreach ($abstract->suppliers as $list) {
+                    $strLength = strlen($list->company_name);
                     $bidderLists[] = array('', $list->company_name);
 
-                    // Save current position
-                    $x = $this->GetX();
-                    $y = $this->GetY();
-
-                    // ✅ Print MultiCell (text wraps inside)
-                    $this->MultiCell(
-                        $bidderWidth,
-                        3.6,
-                        strtoupper($list->company_name),
-                        'RB',
-                        'C'
-                    );
-
-                    // ✅ Restore cursor to the right of the printed cell
-                    $this->SetXY($x + $bidderWidth, $y);
+                    if ($bidderCount == 3) {
+                        if ($strLength > 30) {
+                            $this->Cell($bidderWidth, 3.6, substr(strtoupper($list->company_name), 0, 30) .
+                                    '...', 'RB', '', 'C');
+                        } else {
+                            $this->Cell($bidderWidth, 3.6, strtoupper($list->company_name), 'RB', '', 'C');
+                        }
+                    } else if ($bidderCount == 4) {
+                        if ($strLength > 20) {
+                            $this->Cell($bidderWidth, 3.6, substr(strtoupper($list->company_name), 0, 20) .
+                                    '...', 'RB', '', 'C');
+                        } else {
+                            $this->Cell($bidderWidth, 3.6, strtoupper($list->company_name), 'RB', '', 'C');
+                        }
+                    } else if ($bidderCount >= 5) {
+                        if ($strLength > 15) {
+                            $this->Cell($bidderWidth, 3.6, substr(strtoupper($list->company_name), 0, 15) .
+                                    '...', 'RB', '', 'C');
+                        } else {
+                            $this->Cell($bidderWidth, 3.6, strtoupper($list->company_name), 'RB', '', 'C');
+                        }
+                    }
                 }
-
-
-                // foreach ($abstract->suppliers as $list) {
-                //     $bidderLists[] = array('', $list->company_name);
-
-                //     // ✅ Always display full company name (uppercase) with no cutting
-                //     $this->Cell($bidderWidth, 3.6, strtoupper($list->company_name), 'RB', '', 'C');
-                // }
-
-
-
-                // foreach ($abstract->suppliers as $list) {
-                //     $strLength = strlen($list->company_name);
-                //     $bidderLists[] = array('', $list->company_name);
-
-                //     if ($bidderCount == 3) {
-                //         if ($strLength > 30) {
-                //             $this->Cell($bidderWidth, 3.6, substr(strtoupper($list->company_name), 0, 31) .
-                //                     '...', 'RB', '', 'C');
-                //         } else {
-                //             $this->Cell($bidderWidth, 3.6, strtoupper($list->company_name), 'RB', '', 'C');
-                //         }
-                //     } else if ($bidderCount == 4) {
-                //         if ($strLength > 20) {
-                //             $this->Cell($bidderWidth, 3.6, substr(strtoupper($list->company_name), 0, 21) .
-                //                     '...', 'RB', '', 'C');
-                //         } else {
-                //             $this->Cell($bidderWidth, 3.6, strtoupper($list->company_name), 'RB', '', 'C');
-                //         }
-                //     } else if ($bidderCount >= 5) {
-                //         if ($strLength > 15) {
-                //             $this->Cell($bidderWidth, 3.6, substr(strtoupper($list->company_name), 0, 15) .
-                //                     '...', 'RB', '', 'C');
-                //         } else {
-                //             $this->Cell($bidderWidth, 3.6, strtoupper($list->company_name), 'RB', '', 'C');
-                //         }
-                //     }
-                // }
 
                 $this->SetFont('helvetica', 'BI', 9 + ($fontScale * 9));
                 $this->MultiCell(0, 3.5, "follows:", "RB", "C", "");
@@ -235,12 +205,6 @@ class DocAbstractQuotation extends PDF {
                 $this->SetFont('helvetica', 'BI', 9 + ($fontScale * 9));
                 $this->Cell($totalWidth1 + $totalWidth2, 5, "Recommendation:", '', 0, 'L', 0);
                 $this->Ln(5);
-
-                // Add actual recommendation content
-                // $this->SetFont('helvetica', '', 9 + ($fontScale * 9));
-                // $recommendationText = $data->abstract->recommendation ?? 'No recommendation provided.';
-                // $this->MultiCell(0, 5, $recommendationText, 1, 'L');
-                // $this->Ln(5);
 
                 $this->Cell(0, 2, "", 'B', 1, 'L', 0);
                 $this->Cell(0, 2, "", 'B', 1, 'L', 0);

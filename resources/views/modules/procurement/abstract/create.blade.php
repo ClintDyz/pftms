@@ -48,7 +48,7 @@
                                         name="bidder_count[{{ $grpCtr }}]">
                                     <option value="0" disabled selected>Choose the number of supplier</option>
 
-                                    @for ($countSupplier = 0; $countSupplier <= 10; $countSupplier++)
+                                    @for ($countSupplier = 0; $countSupplier <= 6; $countSupplier++)
                                         <option value="{{ $countSupplier }}">
                                             Number of Supplier: {{ $countSupplier }}
                                         </option>
@@ -110,13 +110,6 @@
             </div>
         </div>
     </div>
-
-    {{-- <div class="md-form grp-group">
-    <label for="exampleFormControlTextarea1">Recommendation</label>
-        <textarea id="recommendation" name="recommendation" class="form-control" rows="4">
-            {{ old('recommendation', $recommendation ?? '') }}
-        </textarea>
-  </div> --}}
 
     <div class="row mt-3">
         <div class="col-md-2">
@@ -267,6 +260,4 @@
     <input type="hidden" name="sig_second_member">
     <input type="hidden" name="sig_third_member">
     <input type="hidden" name="sig_end_user">
-    <input type="hidden" name="recommendation">
-
 </form>
