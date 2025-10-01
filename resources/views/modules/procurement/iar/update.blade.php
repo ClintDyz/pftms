@@ -119,12 +119,25 @@
                                 <textarea class="md-textarea form-control required" name="item_description[]" rows="3">{{ $item->item_description }}</textarea>
                             </div>
                         </td>
-                    <td class="text-center">
-                        {{ $item->unitissue['unit_name'] }}
-                    </td>
-                    <td class="text-center">
-                        {{ $item->quantity }}
-                    </td>
+                        <td>
+                            <div class="md-form my-0 py-0">
+                               <select class="mdb-select crud-select md-form required" searchable="Search here.." name="unit_name[]">
+                                 @if (count($unitIssues) > 0)
+                                  @foreach ($unitIssues as $unit)
+                                   <option value="{{ $unit->id }}" {{ $unit->id == $item->unit_issue ? 'selected' : '' }}>
+                                     {!! $unit->unit_name !!}
+                                    </option>
+                                    @endforeach
+                                     @endif
+                                     </select>
+                                     </div>
+                        </td>
+                        <td>
+                           <div class="md-form my-0 py-0">
+                              <input type="number" name="quantity[]" min="1" class="form-control"
+                                value="{{ $item->quantity }}">
+                                    </div>
+                            </td>
                     <td>
                         <div class="md-form">
                             <input type="hidden" name="po_item_id[]" value="{{ $item->id }}">
