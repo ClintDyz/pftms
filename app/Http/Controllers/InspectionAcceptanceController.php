@@ -234,12 +234,14 @@ class InspectionAcceptanceController extends Controller
         foreach ($signatories as $sig) {
             $sig->module = json_decode($sig->module);
         }
+        $unitIssues = ItemUnitIssue::orderBy('unit_name')->get();
 
         return view('modules.procurement.iar.update', compact(
             'poDate', 'division', 'poNo', 'poItem', 'iarNo',
             'iarDate', 'invoiceNo', 'invoiceDate', 'sigInspection',
             'sigSupply', 'inspectionRemarks', 'receivedDate',
-            'acceptanceRemarks', 'signatories', 'id', 'awardee'
+            'acceptanceRemarks', 'signatories', 'id', 'awardee',
+            'acceptanceRemarks', 'signatories', 'id', 'awardee', 'unitIssues'
         ));
     }
 
