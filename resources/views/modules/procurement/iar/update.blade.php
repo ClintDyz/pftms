@@ -114,9 +114,11 @@
                     <td>
                         {{ $item->stock_no }}
                     </td>
-                    <td>
-                        {{ $item->item_description }}
-                    </td>
+                        <td>
+                            <div class="md-form my-0 py-0">
+                                <textarea class="md-textarea form-control required" name="item_description[]" rows="3">{{ $item->item_description }}</textarea>
+                            </div>
+                        </td>
                     <td class="text-center">
                         {{ $item->unitissue['unit_name'] }}
                     </td>

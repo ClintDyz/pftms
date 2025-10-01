@@ -250,44 +250,58 @@ class InspectionAcceptanceController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function update(Request $request, $id) {
-        $iarDate = $request->date_iar ? $request->date_iar : NULL;
-        $invoiceNo = $request->invoice_no;
-        $dateInvoice = $request->date_invoice ? $request->date_invoice : NULL;
-        $sigInspection = $request->sig_inspection;
-        $sigSupply = $request->sig_prop_supply;
+public function update(Request $request, $id) {
+    $iarDate = $request->date_iar ? $request->date_iar : NULL;
+    $invoiceNo = $request->invoice_no;
+    $dateInvoice = $request->date_invoice ? $request->date_invoice : NULL;
+    $sigInspection = $request->sig_inspection;
+    $sigSupply = $request->sig_prop_supply;
 
-        $poItemIDs = $request->po_item_id;
-        $iarExcludeds = $request->iar_excluded;
+    $poItemIDs = $request->po_item_id;
+    $iarExcludeds = $request->iar_excluded;
+    $descriptions = $request->item_description;
+    $units = $request->unit_name;
+    $quantities = $request->quantity;
 
-        try {
-            $instanceIAR = InspectionAcceptance::find($id);
-            $iarNo = $instanceIAR->iar_no;
+    try {
+        $instanceIAR = InspectionAcceptance::find($id);
+        $iarNo = $instanceIAR->iar_no;
 
-            $instanceIAR->date_iar = $iarDate;
-            $instanceIAR->invoice_no = $invoiceNo;
-            $instanceIAR->date_invoice = $dateInvoice;
-            $instanceIAR->sig_inspection = $sigInspection;
-            $instanceIAR->sig_supply = $sigSupply;
-            $instanceIAR->save();
+        $instanceIAR->date_iar = $iarDate;
+        $instanceIAR->invoice_no = $invoiceNo;
+        $instanceIAR->date_invoice = $dateInvoice;
+        $instanceIAR->sig_inspection = $sigInspection;
+        $instanceIAR->sig_supply = $sigSupply;
+        $instanceIAR->save();
 
-            foreach ($poItemIDs as $itemCtr => $poItemID) {
-                $instanceItem = PurchaseJobOrderItem::find($poItemID);
-                $instanceItem->iar_excluded = $iarExcludeds[$itemCtr];
-                $instanceItem->save();
+        foreach ($poItemIDs as $itemCtr => $poItemID) {
+            $instanceItem = PurchaseJobOrderItem::find($poItemID);
+            $instanceItem->iar_excluded = $iarExcludeds[$itemCtr];
+            $instanceItem->item_description = $descriptions[$itemCtr];
+            $instanceItem->quantity = $quantities[$itemCtr];
+
+            // If unit is stored separately:
+            if ($instanceItem->unitissue) {
+                $instanceItem->unitissue->unit_name = $units[$itemCtr];
+                $instanceItem->unitissue->save();
             }
 
-            $msg = "Inspection and Acceptance Report '$iarNo' successfully updated.";
-            Auth::user()->log($request, $msg);
-            return redirect()->route('iar', ['keyword' => $iarNo])
-                             ->with('success', $msg);
-        } catch (Exception $e) {
-            $msg = "Unknown error has occured. Please try again.";
-            Auth::user()->log($request, $msg);
-            return redirect()->route('iar')
-                             ->with('failed', $msg);
+            $instanceItem->save();
         }
+
+        $msg = "Inspection and Acceptance Report '$iarNo' successfully updated.";
+        Auth::user()->log($request, $msg);
+        return redirect()->route('iar', ['keyword' => $iarNo])
+                         ->with('success', $msg);
+
+    } catch (Exception $e) {
+        $msg = "Unknown error has occurred. Please try again.";
+        Auth::user()->log($request, $msg);
+        return redirect()->route('iar')
+                         ->with('failed', $msg);
     }
+}
+
 
     public function showIssue($id) {
         $users = User::orderBy('firstname')->get();
