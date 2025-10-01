@@ -212,6 +212,10 @@ class InspectionAcceptanceController extends Controller
         $division = $instancePR->div['division_name'];
         $poNo = $instancePO->po_no;
         $awardee = $instancePO->awardee['company_name'];
+
+                 // ✅ Fetch item units
+         $unitIssues = ItemUnitIssue::all();
+
         $poItem = PurchaseJobOrderItem::with('unitissue')
                                       ->where([
             ['po_no', $poNo], ['excluded', 'n']
@@ -234,7 +238,6 @@ class InspectionAcceptanceController extends Controller
         foreach ($signatories as $sig) {
             $sig->module = json_decode($sig->module);
         }
-        $unitIssues = ItemUnitIssue::orderBy('unit_name')->get();
 
         return view('modules.procurement.iar.update', compact(
             'poDate', 'division', 'poNo', 'poItem', 'iarNo',
