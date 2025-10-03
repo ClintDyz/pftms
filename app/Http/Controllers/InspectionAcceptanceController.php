@@ -255,7 +255,8 @@ class InspectionAcceptanceController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-public function update(Request $request, $id) {
+
+    public function update(Request $request, $id) {
     $iarDate = $request->date_iar ? $request->date_iar : NULL;
     $invoiceNo = $request->invoice_no;
     $dateInvoice = $request->date_invoice ? $request->date_invoice : NULL;
@@ -265,7 +266,7 @@ public function update(Request $request, $id) {
     $poItemIDs = $request->po_item_id;
     $iarExcludeds = $request->iar_excluded;
     $descriptions = $request->item_description;
-    $units = $request->unit_name;
+    $units = $request->unit_issue;   // ✅ make sure this matches your Blade name
     $quantities = $request->quantity;
 
     try {
@@ -285,11 +286,8 @@ public function update(Request $request, $id) {
             $instanceItem->item_description = $descriptions[$itemCtr];
             $instanceItem->quantity = $quantities[$itemCtr];
 
-            // If unit is stored separately:
-            if ($instanceItem->unitissue) {
-                $instanceItem->unitissue->unit_name = $units[$itemCtr];
-                $instanceItem->unitissue->save();
-            }
+            // ✅ Correct: Update only the foreign key column (unit_issue)
+            $instanceItem->unit_issue = $units[$itemCtr];
 
             $instanceItem->save();
         }
@@ -306,6 +304,7 @@ public function update(Request $request, $id) {
                          ->with('failed', $msg);
     }
 }
+
 
 
     public function showIssue($id) {
