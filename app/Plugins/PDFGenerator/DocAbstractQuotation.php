@@ -120,7 +120,7 @@ class DocAbstractQuotation extends PDF {
                 $this->MultiCell(0, 3.5, "items to be AWARDED as", "R", "C", "");
 
                 // Row group
-                $this->SetFont('helvetica', '', 7 + ($fontScale * 7 ));
+                $this->SetFont('helvetica', '', 6 + ($fontScale * 7));
                 $this->Cell($totalWidth1 * 0.04, 3.6, 'NO.', 'LR', '', 'C');
                 $this->Cell($totalWidth1 * 0.04, 3.6, '', 'R', '', 'C');
                 $this->Cell($totalWidth1 * 0.04, 3.6, '', 'R', '', 'C');
@@ -133,13 +133,15 @@ class DocAbstractQuotation extends PDF {
 
                     if ($bidderCount == 3) {
                         if ($strLength > 50) {
-                            $this->MultiCell($bidderWidth, 3.6, substr(strtoupper($list->company_name), 0, 30) . 'RB', '', 'C');
+                            $this->Cell($bidderWidth, 3.6, substr(strtoupper($list->company_name), 0, 30) .
+                                    '...', 'RB', '', 'C');
                         } else {
-                            $this->MultiCell($bidderWidth, 3.6, strtoupper($list->company_name), 'RB', '', 'C');
+                            $this->Cell($bidderWidth, 3.6, strtoupper($list->company_name), 'RB', '', 'C');
                         }
                     } else if ($bidderCount == 4) {
-                        if ($strLength > 20) {
-                            $this->Cell($bidderWidth, 3.6, substr(strtoupper($list->company_name), 0, 20) . 'RB', '', 'C');
+                        if ($strLength > 30) {
+                            $this->Cell($bidderWidth, 3.6, substr(strtoupper($list->company_name), 0, 20) .
+                                    '...', 'RB', '', 'C');
                         } else {
                             $this->Cell($bidderWidth, 3.6, strtoupper($list->company_name), 'RB', '', 'C');
                         }
