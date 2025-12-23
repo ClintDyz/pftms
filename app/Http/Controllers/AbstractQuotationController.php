@@ -159,7 +159,9 @@ class AbstractQuotationController extends Controller
             'isAllowedPO' => $isAllowedPO,
             'roleHasOrdinary' => $roleHasOrdinary,
             'roleHasBudget' => $roleHasBudget,
-            'roleHasAccountant' => $roleHasAccountant
+            'roleHasAccountant' => $roleHasAccountant,
+            'roleHasDeveloper' => $roleHasDeveloper, // this
+            'roleHasPropertySupply' => $roleHasPropertySupply
         ]);
     }
 

@@ -196,7 +196,7 @@
         $isVisiblePO = $isAllowedPO;
 
         //Cancel and Un-cancel
-        if ($roleHasBudget || $roleHasAccountant) {
+        if (!$roleHasDeveloper && ($roleHasBudget || $roleHasAccountant)) {
             $isVisibleCreate = false;
             $isVisibleUpdate = false;
             $isVisibleDelete = false;
