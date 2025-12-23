@@ -555,6 +555,7 @@ header,
     }
     .sidebar-wrapper .sidebar-menu {
         height: 60vh;
+       /* height: calc(100vh - 10em)!important; */
     }
     html,
     body,
