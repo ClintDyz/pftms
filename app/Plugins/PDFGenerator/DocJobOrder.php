@@ -117,6 +117,11 @@ class DocJobOrder extends PDF {
         $this->Ln(10);
 
         $this->SetFont('Times','', 11 + ($fontScale * 11));
+        $this->Cell(0, '5',"Project Title/Purpose:", 0, 'L');
+
+        $this->Ln();
+
+        $this->SetFont('Times','', 11 + ($fontScale * 11));
         $this->MultiCell(0, '5',
                 "This order is authorized by the DEPARTMENT OF SCIENCE AND TECHNOLOGY, ".
                 "Cordillera Administrative Region under DR. NANCY A. BANTOG, Regional ".
@@ -137,8 +142,8 @@ class DocJobOrder extends PDF {
 
         $this->SetFont('helvetica', '', 10 + ($fontScale * 10));
         $this->MultiCell(0, '5',
-                        "Please submit your bill together with the original of this ".
-                        "JOB/WORK ORDER to expedite payment.",
+                        "Please submit your bill together with the original copy of this JOB/WORK ORDER, as well as your bank details ".
+                        "(account name, account number, business name) to expedite processing of payment.",
                         0, 'C');
 
         $this->Ln(5);

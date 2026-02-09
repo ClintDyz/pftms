@@ -62,14 +62,20 @@ class DocRequestQuotation extends PDF {
                             "to have your best prices, terms and conditions of delivery.",
                             0, 'L');
             $this->Ln(5);
-            $this->Cell(0, 5, 'Project Title: ____________________________________________________________________________________');
+            $this->Cell(0, 5, 'Project Title/ Purpose: ____________________________________________________________________________________');
             $this->Ln();
-            $this->Cell(0, 5, 'Project Location/: ________________________________________________________________________________');
+            $this->Cell(0, 5, 'Project Location: ________________________________________________________________________________');
             $this->Ln();
 
 
             //Table data
             $this->htmlTable($groupNo->table_data);
+            $this->SetFont('helvetica', 'BI', 10  + ($fontScale * 10));
+            $this->Cell(0.5, 5, 'NOTE TO SUPPLIER:');
+            $this->Ln();
+            $this->Cell(0.5, 5, 'ELIGIBILITY DOCUMENTS:');
+            $this->MultiCell(0, 0, "Bidders shall submit the following documentary requirements: Mayor’s Permit, PhilGEPS registration certificate/ number ".
+                                    "Income tax return, Omnibus sworn statement.", 0, 'L');
             $this->Ln();
 
             $this->SetFont('helvetica', 'BI', 10  + ($fontScale * 10));
@@ -105,9 +111,9 @@ class DocRequestQuotation extends PDF {
             $this->SetFont('helvetica', 'B', 10  + ($fontScale * 10));
             $this->Cell($pageWidth * 0.5, 5, "     Delivery Term (Complete)");
             $this->SetFont('helvetica', '', 10  + ($fontScale * 10));
-            $this->Cell($pageWidth * 0.068, 5, "Payment");
-            $this->SetFont('helvetica', 'B', 10  + ($fontScale * 10));
-            $this->Cell($pageWidth * 0, 5, "Term");
+            $this->Cell($pageWidth * 0.068, 5, "Term of");
+            $this->SetFont('helvetica', '', 10  + ($fontScale * 10));
+            $this->Cell($pageWidth * 0, 5, "Payment");
             $this->Ln();
 
             $this->SetFont('helvetica', '', 10  + ($fontScale * 10));
@@ -194,12 +200,12 @@ class DocRequestQuotation extends PDF {
             $this->Cell(0, 5, "IMPORTANT:", 0);
             $this->Ln();
 
-            $html = '<span style="text-align:justify;">&nbsp;&nbsp;&nbsp;&nbsp;'.
-                    '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Prices should be in ink and clearly quoted. '.
-                    "When offering substitute/ equivalent, specify brand. <b>Submit quotations in ".
-                    "a sealed envelope.</b></span>";
-            $this->writeHTML($html, true, 0, true, true);
-            $this->Ln();
+            // $html = '<span style="text-align:justify;">&nbsp;&nbsp;&nbsp;&nbsp;'.
+            //         '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Prices should be in ink and clearly quoted. '.
+            //         "When offering substitute/ equivalent, specify brand. <b>Submit quotations in ".
+            //         "a sealed envelope.</b></span>";
+            // $this->writeHTML($html, true, 0, true, true);
+            // $this->Ln();
 
             $html = '<span style="text-align:justify;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.
                     '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DOST-CAR office reserves the right to reject '.

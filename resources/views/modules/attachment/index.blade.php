@@ -6,8 +6,8 @@
             @foreach ($attachments as $key => $attachment)
             <li id="attachment-{{ $key }}">
                 <div class="treeview-animated-element">
-                    <a href="{{ url($attachment->directory) }}" class="dark-grey-text" target="_blank">
-                        <i class="fas fa-file-pdf"></i> {{ basename(url($attachment->directory)) }}
+                    <a href="{{ asset($attachment->directory) }}" class="dark-grey-text" target="_blank">
+                        <i class="fas fa-file-pdf"></i> {{ basename($attachment->directory) }}
                     </a>
                     <a href="#" class="btn btn-link btn-sm btn-rounded border p-0 px-1 mb-2"
                        onclick="$(this).deleteAttachment('{{ $attachment->id }}',

@@ -267,6 +267,11 @@
                                 </a>
                             </li>
                             <li>
+                                <a href="/pr_report" class="waves-effect">
+                                     Procurement Monitoring Report
+                                </a>
+                            </li>
+                            <li>
                                 <a href="#" class="waves-effect">
                                     RCPPRE
                                 </a>
