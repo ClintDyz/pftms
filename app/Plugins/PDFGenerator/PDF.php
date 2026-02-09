@@ -250,31 +250,31 @@ class PDF extends TCPDF {
 
             $this->SetFont('helvetica', '', 9);
             $this->Cell($pageWidth * $mulltiplier1, 4, '');
-            $this->Cell($pageWidth * $mulltiplier2, 4, 'Republic of the Philippines');
+            $this->Cell($pageWidth * $mulltiplier2, 4, 'Republic of the Philippines', 0, 0, 'L');
             $this->SetFont('helvetica', 'B', 9);
             $this->Cell(0, 4, "\t".$this->docCode, 'LRT');
             $this->Ln();
 
-            $this->SetFont('helvetica', 'B', 9);
+            $this->SetFont('helvetica', 'B', 10);
             $this->Cell($pageWidth * $mulltiplier1, 4, '');
-            $this->Cell($pageWidth * $mulltiplier2, 4, 'DEPARTMENT OF SCIENCE AND TECHNOLOGY');
+            $this->Cell($pageWidth * $mulltiplier2, 4, 'DEPARTMENT OF SCIENCE AND TECHNOLOGY', 0, 0, 'L');
             $this->SetFont('helvetica', '', 8);
             $this->Cell(0, 4, "\t".$this->docRev, 'LR');
             $this->Ln();
 
             $this->SetFont('helvetica', '', 9);
             $this->Cell($pageWidth * $mulltiplier1, 4, '');
-            $this->Cell($pageWidth * $mulltiplier2, 4, 'Cordillera Administrative Region');
+            $this->Cell($pageWidth * $mulltiplier2, 4, 'Cordillera Administrative Region', 0, 0, 'L');
             $this->SetFont('helvetica', '', 8);
             $this->Cell(0, 4, "\t".$pageNo, 'LR');
             $this->Ln();
 
-            $this->SetFont('helvetica', '', 9);
-            $this->Cell($pageWidth * $mulltiplier1, 4, '');
-            $this->Cell($pageWidth * $mulltiplier2, 4, 'Km. 6, La Trinidad, Benguet');
-            $this->SetFont('helvetica', '', 8);
-            $this->Cell(0, 4, "\t".$this->docRevDate, 'LRB');
-            $this->Ln();
+            // $this->SetFont('helvetica', '', 9);
+            // $this->Cell($pageWidth * $mulltiplier1, 4, '');
+            // $this->Cell($pageWidth * $mulltiplier2, 4, 'Km. 6, La Trinidad, Benguet');
+            // $this->SetFont('helvetica', '', 8);
+            // $this->Cell(0, 4, "\t".$this->docRevDate, 'LRB');
+            // $this->Ln();
         } elseif (!$this->headerIcon && $this->headerVerRev) {
             $this->SetFont('helvetica', '', 9);
             $this->Cell($pageWidth * $mulltiplier1, 4, '');
@@ -311,10 +311,10 @@ class PDF extends TCPDF {
             //$this->Cell(0,10,'Page '.$this->pageNo().'/{nb}',0,0,'C');
 
             if (!$this->onlyPageNo) {
-                $this->Cell(0, 4, 'This document shall be deemed uncontrolled unless labelled "CONTROLLED"', 0, 0, 'C');
+                $this->Cell(0, 4, 'All documented information printed from the Quality Management Information ', 0, 0, 'C');
                 $this->ln();
 
-                $this->Cell($this->w - ($this->w * 0.51), 4, 'User should verify latest', 0, 0, 'R');
+                $this->Cell($this->w - ($this->w * 0.51), 4, 'System (QMIS) are deemed "UNCONTROLLED"', 0, 0, 'R');
                 $this->SetFont('helvetica', 'B', $this->footerFontSize + ($this->fontScale * $this->footerFontSize));
                 $this->Cell(0, 4, ' revision.', 0, 0, 'L');
                 $this->ln();

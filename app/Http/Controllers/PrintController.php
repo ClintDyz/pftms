@@ -4063,8 +4063,8 @@ class PrintController extends Controller
         $pdf->setFontScale($fontScale);
 
         $docCode = "FM-FAS-PUR F05";
-        $docRev = "Revision 2";
-        $docRevDate = "05-24-19";
+        $docRev = "Revision 3";
+        $docRevDate = "02-06-2026";
         $docTitle = "pr_" . $data->pr->pr_no;
         $docCreator = "DOST-CAR";
         $docAuthor = "DOST-CAR";
@@ -4097,8 +4097,8 @@ class PrintController extends Controller
         $docCode = "FM-FAS-PUR F06";
         //$docRev = "Revision 1";
         //$docRevDate = "02-28-18";
-        $docRev = "Revision 3";
-        $docRevDate = "01-05-2023";
+        $docRev = "Revision 4";
+        $docRevDate = "02-06-2026";
         $docTitle = "rfq_" . $data->pr->pr_no;
         $docCreator = "DOST-CAR";
         $docAuthor = "DOST-CAR";
@@ -4128,8 +4128,8 @@ class PrintController extends Controller
         $pdf->setFontScale($fontScale);
 
         $docCode = "FM-FAS-PUR F07";
-        $docRev = "Revision 2";
-        $docRevDate = "11-16-18";
+        $docRev = "Revision 3";
+        $docRevDate = "02-06-2026";
         $docTitle = "abstract_" . $data->pr->pr_no;
         $docCreator = "DOST-CAR";
         $docAuthor = "DOST-CAR";
@@ -4194,8 +4194,8 @@ class PrintController extends Controller
         $pdf->setFontScale($fontScale);
 
         $docCode = "FM-FAS-PUR F15";
-        $docRev = "Revision 1";
-        $docRevDate = "02-28-18";
+        $docRev = "Revision 3";
+        $docRevDate = "02-06-2026";
         $docTitle = "jo_" . $data->jo->po_no;
         $docCreator = "DOST-CAR";
         $docAuthor = "DOST-CAR";
@@ -4231,8 +4231,8 @@ class PrintController extends Controller
         $pdf->setFontScale($fontScale);
 
         $docCode = "FM-FAS-BUD F04";
-        $docRev = "Revision 0";
-        $docRevDate = "08-31-17";
+        $docRev = "Revision 1";
+        $docRevDate = "02-06-2026";
         $docTitle = "ors_" . $data->ors->id;
         $docCreator = "DOST-CAR";
         $docAuthor = "DOST-CAR";
@@ -4315,7 +4315,7 @@ class PrintController extends Controller
 
         $docCode = "FM-FAS-PUR F09";
         $docRev = "Revision 1";
-        $docRevDate = "02-28-18";
+        $docRevDate = "02-06-2026";
         $docTitle = "iar_" . $data->iar->po_no;
         $docCreator = "DOST-CAR";
         $docAuthor = "DOST-CAR";
@@ -4359,8 +4359,8 @@ class PrintController extends Controller
         // $docRev = ($data->dv->module_class == 3) ? 'Revision 1': 'Revision 0';
         // $docRevDate = ($data->dv->module_class == 3) ? '02-28-18': '08-31-17';
         $docCode = "FM-FAS-ACCTG F01";
-        $docRev = "Revision 0";
-        $docRevDate = "08-31-17";
+        $docRev = "Revision 1";
+        $docRevDate = "02-06-2026";
         $docTitle = "dv_" . $data->dv->id;
         $docCreator = "DOST-CAR";
         $docAuthor = "DOST-CAR";

@@ -5,6 +5,69 @@
 <link href="{{ asset('datatables/css/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
 <link href="{{ asset('datatables/css/bootstrap.css') }}" rel="stylesheet">
 
+<style>
+    /* Custom DataTable styling */
+    .dataTables_wrapper .dataTables_length select {
+        padding: 5px 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+
+    .dataTables_wrapper .dataTables_filter input {
+        padding: 5px 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        margin-left: 5px;
+    }
+
+    .dataTables_wrapper .dataTables_paginate .paginate_button {
+        padding: 5px 10px;
+        margin: 0 2px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+        background: #f5f5f5;
+        border-color: #999;
+    }
+
+    .dataTables_wrapper .dataTables_paginate .paginate_button.current {
+        background: #007bff;
+        color: white !important;
+        border-color: #007bff;
+    }
+
+    .dataTables_wrapper .dataTables_info {
+        padding-top: 8px;
+        font-size: 14px;
+    }
+
+    .no-data-message {
+        text-align: center;
+        padding: 40px;
+        background: #f8f9fa;
+        border-radius: 5px;
+        margin: 20px 0;
+    }
+
+    .no-data-message i {
+        font-size: 48px;
+        color: #6c757d;
+        margin-bottom: 15px;
+    }
+
+    .no-data-message h5 {
+        color: #495057;
+        margin-bottom: 10px;
+    }
+
+    .no-data-message p {
+        color: #6c757d;
+    }
+</style>
+
 <div class="row wow animated fadeIn">
     <section class="mb-5 col-12 module-container">
         <div class="card mdb-color darken-3">
@@ -30,139 +93,180 @@
                 <br>
 
                 <div class="row">
-                <form method="GET" action="{{ route('report.index') }}" class="form-inline mb-3">
-                    <label class="mr-2 white-text ">Filter by Month:</label>
+                    <form method="GET" action="{{ route('report.index') }}" class="form-inline mb-3">
+                        <label class="mr-2 white-text">Filter by Month:</label>
 
-                    <select name="month" class="form-control mr-2">
-                        <option value="">Select Month</option>
-                        @for ($m = 1; $m <= 12; $m++)
-                            <option value="{{ $m }}" {{ request('month') == $m ? 'selected' : '' }}>
-                                {{ date('F', mktime(0, 0, 0, $m, 1)) }}
-                            </option>
-                        @endfor
-                    </select>
+                        <select name="month" class="form-control mr-2">
+                            <option value="">Select Month</option>
+                            @for ($m = 1; $m <= 12; $m++)
+                                <option value="{{ $m }}" {{ request('month') == $m ? 'selected' : '' }}>
+                                    {{ date('F', mktime(0, 0, 0, $m, 1)) }}
+                                </option>
+                            @endfor
+                        </select>
 
-                    <select name="year" class="form-control mr-2">
-                        <option value="">Select Year</option>
-                        @for ($y = now()->year; $y >= 2000; $y--)
-                            <option value="{{ $y }}" {{ request('year') == $y ? 'selected' : '' }}>{{ $y }}</option>
-                        @endfor
-                    </select>
+                        <select name="year" class="form-control mr-2">
+                            <option value="">Select Year</option>
+                            @for ($y = now()->year; $y >= 2000; $y--)
+                                <option value="{{ $y }}" {{ request('year') == $y ? 'selected' : '' }}>{{ $y }}</option>
+                            @endfor
+                        </select>
 
-                    <button type="submit" class="btn btn-primary">Filter</button>
+                        <button type="submit" class="btn btn-primary">Filter</button>
+                    </form>
 
-                </form>
-
-                <form method="GET" action="{{ route('report.purchase.print') }}" target="_blank" class="mb-3">
+                    @if($hasFilter)
+                    <form method="GET" action="{{ route('report.purchase.print') }}" target="_blank" class="mb-3">
                         <input type="hidden" name="month" value="{{ request('month') }}">
                         <input type="hidden" name="year" value="{{ request('year') }}">
                         <button type="submit" class="btn btn-danger">
                             <i class="fas fa-print"></i> Print PDF
                         </button>
                     </form>
-
+                    @endif
                 </div>
 
-                <!-- Table with panel -->
-                <div class="card card-cascade narrower">
-
-                    <!--Card image-->
-                    <div class="gradient-card-header unique-color
-                                narrower py-2 px-2 mb-1 d-flex justify-content-between
-                                align-items-center">
-                        <div>
-                           {{-- <button type="button" class="btn btn-outline-white btn-rounded btn-sm px-2" data-toggle="modal" data-target=".modal">
-                                    <i class="fas fa-pencil-alt"></i> Create
-                           </button> --}}
-                        </div>
-                        <div>
-
-                            <a href="/purchase-request-monthly-report" class="btn btn-outline-white btn-rounded btn-sm px-2">
-                                <i class="fas fa-sync-alt fa-pulse"></i>
-                            </a>
-                        </div>
+                @if(!$hasFilter)
+                    <!-- Show message when no filter is applied -->
+                    <div class="no-data-message">
+                        <i class="fas fa-filter"></i>
+                        <h5>No Filter Applied</h5>
+                        <p>Please select a month and/or year above and click the "Filter" button to view purchase request data.</p>
                     </div>
-                    <!--/Card image-->
+                @else
+                    <!-- Table with panel -->
+                    <div class="card card-cascade narrower">
 
-                    <div class="px-2">
-                        <div class="table-wrapper table-responsive border rounded">
-
-                    <!--Table-->
-                    <table id="Table" class="table table-striped table-bordered table-hover" style="width:100%">
-
-                        <!--Table head-->
-                        <thead class="mdb-color darken-3 mb-0 p-1 white-text">
-                            <tr>
-                                <th>Item No.</th>
-                                <th>Purchase Request No</th>
-                                <th>Particulars</th>
-                                <th>Total Approved Budget for Contract (ABC)</th>
-                                <th>Bids must be submitted to the following offices on or before</th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            @foreach ($purchase as $purchaseItem)
-                                <tr>
-                                    <td>
-                                        <input type="hidden" id="id" value="{{ $purchaseItem->id }}">
-                                        <span class="item_class">{{ $loop->iteration }}</span>
-                                    </td>
-                                    <td>
-                                        <span class="date">{{ $purchaseItem->pr_no }}</span>
-                                    </td>
-                                    <td>
-                                        <span class="date">{{ $purchaseItem->purpose }}</span>
-                                    </td>
-                                    <td>
-                                        <span class="date">₱{{ number_format($purchaseItem->total_cost, 2) }}</span>
-                                    </td>
-                                    <td>
-                                        <span class="date">{{ \Carbon\Carbon::parse($purchaseItem->created_at)->format('F d, Y') }}</span>
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-
-                        <tfoot class="mdb-color darken-3 mb-0 p-1 white-text">
-                            <tr>
-                                <th>Item No.</th>
-                                <th>Purchase Request No</th>
-                                <th>Particulars</th>
-                                <th>Total Approved Budget for Contract (ABC)</th>
-                                <th>Bids must be submitted to the following offices on or before</th>
-                            </tr>
-                        </tfoot>
-
-                    </table>
-                    <!--Table-->
-
+                        <!--Card image-->
+                        <div class="gradient-card-header unique-color narrower py-2 px-2 mb-1 d-flex justify-content-between align-items-center">
+                            <div>
+                               {{-- <button type="button" class="btn btn-outline-white btn-rounded btn-sm px-2" data-toggle="modal" data-target=".modal">
+                                        <i class="fas fa-pencil-alt"></i> Create
+                               </button> --}}
+                            </div>
+                            <div>
+                                <a href="/purchase-request-monthly-report" class="btn btn-outline-white btn-rounded btn-sm px-2">
+                                    <i class="fas fa-sync-alt fa-pulse"></i>
+                                </a>
+                            </div>
                         </div>
+                        <!--/Card image-->
+
+                        <div class="px-2">
+                            <div class="table-wrapper table-responsive border rounded">
+
+                                <!--Table-->
+                                <table id="Table" class="table table-striped table-bordered table-hover" style="width:100%">
+
+                                    <!--Table head-->
+                                    <thead class="mdb-color darken-3 mb-0 p-1 white-text">
+                                        <tr>
+                                            <th>Item No.</th>
+                                            <th>Purchase Request No</th>
+                                            <th>Particulars</th>
+                                            <th>Total Approved Budget for Contract (ABC)</th>
+                                            <th>Bids must be submitted to the following offices on or before</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        @forelse ($purchase as $purchaseItem)
+                                            <tr>
+                                                <td>
+                                                    <input type="hidden" id="id" value="{{ $purchaseItem->id }}">
+                                                    <span class="item_class">{{ $loop->iteration }}</span>
+                                                </td>
+                                                <td>
+                                                    <span class="date">{{ $purchaseItem->pr_no }}</span>
+                                                </td>
+                                                <td>
+                                                    <span class="date">{{ $purchaseItem->purpose }}</span>
+                                                </td>
+                                                <td>
+                                                    <span class="date">₱{{ number_format($purchaseItem->total_cost, 2) }}</span>
+                                                </td>
+                                                <td>
+                                                    <span class="date">{{ \Carbon\Carbon::parse($purchaseItem->created_at)->format('F d, Y') }}</span>
+                                                </td>
+                                            </tr>
+                                        @empty
+                                            <tr>
+                                                <td colspan="5" class="text-center">No records found for the selected filter</td>
+                                            </tr>
+                                        @endforelse
+                                    </tbody>
+
+                                    <tfoot class="mdb-color darken-3 mb-0 p-1 white-text">
+                                        <tr>
+                                            <th>Item No.</th>
+                                            <th>Purchase Request No</th>
+                                            <th>Particulars</th>
+                                            <th>Total Approved Budget for Contract (ABC)</th>
+                                            <th>Bids must be submitted to the following offices on or before</th>
+                                        </tr>
+                                    </tfoot>
+
+                                </table>
+                                <!--Table-->
+
+                            </div>
+                        </div>
+
+                        <!-- Grand Total -->
+                        {{-- @if(isset($grandTotal) && $grandTotal > 0)
+                        <div class="mt-3 px-3 pb-3">
+                            <h6 class="font-weight-bold text-dark">Grand Total: ₱{{ number_format($grandTotal, 2) }}</h6>
+                        </div>
+                        @endif --}}
+
                     </div>
-                    <div class="mt-3">
-                    </div>
-                </div>
-                <!-- Table with panel -->
+                    <!-- Table with panel -->
+                @endif
             </div>
         </div>
     </section>
 </div>
-
-
 
 @endsection
 
 @section('custom-js')
 
 <script src="{{ asset('datatables/js/jquery.dataTables.min.js') }}"></script>
-<script src="{{ asset('datatables/js/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('datatables/js/dataTables.bootstrap4.min.js') }}"></script>
 
 <script type="text/javascript">
-	// Call the dataTables jQuery plugin
-        $(document).ready(function() {
-          $('#Table').DataTable();
+    // Call the dataTables jQuery plugin with custom configuration
+    $(document).ready(function() {
+        @if($hasFilter)
+        $('#Table').DataTable({
+            "pageLength": 10, // Show 10 entries by default
+            "lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]], // Options for entries per page
+            "ordering": true, // Enable sorting
+            "searching": true, // Enable search
+            "info": true, // Show table information
+            "autoWidth": false, // Disable auto width calculation
+            "responsive": true, // Make table responsive
+            "language": {
+                "lengthMenu": "Show _MENU_ entries",
+                "zeroRecords": "No matching records found",
+                "info": "Showing _START_ to _END_ of _TOTAL_ entries",
+                "infoEmpty": "Showing 0 to 0 of 0 entries",
+                "infoFiltered": "(filtered from _MAX_ total entries)",
+                "search": "Search:",
+                "paginate": {
+                    "first": "First",
+                    "last": "Last",
+                    "next": "Next",
+                    "previous": "Previous"
+                }
+            },
+            "columnDefs": [
+                { "orderable": false, "targets": 0 } // Disable sorting on Item No. column
+            ],
+            "order": [[4, "desc"]] // Sort by date column (index 4) in descending order by default
         });
-	</script>
+        @endif
+    });
+</script>
 
 @endsection

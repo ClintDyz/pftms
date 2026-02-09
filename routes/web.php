@@ -2374,6 +2374,31 @@ Route::middleware(['auth', 'throttle:100,1'])->group(function () {
 });
 
 
+/*
+|--------------------------------------------------------------------------
+| Procurement Report Routes
+|--------------------------------------------------------------------------
+*/
+
+Route::middleware(['auth', 'throttle:100,1'])->group(function () {
+
+    // Display report page
+    Route::get('/pr_report', 'ProcurementReportController@index')
+        ->name('procurement.report.index');
+
+    // Generate report with filters
+    Route::get('/pr_report/generate', 'ProcurementReportController@generate')
+        ->name('procurement.report.generate');
+
+    // Export to Excel
+    Route::get('/pr_report/export/excel', 'ProcurementReportController@exportExcel')
+        ->name('procurement.report.export.excel');
+
+    // Export to CSV
+    Route::get('/pr_report/export/csv', 'ProcurementReportController@exportCsv')
+        ->name('procurement.report.export.csv');
+});
+
 // Par Routes
 Route::middleware(['auth', 'throttle:100,1'])->group(function () {
     Route::get('/par', 'ParController@index');

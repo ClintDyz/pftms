@@ -3,18 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
 use App\Models\DocumentAttachment;
 use Illuminate\Support\Facades\Storage;
-use File;
 
 class AttachmentController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
     public function __construct() {
         $this->middleware('auth');
     }
@@ -28,10 +21,10 @@ class AttachmentController extends Controller
     }
 
     public function store(Request $request) {
-        $parentID = $request->parent_id;
-        $type = $request->type;
-        $attachment = $request->file('attachment');
-
+        try {
+            $parentID = $request->parent_id;
+            $type = $request->type;
+            $attachment = $request->file('attachment');
 
             $directory = $this->uploadFile($parentID, $attachment);
 
@@ -42,8 +35,7 @@ class AttachmentController extends Controller
                     ['directory', $directory]
                 ])->first();
 
-                $instanceAttachment = $attachmentData ? $attachmentData :
-                                      new DocumentAttachment ;
+                $instanceAttachment = $attachmentData ?? new DocumentAttachment;
                 $instanceAttachment->parent_id = $parentID;
                 $instanceAttachment->type = $type;
                 $instanceAttachment->directory = $directory;
@@ -51,22 +43,20 @@ class AttachmentController extends Controller
 
                 return response()->json([
                     'filename' => basename($directory),
-                    'directory' => url($directory)
+                    'directory' => asset($directory) // Use asset() helper
                 ]);
             } else {
                 return response()->json([
                     'filename' => 'NULL',
                     'directory' => 'NULL'
-                ]);
+                ], 400);
             }
-        try {
         } catch (\Throwable $th) {
             return response()->json([
-                'filename' => 'Error has occured! Please try again.',
-                'directory' => 'NULL'
-            ]);
+                'error' => 'Error has occurred! Please try again.',
+                'message' => $th->getMessage()
+            ], 500);
         }
-
     }
 
     private function uploadFile($parentID, $attachment) {
@@ -74,25 +64,37 @@ class AttachmentController extends Controller
 
         if (!empty($attachment)) {
             $newFileName = $attachment->getClientOriginalName();
-            Storage::put('public/attachments/' . $parentID . '/' . $newFileName,
-                         file_get_contents($attachment->getRealPath()));
-            $directory = 'storage/attachments/' . $parentID . '/' . $newFileName;
+
+            // Store the file
+            $path = $attachment->storeAs(
+                'attachments/' . $parentID,
+                $newFileName,
+                'public' // This stores in storage/app/public
+            );
+
+            // Return the public path
+            $directory = 'storage/' . $path;
         }
 
         return $directory;
     }
 
-    public function update(Request $request, $id) {
-
-    }
-
     public function destroy(Request $request, $id) {
-        $filePath = $request->directory;
-        $instanceAttachment = DocumentAttachment::findOrFail($id);
-        $instanceAttachment->delete();
+        try {
+            $instanceAttachment = DocumentAttachment::findOrFail($id);
 
-        File::delete($filePath);
+            // Get the storage path (remove 'storage/' prefix)
+            $storagePath = str_replace('storage/', '', $instanceAttachment->directory);
 
-        return "Successfully deleted.";
+            // Delete from storage
+            Storage::disk('public')->delete($storagePath);
+
+            // Delete database record
+            $instanceAttachment->delete();
+
+            return response()->json(['message' => 'Successfully deleted.']);
+        } catch (\Throwable $th) {
+            return response()->json(['error' => 'Failed to delete attachment.'], 500);
+        }
     }
 }
