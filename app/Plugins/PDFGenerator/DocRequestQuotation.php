@@ -62,7 +62,7 @@ class DocRequestQuotation extends PDF {
                             "to have your best prices, terms and conditions of delivery.",
                             0, 'L');
             $this->Ln(5);
-            $this->Cell(0, 5, 'Project Title/ Purpose: ____________________________________________________________________________________');
+            $this->Cell(0, 5, 'Project Title/ Purpose: ___________________________________________________________________________');
             $this->Ln();
             $this->Cell(0, 5, 'Project Location: ________________________________________________________________________________');
             $this->Ln();
@@ -70,13 +70,23 @@ class DocRequestQuotation extends PDF {
 
             //Table data
             $this->htmlTable($groupNo->table_data);
-            $this->SetFont('helvetica', 'BI', 10  + ($fontScale * 10));
-            $this->Cell(0.5, 5, 'NOTE TO SUPPLIER:');
-            $this->Ln();
-            $this->Cell(0.5, 5, 'ELIGIBILITY DOCUMENTS:');
-            $this->MultiCell(0, 0, "Bidders shall submit the following documentary requirements: Mayor’s Permit, PhilGEPS registration certificate/ number ".
-                                    "Income tax return, Omnibus sworn statement.", 0, 'L');
-            $this->Ln();
+                    //Table footer
+        $this->SetFont('Times', '', 10 + ($fontScale * 10));
+        $this->MultiCell(0, '5',
+                        "NOTE TO SUPPLIER:\n" .
+                        "ELIGIBILITY DOCUMENTS:\n" .
+                        "Bidders shall submit the following documentary requirements: Mayor’s Permit, PhilGEPS registrationn\n".
+                        "certificate/ number Income tax return, Omnibus sworn statement.", 'LR', 'L');
+        $this->Cell(0, '5', '','LR');
+        $this->Ln();
+            // $this->SetFont('helvetica', 'BI', 10  + ($fontScale * 10));
+            // $this->Cell(0.5, 5, 'NOTE TO SUPPLIER:');
+            // $this->Ln();
+            // $this->Cell(0.5, 5, 'ELIGIBILITY DOCUMENTS:');
+            // $this->Ln();
+            // $this->MultiCell(0, 0, "Bidders shall submit the following documentary requirements: Mayor’s Permit, PhilGEPS registration certificate/ number ".
+            //                         "Income tax return, Omnibus sworn statement.", 0, 'L');
+            // $this->Ln();
 
             $this->SetFont('helvetica', 'BI', 10  + ($fontScale * 10));
             $this->Cell(0.5, 5, 'General Conditions:');
@@ -111,9 +121,9 @@ class DocRequestQuotation extends PDF {
             $this->SetFont('helvetica', 'B', 10  + ($fontScale * 10));
             $this->Cell($pageWidth * 0.5, 5, "     Delivery Term (Complete)");
             $this->SetFont('helvetica', '', 10  + ($fontScale * 10));
-            $this->Cell($pageWidth * 0.068, 5, "Term of");
-            $this->SetFont('helvetica', '', 10  + ($fontScale * 10));
-            $this->Cell($pageWidth * 0, 5, "Payment");
+            $this->Cell($pageWidth * 0.068, 5, "Term of Payment");
+            // $this->SetFont('helvetica', '', 10  + ($fontScale * 10));
+            // $this->Cell($pageWidth * 0, 5, "Payment");
             $this->Ln();
 
             $this->SetFont('helvetica', '', 10  + ($fontScale * 10));
