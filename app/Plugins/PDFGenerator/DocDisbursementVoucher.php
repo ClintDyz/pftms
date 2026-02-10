@@ -70,15 +70,15 @@ class DocDisbursementVoucher extends PDF {
 
         $this->Image('@' . $img, $xCoor + 14, $yCoor, 14, 0, 'PNG');
         $this->SetFont('Times', 'B', 10);
-        $this->Cell($pageWidth * 0.71, 5, 'Republic of the Philippines', 'L', '', 'J');
+        $this->Cell($pageWidth * 0.71, 5, 'Republic of the Philippines', 0, 0, 'L');
         $this->Cell($pageWidth * 0, 5, '', 'R');
         $this->Ln();
 
-        $this->Cell($pageWidth * 0.71, 5, 'DEPARTMENT OF SCIENCE AND TECHNOLOGY', 'L', '', 'J');
+        $this->Cell($pageWidth * 0.71, 5, 'DEPARTMENT OF SCIENCE AND TECHNOLOGY', 0, 0, 'L');
         $this->Cell($pageWidth * 0, 5, '', 'R');
         $this->Ln();
 
-        $this->Cell($pageWidth * 0.71, 3, 'Cordillera Administrative Region', 'L', '', 'J');
+        $this->Cell($pageWidth * 0.71, 3, 'Cordillera Administrative Region', 0, 0, 'L');
         $this->Cell($pageWidth * 0, 3, '', 'R');
         $this->Ln();
 
