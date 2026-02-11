@@ -71,14 +71,27 @@ class DocRequestQuotation extends PDF {
             //Table data
             $this->htmlTable($groupNo->table_data);
                     //Table footer
-        $this->SetFont('Times', '', 10 + ($fontScale * 10));
-        $this->MultiCell(0, '5',
-                        "NOTE TO SUPPLIER:\n" .
-                        "ELIGIBILITY DOCUMENTS:\n" .
-                        "Bidders shall submit the following documentary requirements: Mayor’s Permit, PhilGEPS registrationn\n".
-                        "certificate/ number Income tax return, Omnibus sworn statement.", 'LR', 'L');
-        $this->Cell(0, '5', '','LR');
-        $this->Ln();
+// Calculate the same width your table uses
+            $effectiveWidth = $this->w - $this->getMargins()['left'] - $this->getMargins()['right'];
+
+            $this->SetFont('Times', '', 10 + ($fontScale * 10));
+            $this->MultiCell($effectiveWidth, 5,
+                            "NOTE TO SUPPLIER:\n" .
+                            "ELIGIBILITY DOCUMENTS:\n" .
+                            "Bidders shall submit the following documentary requirements: Mayor's Permit, PhilGEPS registration certificate/ number Income tax return, Omnibus sworn statement.",
+                            'LR', 'L');
+            $this->Cell($effectiveWidth, 5, '', 'LRB');
+            $this->Ln();
+
+        // $this->SetFont('Times', '', 10 + ($fontScale * 10));
+        // $this->MultiCell(0, 5,
+        //                 "NOTE TO SUPPLIER:\n" .
+        //                 "ELIGIBILITY DOCUMENTS:\n" .
+        //                 "Bidders shall submit the following documentary requirements: Mayor’s Permit, PhilGEPS registrationn certificate/ number Income\n".
+        //                 "tax return, Omnibus sworn statement.", 'LR', 'L');
+        // $this->Cell(0, '5', '','LRB');
+        // $this->Ln();
+        
             // $this->SetFont('helvetica', 'BI', 10  + ($fontScale * 10));
             // $this->Cell(0.5, 5, 'NOTE TO SUPPLIER:');
             // $this->Ln();

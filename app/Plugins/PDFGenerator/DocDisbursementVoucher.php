@@ -68,7 +68,7 @@ class DocDisbursementVoucher extends PDF {
         $img = file_get_contents(url('images/logo/dostlogo.png'), false,
                                 stream_context_create($arrContextOptions));
 
-        $this->Image('@' . $img, $xCoor + 14, $yCoor, 14, 0, 'PNG');
+        $this->Image('@' . $img, $xCoor + 4, $yCoor, 16, 0, 'PNG');
         $this->SetFont('Times', 'B', 10);
         $this->Cell($pageWidth * 0.71, 5, 'Republic of the Philippines', 0, 0, 'L');
         $this->Cell($pageWidth * 0, 5, '', 'R');

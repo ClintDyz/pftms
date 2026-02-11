@@ -4274,7 +4274,7 @@ class PrintController extends Controller
 
         $docCode = "FM-FAS-BUD F06";
         $docRev = "Revision 1";
-        $docRevDate = "02-28-18";
+        $docRevDate = "02-06-26";
         $docTitle = "burs_" . $data->ors->id;
         $docCreator = "DOST-CAR";
         $docAuthor = "DOST-CAR";
