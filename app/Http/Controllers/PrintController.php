@@ -4361,6 +4361,7 @@ class PrintController extends Controller
         $docCode = "FM-FAS-ACCTG F01";
         $docRev = "Revision 1";
         $docRevDate = "02-06-2026";
+        $pdf->setCustomPageNo('Page 2 of 2');
         $docTitle = "dv_" . $data->dv->id;
         $docCreator = "DOST-CAR";
         $docAuthor = "DOST-CAR";
