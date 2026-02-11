@@ -84,14 +84,17 @@ class DocDisbursementVoucher extends PDF {
         $this->Cell($pageWidth * 0, 5, '', 'R');
         $this->Ln();
 
+        $this->SetX($textX); // <--- Add this to move the cursor back to the right of the logo
         $this->Cell($pageWidth * 0.71, 5, 'DEPARTMENT OF SCIENCE AND TECHNOLOGY', 0, 0, 'L');
         $this->Cell($pageWidth * 0, 5, '', 'R');
         $this->Ln();
 
+        $this->SetX($textX); // <--- Add this to move the cursor back to the right of the logo
         $this->Cell($pageWidth * 0.71, 3, 'Cordillera Administrative Region', 0, 0, 'L');
         $this->Cell($pageWidth * 0, 3, '', 'R');
         $this->Ln();
 
+        $this->SetX($textX); // <--- Add this to move the cursor back to the right of the logo
         $this->Cell($pageWidth * 0.71, 4, '', 'BL', '', 'C');
         $this->Cell($pageWidth * 0, 4, '', 'BR');
         $this->Ln();

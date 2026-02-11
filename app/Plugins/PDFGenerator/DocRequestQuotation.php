@@ -70,18 +70,39 @@ class DocRequestQuotation extends PDF {
 
             //Table data
             $this->htmlTable($groupNo->table_data);
-                    //Table footer
-// Calculate the same width your table uses
-            $effectiveWidth = $this->w - $this->getMargins()['left'] - $this->getMargins()['right'];
 
+                    //Table footer
+            // --- START OF UPDATED TABLE FOOTER ---
+            // 1. Set the exact width of your table (Adjust 185 to 184 or 186 if it's still slightly off)
+            $tableWidth = 184;
+            $startX = $this->getMargins()['left']; // Ensure we start at the left margin
+
+            $this->SetX($startX);
             $this->SetFont('Times', '', 10 + ($fontScale * 10));
-            $this->MultiCell($effectiveWidth, 5,
+
+            // 2. Draw the text box with 'LR' (Left and Right borders only)
+            $this->MultiCell($tableWidth, 5,
                             "NOTE TO SUPPLIER:\n" .
                             "ELIGIBILITY DOCUMENTS:\n" .
                             "Bidders shall submit the following documentary requirements: Mayor's Permit, PhilGEPS registration certificate/ number Income tax return, Omnibus sworn statement.",
                             'LR', 'L');
-            $this->Cell($effectiveWidth, 5, '', 'LRB');
+
+            // 3. Draw the bottom closing border with 'LRB' (Left, Right, and Bottom)
+            $this->SetX($startX);
+            $this->Cell($tableWidth, 5, '', 'LRB');
             $this->Ln();
+            // --- END OF UPDATED TABLE FOOTER ---
+
+            // $effectiveWidth = $this->w - $this->getMargins()['left'] - $this->getMargins()['right'];
+
+            // $this->SetFont('Times', '', 10 + ($fontScale * 10));
+            // $this->MultiCell($effectiveWidth, 5,
+            //                 "NOTE TO SUPPLIER:\n" .
+            //                 "ELIGIBILITY DOCUMENTS:\n" .
+            //                 "Bidders shall submit the following documentary requirements: Mayor's Permit, PhilGEPS registration certificate/ number Income tax return, Omnibus sworn statement.",
+            //                 'LR', 'L');
+            // $this->Cell($effectiveWidth, 5, '', 'LRB');
+            // $this->Ln();
 
         // $this->SetFont('Times', '', 10 + ($fontScale * 10));
         // $this->MultiCell(0, 5,
@@ -91,7 +112,7 @@ class DocRequestQuotation extends PDF {
         //                 "tax return, Omnibus sworn statement.", 'LR', 'L');
         // $this->Cell(0, '5', '','LRB');
         // $this->Ln();
-        
+
             // $this->SetFont('helvetica', 'BI', 10  + ($fontScale * 10));
             // $this->Cell(0.5, 5, 'NOTE TO SUPPLIER:');
             // $this->Ln();
