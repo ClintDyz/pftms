@@ -117,8 +117,8 @@ class DocObligationRequestStatus extends PDF {
             $this->SetTextColor(0, 0, 255);
         }
 
-        // $this->Cell($pageWidth * 0.466667,4,'Km. 6, La Trinidad, Benguet','R');
-        // $this->SetTextColor(0, 0, 0);
+        $this->Cell($pageWidth * 0.466667,4,'','R');
+        $this->SetTextColor(0, 0, 0);
         $this->Cell(0, 4, '', 'R');
         $this->Ln();
 
