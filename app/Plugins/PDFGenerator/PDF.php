@@ -311,12 +311,21 @@ class PDF extends TCPDF {
             //$this->Cell(0,10,'Page '.$this->pageNo().'/{nb}',0,0,'C');
 
             if (!$this->onlyPageNo) {
-                $this->Cell(0, 4, 'All documented information printed from the Quality Management Information', 0, 0, 'C');
-                $this->ln();
+                // $this->Cell(0, 4, 'All documented information printed from the Quality Management Information', 0, 0, 'C');
+                // $this->ln();
 
-                $this->Cell($this->w - ($this->w * 0.51), 4, 'System (QMIS) are deemed "UNCONTROLLED".', 0, 0, 'R');
+                // $this->Cell($this->w - ($this->w * 0.51), 4, 'System (QMIS) are deemed "UNCONTROLLED".', 0, 0, 'R');
+                // $this->SetFont('helvetica', 'B', $this->footerFontSize + ($this->fontScale * $this->footerFontSize));
+                // $this->Cell(0, 4, '', 0, 0, 'L');
+
+                          // First line - centered
+                $this->Cell(0, 4, 'All documented information printed from the Quality Management Information', 0, 1, 'C');
+
+                // Second line - centered
+                $this->Cell(0, 4, 'System (QMIS) are deemed "UNCONTROLLED".', 0, 1, 'C');
+
                 $this->SetFont('helvetica', 'B', $this->footerFontSize + ($this->fontScale * $this->footerFontSize));
-                $this->Cell(0, 4, '', 0, 0, 'L');
+
                 $this->ln();
             }
 
