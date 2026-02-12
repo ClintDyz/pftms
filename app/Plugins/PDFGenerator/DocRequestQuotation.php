@@ -88,7 +88,8 @@ class DocRequestQuotation extends PDF {
 
               // Draw the bottom border
               $this->SetX($leftMargin);
-              $this->Cell($tableWidth, 5, '', 'LRB');
+            // Changed height to 0 or 1 to "close" the box without adding extra whitespace
+            $this->Cell($tableWidth, 0, '', 'T');
               $this->Ln();
                     //Table footer
             // --- START OF UPDATED TABLE FOOTER ---
