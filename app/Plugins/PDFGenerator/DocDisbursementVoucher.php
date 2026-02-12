@@ -101,19 +101,19 @@ class DocDisbursementVoucher extends PDF {
 
         // --- UPDATED SECTION ---
         $this->SetX($xCoor);
-        $this->Cell($pageWidth * 0.71, 4, '', 'BL', 0, 'C'); // 'BL' handles the bottom left corner
+        $this->Cell($pageWidth * 0.55, 4, '', 'BL', 0, 'C'); // Changed from 0.71 to 0.55
         $this->Cell($pageWidth * 0, 4, '', 'BR');
         $this->Ln();
 
-        $this->Cell($pageWidth * 0.71, 5,'', 'L', '', 'C');
+        $this->Cell($pageWidth * 0.55, 5,'', 'L', '', 'C'); // Changed from 0.71 to 0.55
         $this->Cell($pageWidth * 0, 5, "Fund Cluster : 01", 'LR');
         $this->Ln();
 
-        $this->Cell($pageWidth * 0.71, 5, "DISBURSEMENT VOUCHER", 'L', '', 'C');
+        $this->Cell($pageWidth * 0.55, 5, "DISBURSEMENT VOUCHER", 'L', '', 'C'); // Changed from 0.71 to 0.55
         $this->Cell($pageWidth * 0, 5, "Date : " . $dvDate, 'LR');
         $this->Ln();
 
-        $this->Cell($pageWidth * 0.71, 5, '', 'BL', '', 'C');
+        $this->Cell($pageWidth * 0.55, 5, '', 'BL', '', 'C'); // Changed from 0.71 to 0.55
         $this->Cell($pageWidth * 0, 5, "DV No. : " . $data->dv->dv_no, 'BLR');
         $this->Ln();
 
@@ -313,9 +313,9 @@ class DocDisbursementVoucher extends PDF {
         $this->SetFont('Times','', 10 + ($fontScale * 10));
         $this->Ln();
 
-        $this->Cell($pageWidth * 0.10476, 10, '', 'BLR', '', 'C');
+        $this->Cell($pageWidth * 0.10476, 10, 'Position', 'BLR', '', 'C');
         $this->Cell($pageWidth * 0.3619, 10, "Head, Accounting Unit/Authorized Representative", 'BLR', '', 'C');
-        $this->Cell($pageWidth * 0.10476, 10, '', 'BLR', '', 'C');
+        $this->Cell($pageWidth * 0.10476, 10, 'Position', 'BLR', '', 'C');
         $this->Cell(0, 10, "Agency Head/Authorized Representative", 'BLR', '', 'C');
         $this->Ln();
 
