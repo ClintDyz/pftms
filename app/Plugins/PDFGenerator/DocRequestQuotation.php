@@ -70,27 +70,46 @@ class DocRequestQuotation extends PDF {
 
             //Table data
             $this->htmlTable($groupNo->table_data);
+            // Calculate the actual table width (page width minus margins)
+              $leftMargin = $this->getMargins()['left'];
+              $rightMargin = $this->getMargins()['right'];
+              $tableWidth = $this->w - $leftMargin - $rightMargin;
 
+              // Set position to left margin
+              $this->SetX($leftMargin);
+              $this->SetFont('Times', '', 10 + ($fontScale * 10));
+
+              // Draw the text box with borders
+              $this->MultiCell($tableWidth, 5,
+                              "NOTE TO SUPPLIER:\n" .
+                              "ELIGIBILITY DOCUMENTS:\n" .
+                              "Bidders shall submit the following documentary requirements: Mayor's Permit, PhilGEPS registration certificate/ number Income tax return, Omnibus sworn statement.",
+                              'LR', 'L');
+
+              // Draw the bottom border
+              $this->SetX($leftMargin);
+              $this->Cell($tableWidth, 5, '', 'LRB');
+              $this->Ln();
                     //Table footer
             // --- START OF UPDATED TABLE FOOTER ---
             // 1. Set the exact width of your table (Adjust 185 to 184 or 186 if it's still slightly off)
-            $tableWidth = 187;
-            $startX = $this->getMargins()['left']; // Ensure we start at the left margin
+            // $tableWidth = 200;
+            // $startX = $this->getMargins()['left']; // Ensure we start at the left margin
 
-            $this->SetX($startX);
-            $this->SetFont('Times', '', 10 + ($fontScale * 10));
+            // $this->SetX($startX);
+            // $this->SetFont('Times', '', 10 + ($fontScale * 10));
 
-            // 2. Draw the text box with 'LR' (Left and Right borders only)
-            $this->MultiCell($tableWidth, 5,
-                            "NOTE TO SUPPLIER:\n" .
-                            "ELIGIBILITY DOCUMENTS:\n" .
-                            "Bidders shall submit the following documentary requirements: Mayor's Permit, PhilGEPS registration certificate/ number Income tax return, Omnibus sworn statement.",
-                            'LR', 'L');
+            // // 2. Draw the text box with 'LR' (Left and Right borders only)
+            // $this->MultiCell($tableWidth, 5,
+            //                 "NOTE TO SUPPLIER:\n" .
+            //                 "ELIGIBILITY DOCUMENTS:\n" .
+            //                 "Bidders shall submit the following documentary requirements: Mayor's Permit, PhilGEPS registration certificate/ number Income tax return, Omnibus sworn statement.",
+            //                 'LR', 'L');
 
-            // 3. Draw the bottom closing border with 'LRB' (Left, Right, and Bottom)
-            $this->SetX($startX);
-            $this->Cell($tableWidth, 5, '', 'LRB');
-            $this->Ln();
+            // // 3. Draw the bottom closing border with 'LRB' (Left, Right, and Bottom)
+            // $this->SetX($startX);
+            // $this->Cell($tableWidth, 5, '', 'LRB');
+            // $this->Ln();
             // --- END OF UPDATED TABLE FOOTER ---
 
             // $effectiveWidth = $this->w - $this->getMargins()['left'] - $this->getMargins()['right'];
