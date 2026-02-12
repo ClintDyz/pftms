@@ -65,42 +65,99 @@ class DocDisbursementVoucher extends PDF {
                 "verify_peer_name" => false,
             ],
         ];
-        $img = file_get_contents(url('images/logo/dostlogo.png'), false,
-                                stream_context_create($arrContextOptions));
+            $img = file_get_contents(url('images/logo/dostlogo.png'), false,
+                                    stream_context_create($arrContextOptions));
 
-        // Logo dimensions and position
-        $logoX = $xCoor + 4;
-        $logoY = $yCoor;
-        $logoWidth = 16;
+            // Logo dimensions and position
+            $logoX = $xCoor + 4;
+            $logoY = $yCoor;
+            $logoWidth = 16;
 
-        $this->Image('@' . $img, $logoX, $logoY, $logoWidth, 0, 'PNG');
+            // Calculate the full width of the header box
+            $headerWidth = $pageWidth * 0.71;
 
-        // Position text to the right of the logo
-        $textX = $logoX + $logoWidth + 3; // 3mm gap after logo
-        $this->SetXY($textX, $yCoor);
+            // Save the starting position
+            $startY = $yCoor;
 
-        $this->SetFont('Times', 'B', 10);
-        $this->Cell($pageWidth * 0.71, 5, 'Republic of the Philippines', 0, 0, 'L');
-        $this->Cell($pageWidth * 0, 5, '', 'R');
-        $this->Ln();
+            // Draw top border first
+            $this->SetXY($xCoor, $yCoor);
+            $this->Cell($headerWidth, 0, '', 'T');
+            $this->Cell($pageWidth - $headerWidth - $xCoor, 0, '', 'TR');
 
-        $this->SetX($textX); // <--- Add this to move the cursor back to the right of the logo
-        $this->Cell($pageWidth * 0.71, 5, 'DEPARTMENT OF SCIENCE AND TECHNOLOGY', 0, 0, 'L');
-        $this->Cell($pageWidth * 0, 5, '', 'R');
-        $this->Ln();
+            // Place logo
+            $this->Image('@' . $img, $logoX, $logoY + 1, $logoWidth, 0, 'PNG');
 
-        $this->SetX($textX); // <--- Add this to move the cursor back to the right of the logo
-        $this->Cell($pageWidth * 0.71, 3, 'Cordillera Administrative Region', 0, 0, 'L');
-        $this->Cell($pageWidth * 0, 3, '', 'R');
-        $this->Ln();
+            // Position text to the right of the logo
+            $textX = $logoX + $logoWidth + 3;
+            $this->SetXY($textX, $yCoor);
 
-        // --- UPDATED SECTION ---
-        // We move the X position back to the start of the box ($xCoor)
-        // instead of $textX so the bottom line starts from the very left.
-        $this->SetX($xCoor);
-        $this->Cell($pageWidth * 0.71, 4, '', 'BL', '', 'C');
-        $this->Cell($pageWidth * 0, 4, '', 'BR');
-        $this->Ln();
+            // First line with left border
+            $this->SetX($xCoor);
+            $this->Cell($headerWidth, 5, '', 'L'); // Left border only
+            $this->SetXY($textX, $yCoor);
+            $this->Cell($headerWidth - ($textX - $xCoor), 5, 'Republic of the Philippines', 0, 0, 'L');
+            $this->Cell($pageWidth - $headerWidth - $xCoor, 5, '', 'R');
+            $this->Ln();
+
+            // Second line with left border
+            $this->SetX($xCoor);
+            $this->Cell($headerWidth, 5, '', 'L');
+            $this->SetXY($textX, $this->GetY() - 5);
+            $this->SetFont('Times', 'B', 10);
+            $this->Cell($headerWidth - ($textX - $xCoor), 5, 'DEPARTMENT OF SCIENCE AND TECHNOLOGY', 0, 0, 'L');
+            $this->Cell($pageWidth - $headerWidth - $xCoor, 5, '', 'R');
+            $this->Ln();
+
+            // Third line with left border
+            $this->SetX($xCoor);
+            $this->Cell($headerWidth, 3, '', 'L');
+            $this->SetXY($textX, $this->GetY() - 3);
+            $this->Cell($headerWidth - ($textX - $xCoor), 3, 'Cordillera Administrative Region', 0, 0, 'L');
+            $this->Cell($pageWidth - $headerWidth - $xCoor, 3, '', 'R');
+            $this->Ln();
+
+            // Bottom border
+            $this->SetX($xCoor);
+            $this->Cell($headerWidth, 4, '', 'BL');
+            $this->Cell($pageWidth - $headerWidth - $xCoor, 4, '', 'BR');
+            $this->Ln();
+
+        // $img = file_get_contents(url('images/logo/dostlogo.png'), false,
+        //                         stream_context_create($arrContextOptions));
+
+        // // Logo dimensions and position
+        // $logoX = $xCoor + 4;
+        // $logoY = $yCoor;
+        // $logoWidth = 16;
+
+        // $this->Image('@' . $img, $logoX, $logoY, $logoWidth, 0, 'PNG');
+
+        // // Position text to the right of the logo
+        // $textX = $logoX + $logoWidth + 3; // 3mm gap after logo
+        // $this->SetXY($textX, $yCoor);
+
+        // $this->SetFont('Times', 'B', 10);
+        // $this->Cell($pageWidth * 0.71, 5, 'Republic of the Philippines', 0, 0, 'L');
+        // $this->Cell($pageWidth * 0, 5, '', 'R');
+        // $this->Ln();
+
+        // $this->SetX($textX); // <--- Add this to move the cursor back to the right of the logo
+        // $this->Cell($pageWidth * 0.71, 5, 'DEPARTMENT OF SCIENCE AND TECHNOLOGY', 0, 0, 'L');
+        // $this->Cell($pageWidth * 0, 5, '', 'R');
+        // $this->Ln();
+
+        // $this->SetX($textX); // <--- Add this to move the cursor back to the right of the logo
+        // $this->Cell($pageWidth * 0.71, 3, 'Cordillera Administrative Region', 0, 0, 'L');
+        // $this->Cell($pageWidth * 0, 3, '', 'R');
+        // $this->Ln();
+
+        // // --- UPDATED SECTION ---
+        // // We move the X position back to the start of the box ($xCoor)
+        // // instead of $textX so the bottom line starts from the very left.
+        // $this->SetX($xCoor);
+        // $this->Cell($pageWidth * 0.71, 4, '', 'BL', '', 'C');
+        // $this->Cell($pageWidth * 0, 4, '', 'BR');
+        // $this->Ln();
 
         $this->Cell($pageWidth * 0.71, 5,'', 'L', '', 'C');
         $this->Cell($pageWidth * 0, 5, "Fund Cluster : 01", 'LR');
