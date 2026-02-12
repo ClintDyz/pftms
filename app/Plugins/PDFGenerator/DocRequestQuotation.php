@@ -74,7 +74,7 @@ class DocRequestQuotation extends PDF {
                     //Table footer
             // --- START OF UPDATED TABLE FOOTER ---
             // 1. Set the exact width of your table (Adjust 185 to 184 or 186 if it's still slightly off)
-            $tableWidth = 184;
+            $tableWidth = 187;
             $startX = $this->getMargins()['left']; // Ensure we start at the left margin
 
             $this->SetX($startX);

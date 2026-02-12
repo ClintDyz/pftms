@@ -94,7 +94,10 @@ class DocDisbursementVoucher extends PDF {
         $this->Cell($pageWidth * 0, 3, '', 'R');
         $this->Ln();
 
-        $this->SetX($textX); // <--- Add this to move the cursor back to the right of the logo
+        // --- UPDATED SECTION ---
+        // We move the X position back to the start of the box ($xCoor)
+        // instead of $textX so the bottom line starts from the very left.
+        $this->SetX($xCoor);
         $this->Cell($pageWidth * 0.71, 4, '', 'BL', '', 'C');
         $this->Cell($pageWidth * 0, 4, '', 'BR');
         $this->Ln();
