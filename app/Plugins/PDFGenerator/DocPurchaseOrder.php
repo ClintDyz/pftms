@@ -11,6 +11,8 @@ class DocPurchaseOrder extends PDF {
         $this->docId = $data->po->id;
 
         $poDate = $data->po->date_po;
+            $purpose = $data->pr->purpose ?? ''; // ADD THIS LINE to get purpose
+
         $appName = strtoupper($data->po->sig_approval);
         $deptName = strtoupper($data->po->sig_funds_available);
 

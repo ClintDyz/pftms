@@ -11,7 +11,8 @@ class DocAbstractQuotation extends PDF {
         $this->docId = $data->abstract->id;
 
         $prNo = $data->pr->pr_no;
-        $purpose = $data->pr->purpose ?? ''; // Add this line
+    $purpose = $data->pr->purpose ?? ''; // Add this line
+
 
         $abstractDate = $data->abstract->date_abstract;
 
@@ -90,82 +91,37 @@ class DocAbstractQuotation extends PDF {
                                                     "Mode of Procurement : $modeProcurement ", "RTB", "R", "");
                 $this->SetXY($x + $totalWidth1, $y);
 
+                $this->SetFont('helvetica', 'BI', 8 + ($fontScale * 8));
+                $this->setCellHeightRatio(0.95);
+                $this->MultiCell(0, 3.5, "based on the canvasses submitted,\n WE, the members of the " .
+                                                    "Bids and\n Awards Committee (BAC) ", "TR", "C", "");
+
                 // INSERTED BLOCK — PROJECT TITLE / PURPOSE
-// UPDATE: This section needs restructuring to display properly
 
-$yProject = $this->GetY();
-$this->SetXY($x, $yProject);
+                $yProject = $this->GetY();
+                $this->SetXY($x, $yProject);
 
-// Display Project Title/Purpose on the left side
-$this->SetFont('helvetica', 'BI', 9 + ($fontScale * 9));
-$this->MultiCell(
-    $totalWidth1,
-    6,
-    "Project Title/Purpose: $purpose",
-    "LRB",
-    "L",
-    false
-);
+                $this->SetFont('helvetica', 'BI', 9 + ($fontScale * 9));
+                $this->MultiCell(
+                    $totalWidth1,
+                    6,
+                    "Project Title/Purpose: $purpose",
+                    "LRB",
+                    "L",
+                    false
+                );
 
-// CRITICAL FIX: Display the right column text that goes alongside Project Title/Purpose
-$yAfterProject = $this->GetY(); // Save Y position after Project block
-$this->SetXY($x + $totalWidth1, $yProject); // Move to right column at same Y as Project started
-
-$this->SetFont('helvetica', 'BI', 8 + ($fontScale * 8));
-$this->setCellHeightRatio(0.95);
-// First line of right column
-$this->MultiCell(0, 3, "based on the canvasses submitted,\n WE, the members of the " .
-                                    "Bids and\n Awards Committee (BAC) ", "R", "C", "");
-// Second line of right column
-$this->MultiCell(0, 3, "RECOMMEND the following", "R", "C", "");
-
-// Make sure both columns end at the same Y position
-$this->SetY(max($yAfterProject, $this->GetY()));
-
-// Row group - NOW continue with the table headers
-$this->SetFont('helvetica', '', 8 + ($fontScale * 8));
-$this->Cell($totalWidth1 * 0.04, 4, '', 'LR', '', 'C');
-$this->Cell($totalWidth1 * 0.04, 4, '', 'R', '', 'C');
-$this->Cell($totalWidth1 * 0.04, 4, '', 'R', '', 'C');
-$this->Cell($totalWidth1 * 0.13, 4, '', 'R', '', 'C');
-$this->Cell($totalWidth1 * 0.04, 4, '', 'R', '', 'C');
-$this->SetFont('helvetica', 'BI', 8 + ($fontScale * 8));
-$this->Cell($bidderTotalWidth, 3.6, "BIDDER'S QUOTATION AND OFFER", 'RB', '', 'C');
-$this->SetFont('helvetica', 'BI', 9 + ($fontScale * 9));
-// REMOVE THIS LINE - it's duplicate: $this->MultiCell(0, 3.5, "RECOMMEND the following", "R", "C", "");
-// $this->MultiCell(0, 3.5, "items to be AWARDED as", "R", "C", "");
-
-                // $this->SetFont('helvetica', 'BI', 8 + ($fontScale * 8));
-                // $this->setCellHeightRatio(0.95);
-                // $this->MultiCell(0, 3.5, "based on the canvasses submitted,\n WE, the members of the " .
-                //                                     "Bids and\n Awards Committee (BAC) ", "TR", "C", "");
-
-                // // INSERTED BLOCK — PROJECT TITLE / PURPOSE
-
-                // $yProject = $this->GetY();
-                // $this->SetXY($x, $yProject);
-
-                // $this->SetFont('helvetica', 'BI', 9 + ($fontScale * 9));
-                // $this->MultiCell(
-                //     $totalWidth1,
-                //     6,
-                //     "Project Title/Purpose: $purpose",
-                //     "LRB",
-                //     "L",
-                //     false
-                // );
-
-                // // Row group
-                // $this->SetFont('helvetica', '', 8 + ($fontScale * 8));
-                // $this->Cell($totalWidth1 * 0.04, 4, '', 'LR', '', 'C');
-                // $this->Cell($totalWidth1 * 0.04, 4, '', 'R', '', 'C');
-                // $this->Cell($totalWidth1 * 0.04, 4, '', 'R', '', 'C');
-                // $this->Cell($totalWidth1 * 0.13, 4, '', 'R', '', 'C');
-                // $this->Cell($totalWidth1 * 0.04, 4, '', 'R', '', 'C');
-                // $this->SetFont('helvetica', 'BI', 8 + ($fontScale * 8));
-                // $this->Cell($bidderTotalWidth, 3.6, "BIDDER'S QUOTATION AND OFFER", 'RB', '', 'C');
-                // $this->SetFont('helvetica', 'BI', 9 + ($fontScale * 9));
-                // $this->MultiCell(0, 3.5, "RECOMMEND the following", "R", "C", "");
+                // Row group
+                $this->SetFont('helvetica', '', 8 + ($fontScale * 8));
+                $this->Cell($totalWidth1 * 0.04, 4, '', 'LR', '', 'C');
+                $this->Cell($totalWidth1 * 0.04, 4, '', 'R', '', 'C');
+                $this->Cell($totalWidth1 * 0.04, 4, '', 'R', '', 'C');
+                $this->Cell($totalWidth1 * 0.13, 4, '', 'R', '', 'C');
+                $this->Cell($totalWidth1 * 0.04, 4, '', 'R', '', 'C');
+                $this->SetFont('helvetica', 'BI', 8 + ($fontScale * 8));
+                $this->Cell($bidderTotalWidth, 3.6, "BIDDER'S QUOTATION AND OFFER", 'RB', '', 'C');
+                $this->SetFont('helvetica', 'BI', 9 + ($fontScale * 9));
+                $this->MultiCell(0, 3.5, "RECOMMEND the following", "R", "C", "");
 
 
                 // Row group
@@ -181,7 +137,7 @@ $this->SetFont('helvetica', 'BI', 9 + ($fontScale * 9));
                 }
 
                 $this->SetFont('helvetica', 'BI', 9 + ($fontScale * 9));
-                $this->MultiCell(0, 3.5, "items to be AWARDED as", "R", "C", "");
+                $this->MultiCell(0, 3.5, "items to be AWARDED as follows:", "R", "C", "");
 
                 // Row group
                 $this->SetFont('helvetica', '', 6 + ($fontScale * 7));
@@ -195,32 +151,69 @@ $this->SetFont('helvetica', 'BI', 9 + ($fontScale * 9));
                     $strLength = strlen($list->company_name);
                     $bidderLists[] = array('', $list->company_name);
 
-                    if ($bidderCount == 3) {
-                        if ($strLength > 50) {
-                            $this->Cell($bidderWidth, 3.6, substr(strtoupper($list->company_name), 0, 30) .
-                                    '...', 'RB', '', 'C');
-                        } else {
-                            $this->Cell($bidderWidth, 3.6, strtoupper($list->company_name), 'RB', '', 'C');
-                        }
-                    } else if ($bidderCount == 4) {
-                        if ($strLength > 30) {
-                            $this->Cell($bidderWidth, 3.6, substr(strtoupper($list->company_name), 0, 20) .
-                                    '...', 'RB', '', 'C');
-                        } else {
-                            $this->Cell($bidderWidth, 3.6, strtoupper($list->company_name), 'RB', '', 'C');
-                        }
-                    } else if ($bidderCount >= 5) {
-                        if ($strLength > 15) {
-                            $this->Cell($bidderWidth, 3.6, substr(strtoupper($list->company_name), 0, 15) .
-                                    '...', 'RB', '', 'C');
-                        } else {
-                            $this->Cell($bidderWidth, 3.6, strtoupper($list->company_name), 'RB', '', 'C');
-                        }
+                       if ($bidderCount == 1) {
+        // Single bidder - show full name
+        if ($strLength > 70) {
+            $this->Cell($bidderWidth, 3.6, substr(strtoupper($list->company_name), 0, 70) .
+                    '...', 'RB', '', 'C');
+        } else {
+            $this->Cell($bidderWidth, 3.6, strtoupper($list->company_name), 'RB', '', 'C');
+        }
+    } else if ($bidderCount == 2) {
+        // Two bidders
+        if ($strLength > 60) {
+            $this->Cell($bidderWidth, 3.6, substr(strtoupper($list->company_name), 0, 60) .
+                    '...', 'RB', '', 'C');
+        } else {
+            $this->Cell($bidderWidth, 3.6, strtoupper($list->company_name), 'RB', '', 'C');
+        }
+    } else if ($bidderCount == 3) {
+        if ($strLength > 50) {
+            $this->Cell($bidderWidth, 3.6, substr(strtoupper($list->company_name), 0, 30) .
+                    '...', 'RB', '', 'C');
+        } else {
+            $this->Cell($bidderWidth, 3.6, strtoupper($list->company_name), 'RB', '', 'C');
+        }
+    } else if ($bidderCount == 4) {
+        if ($strLength > 30) {
+            $this->Cell($bidderWidth, 3.6, substr(strtoupper($list->company_name), 0, 20) .
+                    '...', 'RB', '', 'C');
+        } else {
+            $this->Cell($bidderWidth, 3.6, strtoupper($list->company_name), 'RB', '', 'C');
+        }
+    } else if ($bidderCount >= 5) {
+        if ($strLength > 15) {
+            $this->Cell($bidderWidth, 3.6, substr(strtoupper($list->company_name), 0, 15) .
+                    '...', 'RB', '', 'C');
+        } else {
+            $this->Cell($bidderWidth, 3.6, strtoupper($list->company_name), 'RB', '', 'C');
+        }
+                    // if ($bidderCount == 3) {
+                    //     if ($strLength > 50) {
+                    //         $this->Cell($bidderWidth, 3.6, substr(strtoupper($list->company_name), 0, 30) .
+                    //                 '...', 'RB', '', 'C');
+                    //     } else {
+                    //         $this->Cell($bidderWidth, 3.6, strtoupper($list->company_name), 'RB', '', 'C');
+                    //     }
+                    // } else if ($bidderCount == 4) {
+                    //     if ($strLength > 30) {
+                    //         $this->Cell($bidderWidth, 3.6, substr(strtoupper($list->company_name), 0, 20) .
+                    //                 '...', 'RB', '', 'C');
+                    //     } else {
+                    //         $this->Cell($bidderWidth, 3.6, strtoupper($list->company_name), 'RB', '', 'C');
+                    //     }
+                    // } else if ($bidderCount >= 5) {
+                    //     if ($strLength > 15) {
+                    //         $this->Cell($bidderWidth, 3.6, substr(strtoupper($list->company_name), 0, 15) .
+                    //                 '...', 'RB', '', 'C');
+                    //     } else {
+                    //         $this->Cell($bidderWidth, 3.6, strtoupper($list->company_name), 'RB', '', 'C');
+                    //     }
                     }
                 }
 
-                $this->SetFont('helvetica', 'BI', 9 + ($fontScale * 9));
-                $this->MultiCell(0, 3.5, "follows:", "RB", "C", "");
+                // $this->SetFont('helvetica', 'BI', 9 + ($fontScale * 9));
+                // $this->MultiCell(0, 3.5, "", "RB", "C", "");
 
                 // Row group
                 $this->SetFont('helvetica', '', 8 + ($fontScale * 8));
