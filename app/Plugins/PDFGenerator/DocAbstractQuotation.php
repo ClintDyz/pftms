@@ -110,6 +110,11 @@ class DocAbstractQuotation extends PDF {
                     "L",
                     false
                 );
+                // ADD THIS SECTION - Complete the right column border
+                $yAfterProject = $this->GetY(); // Get Y position after Project Title box
+                $this->SetXY($x + $totalWidth1, $yProject); // Position at top-right of Project Title row
+                $this->Cell($totalWidth2, $yAfterProject - $yProject, '', 'RB', 0, 'C'); // Draw right column with bottom border
+                $this->SetY($yAfterProject); // Reset Y position to continue
 
                 // Row group
                 $this->SetFont('helvetica', '', 8 + ($fontScale * 8));

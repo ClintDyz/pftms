@@ -3527,7 +3527,7 @@ class PrintController extends Controller
         $grandTotal = 0;
         // UPDATED: Join with purchase_requests to get purpose
         $po = DB::table('purchase_job_orders as po')
-                ->select('po.*', 'bid.company_name', 'bid.address', 'mode.mode_name')
+                ->select('po.*', 'bid.company_name', 'bid.address', 'mode.mode_name', 'pr.purpose')
                 ->join('suppliers as bid', 'bid.id', '=', 'po.awarded_to')
                 ->join('purchase_requests as pr', 'pr.id', '=', 'po.pr_id') // ADD this join
                 ->join('abstract_quotations as abs', 'abs.pr_id', '=', 'po.pr_id')
