@@ -4160,7 +4160,7 @@ class PrintController extends Controller
 
         $docCode = "FM-FAS-PUR F08";
         $docRev = "Revision 1";
-        $docRevDate = "02-28-18";
+        $docRevDate = "02-06-2026";
         $docTitle = "po_" . $data->po->po_no;
         $docCreator = "DOST-CAR";
         $docAuthor = "DOST-CAR";
