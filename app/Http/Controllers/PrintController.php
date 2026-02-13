@@ -3570,17 +3570,15 @@ class PrintController extends Controller
                     'data' => [['Date of Delivery: ', $po->date_delivery,
                                 'Payment Term: ', $po->payment_term]]
                 ], [
-                        'col-span' => true,  // ADD: Enable column spanning
-                        'col-span-key' => ['0-3'],  // ADD: Span all 4 columns
-                        'aligns' => ['L', '', '', ''],  // KEEP 4 alignments for compatibility
-                        'widths' => [17, 83, 0, 0],  // KEEP 4 widths, but last 2 are 0
-                        'font-styles' => ['', '', '', ''],  // KEEP 4 font styles
-                        'type' => 'other',
-                        'data' => [[
-                            'Project Title/Purpose: ',
-                            (!empty($po->purpose) ? $po->purpose : ' ') . "\n",
-                             '',  // ADD: Empty cell
-                             ''   // ADD: Empty cell
+                    'aligns' => ['L', 'L', 'L', 'L'],
+                    'widths' => [17, 43.5, 15, 24.5],
+                    'font-styles' => ['B', '', '', ''],
+                    'type' => 'other',
+                    'data' => [[
+                        'Project Title/ Purpose:',
+                        $po->purpose ?? 'N/A',
+                        '',
+                        ''
                         ]]
                     ]
 
