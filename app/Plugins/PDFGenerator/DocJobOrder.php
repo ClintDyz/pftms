@@ -9,6 +9,7 @@ class DocJobOrder extends PDF {
         $fontScale = $this->fontScale;
 
         $this->docId = $data->jo->id;
+            $purpose = $data->pr->purpose ?? ''; // ADD THIS LINE to get purpose
 
         $contentWidth = $pageWidth  - 20;
         $joDate = $data->jo->date_po;
@@ -118,6 +119,7 @@ class DocJobOrder extends PDF {
 
         $this->SetFont('Times','', 11 + ($fontScale * 11));
         $this->Cell(0, '5',"Project Title/Purpose:", 0, 'L');
+
 
         $this->Ln();
 

@@ -3560,20 +3560,29 @@ class PrintController extends Controller
             $grandTotal = number_format($grandTotal, 2);
             $tableHeader = [
                 [
-                    'aligns' => ['L', 'L', 'L', 'L'],
+                    'aligns' => ['L', '', 'L', ''],
                     'widths' => [17, 43.5, 15, 24.5],
                     'font-styles' => ['', 'B', '', 'B'],
                     'type' => 'other',
                     'data' => [['Place of Delivery: ', $po->place_delivery,
                                 'Delivery Term: ', $po->delivery_term]]
                 ], [
-                    'aligns' => ['L', 'L', 'L', 'L'],
+                    'aligns' => ['L', '', 'L', ''],
                     'widths' => [17, 43.5, 15, 24.5],
                     'font-styles' => ['', '', '', ''],
                     'type' => 'other',
                     'data' => [['Date of Delivery: ', $po->date_delivery,
                                 'Payment Term: ', $po->payment_term]]
-                ]
+                ],
+                    // ADD THIS NEW ROW FOR PROJECT TITLE/PURPOSE
+                    [
+                        'aligns' => ['L', '','L',''], // Left align for both label and value
+                        'widths' => [17, 43.5,15, 24.5], // Label width: 17, Value width: 83 (spans remaining columns)
+                        'font-styles' => ['', 'B',','], // Bold for label, normal for purpose text
+                        'type' => 'other',
+                        'data' => [['Project Title/Purpose: ', $po->purpose,
+                                    '', '']] // Display label and purpose value
+                    ]
             ];
             $data = [
                 [
