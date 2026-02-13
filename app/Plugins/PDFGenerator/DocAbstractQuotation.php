@@ -137,7 +137,7 @@ class DocAbstractQuotation extends PDF {
                 }
 
                 $this->SetFont('helvetica', 'BI', 9 + ($fontScale * 9));
-                $this->MultiCell(0, 3.5, "items to be AWARDED as follows:", "R", "C", "");
+                $this->MultiCell(0, 3.5, "items to be AWARDED as ", "R", "C", "");
 
                 // Row group
                 $this->SetFont('helvetica', '', 6 + ($fontScale * 7));
@@ -212,8 +212,8 @@ class DocAbstractQuotation extends PDF {
                     }
                 }
 
-                // $this->SetFont('helvetica', 'BI', 9 + ($fontScale * 9));
-                // $this->MultiCell(0, 3.5, "", "RB", "C", "");
+                $this->SetFont('helvetica', 'BI', 9 + ($fontScale * 9));
+                $this->MultiCell(0, 3.5, "follows:", "RB", "C", "");
 
                 // Row group
                 $this->SetFont('helvetica', '', 8 + ($fontScale * 8));
