@@ -11,6 +11,8 @@ class DocAbstractQuotation extends PDF {
         $this->docId = $data->abstract->id;
 
         $prNo = $data->pr->pr_no;
+        $purpose = $data->pr->purpose ?? ''; // Add this line
+
         $abstractDate = $data->abstract->date_abstract;
 
         $chairperson = strtoupper($data->sig_chairperson->name);
@@ -81,15 +83,32 @@ class DocAbstractQuotation extends PDF {
                 // Row group
                 $this->SetFont('helvetica', 'BI', 9 + ($fontScale * 9));
                 $this->MultiCell($totalWidth1 / 2, 5.25, "Purchase Request No.: $prNo \nPMO/End-User : $endUser", "LTB", "L", "");
+
                 $this->SetXY($x + ($totalWidth1 / 2), $y);
                 $this->MultiCell($totalWidth1 / 2, 5.25, "Date Prepared: $abstractDate " .
                                                     "\n" .
                                                     "Mode of Procurement : $modeProcurement ", "RTB", "R", "");
                 $this->SetXY($x + $totalWidth1, $y);
+
                 $this->SetFont('helvetica', 'BI', 8 + ($fontScale * 8));
                 $this->setCellHeightRatio(0.95);
                 $this->MultiCell(0, 3.5, "based on the canvasses submitted,\n WE, the members of the " .
                                                     "Bids and\n Awards Committee (BAC) ", "TR", "C", "");
+
+                // INSERTED BLOCK — PROJECT TITLE / PURPOSE
+
+                $yProject = $this->GetY();
+                $this->SetXY($x, $yProject);
+
+                $this->SetFont('helvetica', 'BI', 9 + ($fontScale * 9));
+                $this->MultiCell(
+                    $totalWidth1,
+                    6,
+                    "Project Title/Purpose: $purpose",
+                    "LRB",
+                    "L",
+                    false
+                );
 
                 // Row group
                 $this->SetFont('helvetica', '', 8 + ($fontScale * 8));
