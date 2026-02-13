@@ -76,7 +76,7 @@ class DocObligationRequestStatus extends PDF {
         $this->Cell($pageWidth * 0.10476, 4, '', 'L');
 
         if (strtolower($data->ors->document_type) == 'ors') {
-            $this->SetTextColor(0, 0, 255);
+            $this->SetTextColor(0, 0, 0);
         }
 
         $this->Cell($pageWidth * 0.466667, 4, 'Republic of the Philippines', 'R');
@@ -89,7 +89,7 @@ class DocObligationRequestStatus extends PDF {
         $this->SetFont('helvetica', 'B', 10 + ($fontScale * 10));
 
         if (strtolower($data->ors->document_type) == 'ors') {
-            $this->SetTextColor(0, 0, 255);
+            $this->SetTextColor(0, 0, 0);
         }
 
         $this->Cell($pageWidth * 0.466667, 4, 'DEPARTMENT OF SCIENCE AND TECHNOLOGY', 'R');
@@ -101,7 +101,7 @@ class DocObligationRequestStatus extends PDF {
         $this->Cell($pageWidth * 0.10476,4, '', 'L');
 
         if (strtolower($data->ors->document_type) == 'ors') {
-            $this->SetTextColor(0, 0, 255);
+            $this->SetTextColor(0, 0, 0);
         }
 
         $this->Cell($pageWidth * 0.466667,4, 'Cordillera Administrative Region', 'R');
@@ -114,7 +114,7 @@ class DocObligationRequestStatus extends PDF {
         $this->Cell($pageWidth * 0.10476,4,'','L');
 
         if (strtolower($data->ors->document_type) == 'ors') {
-            $this->SetTextColor(0, 0, 255);
+            $this->SetTextColor(0, 0, 0);
         }
 
         $this->Cell($pageWidth * 0.466667,4,'','R');

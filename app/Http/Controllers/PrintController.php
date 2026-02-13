@@ -4229,6 +4229,8 @@ class PrintController extends Controller
         $pdf = new DocObligationRequestStatus('P', $pageUnit, $pageSize);
         $pdf->setHeaderLR(false, true);
         $pdf->setFontScale($fontScale);
+        $pdf->setCustomPageNo('Page 2 of 2');
+
 
         $docCode = "FM-FAS-BUD F04";
         $docRev = "Revision 1";
@@ -4271,6 +4273,7 @@ class PrintController extends Controller
         $pdf = new DocObligationRequestStatus('P', $pageUnit, $pageSize);
         $pdf->setHeaderLR(false, true);
         $pdf->setFontScale($fontScale);
+        $pdf->setCustomPageNo('Page 2 of 2');
 
         $docCode = "FM-FAS-BUD F06";
         $docRev = "Revision 1";
@@ -4354,6 +4357,7 @@ class PrintController extends Controller
         $pdf = new DocDisbursementVoucher('P', $pageUnit, $pageSize);
         $pdf->setHeaderLR(false, true);
         $pdf->setFontScale($fontScale);
+        $pdf->setCustomPageNo('Page 2 of 2');
 
         // $docCode = ($data->dv->module_class == 3) ? 'FM-FAS-BUD F12': 'FM-FAS-ACCTG F01';
         // $docRev = ($data->dv->module_class == 3) ? 'Revision 1': 'Revision 0';
@@ -4361,7 +4365,6 @@ class PrintController extends Controller
         $docCode = "FM-FAS-ACCTG F01";
         $docRev = "Revision 1";
         $docRevDate = "02-06-2026";
-        $pdf->setCustomPageNo('Page 2 of 2');
         $docTitle = "dv_" . $data->dv->id;
         $docCreator = "DOST-CAR";
         $docAuthor = "DOST-CAR";
