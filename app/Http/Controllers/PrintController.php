@@ -3525,9 +3525,11 @@ class PrintController extends Controller
     private function getDataPOJO($id) {
         $tableData = [];
         $grandTotal = 0;
+        // UPDATED: Join with purchase_requests to get purpose
         $po = DB::table('purchase_job_orders as po')
                 ->select('po.*', 'bid.company_name', 'bid.address', 'mode.mode_name')
                 ->join('suppliers as bid', 'bid.id', '=', 'po.awarded_to')
+                ->join('purchase_requests as pr', 'pr.id', '=', 'po.pr_id') // ADD this join
                 ->join('abstract_quotations as abs', 'abs.pr_id', '=', 'po.pr_id')
                 ->leftJoin('procurement_modes as mode', 'mode.id', '=', 'abs.mode_procurement')
                 ->where('po.id', $id)
@@ -3574,13 +3576,17 @@ class PrintController extends Controller
                     'data' => [['Date of Delivery: ', $po->date_delivery,
                                 'Payment Term: ', $po->payment_term]]
                 ], [
-                        'aligns' => ['L', ''],
-                        'widths' => [17, 83],
-                        'font-styles' => ['', 'B'],
+                        'col-span' => true,  // ADD: Enable column spanning
+                        'col-span-key' => ['0-3'],  // ADD: Span all 4 columns
+                        'aligns' => ['L', '', '', ''],  // KEEP 4 alignments for compatibility
+                        'widths' => [17, 83, 0, 0],  // KEEP 4 widths, but last 2 are 0
+                        'font-styles' => ['', '', '', ''],  // KEEP 4 font styles
                         'type' => 'other',
                         'data' => [[
                             'Project Title/Purpose: ',
-                            (!empty($po->purpose) ? $po->purpose : ' ') . "\n"
+                            (!empty($po->purpose) ? $po->purpose : ' ') . "\n",
+                             '',  // ADD: Empty cell
+                             ''   // ADD: Empty cell
                         ]]
                     ]
 
