@@ -9,6 +9,8 @@ class DocRequestQuotation extends PDF {
         $fontScale = $this->fontScale;
 
         $this->docId = $data->rfq->id;
+        $purpose = $data->pr->purpose ?? ''; // Retrieve purpose from PR data
+
 
         /* ------------------------------------- Start of Config ------------------------------------- */
 
@@ -62,8 +64,12 @@ class DocRequestQuotation extends PDF {
                             "to have your best prices, terms and conditions of delivery.",
                             0, 'L');
             $this->Ln(5);
-            $this->Cell(0, 5, 'Project Title/ Purpose: ___________________________________________________________________________');
-            $this->Ln();
+            // $this->Cell(0, 5, 'Project Title/ Purpose: ___________________________________________________________________________');
+            // $this->Ln();
+                // Replace the Cell line with:
+                $html = 'Project Title/ Purpose: <u>' . htmlspecialchars($purpose) . '</u>';
+                $this->writeHTMLCell(0, 5, '', '', $html, 0, 1, false, true, 'L', true);
+                $this->Ln();
             $this->Cell(0, 5, 'Project Location: ________________________________________________________________________________');
             $this->Ln();
 
