@@ -4243,13 +4243,12 @@ class PrintController extends Controller
         $pdf = new DocObligationRequestStatus('P', $pageUnit, $pageSize);
         $pdf->setHeaderLR(false, true);
         $pdf->setFontScale($fontScale);
-        // $pdf->setCustomPageNo('Page 2 of 2');
 
 
         $docCode = "FM-FAS-BUD F04";
         $docRev = "Revision 1";
         $docRevDate = "02-06-2026";
-        $docRevDate = "Page 2 of 2";
+        $data->pageText = "Page 2 of 2";
         $docTitle = "ors_" . $data->ors->id;
         $docCreator = "DOST-CAR";
         $docAuthor = "DOST-CAR";
