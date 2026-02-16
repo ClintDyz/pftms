@@ -110,6 +110,19 @@ class DocObligationRequestStatus extends PDF {
         $this->Cell(0, 4, "Date \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t: " . $orsDate, 'R');
         $this->Ln();
 
+        // ---- Page text under Date (top-right box) ----
+        $this->SetX($pageWidth * 0.5714); // move cursor to right header box
+        $this->SetFont('helvetica', 'I', 8);
+        $this->Cell(
+            $pageWidth * 0.4286, // width of right box
+            4,
+            'Page 2 of 2',
+            'R',   // right border only (to match box)
+            1,
+            'L'
+        );
+
+
         $this->SetFont('helvetica','', 9 + ($fontScale * 9));
         $this->Cell($pageWidth * 0.10476,4,'','L');
 
