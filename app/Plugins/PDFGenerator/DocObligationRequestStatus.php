@@ -59,24 +59,7 @@ class DocObligationRequestStatus extends PDF {
         $this->Cell($pageWidth * 0.5714, 8, strtoupper($docSubject), 'TLR', 0, 'C');
         $this->Cell(0, 8, '', 'TR');
         $this->Ln();
-
-        // Draw metadata box
-            $currentX = $this->getX();
-            $currentY = $this->getY();
-            $this->SetXY($this->w - 50, 24);
-            $this->SetFont('helvetica', '', 8 + ($fontScale * 8));
-            $this->MultiCell(40, 3.5,
-                "FM-FAS-BUD F04\n" .
-                "Revision 1\n" .
-                "02-06-2026\n" .
-                "Page 2 of 2",
-                1, 'L'
-            );
-            $this->SetXY($currentX, $currentY);
-
-            // Continue with existing code
-            $this->Cell(0, 8, '', 'TR');
-            $this->Ln();
+        
 
         $xCoor = $this->getX();
         $yCoor = $this->getY();

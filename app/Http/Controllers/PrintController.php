@@ -4245,13 +4245,9 @@ class PrintController extends Controller
         $pdf->setFontScale($fontScale);
 
 
-        // $docCode = "FM-FAS-BUD F04";
-        // $docRev = "Revision 1";
-        // $docRevDate = "02-06-2026";
-        // $customPageNo = "Page 2 of 2"; // or "Page 2 of 2" if you really want
-
-        // Pass metadata to the PDF instance
-        // $pdf->setDocMetadata($docCode, $docRev, $docRevDate, $customPageNo);
+        $docCode = "FM-FAS-BUD F04";
+        $docRev = "Revision 1";
+        $docRevDate = "02-06-2026";
         $docTitle = "ors_" . $data->ors->id;
         $docCreator = "DOST-CAR";
         $docAuthor = "DOST-CAR";
