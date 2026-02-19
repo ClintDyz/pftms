@@ -59,7 +59,7 @@ class DocObligationRequestStatus extends PDF {
         $this->Cell($pageWidth * 0.5714, 8, strtoupper($docSubject), 'TLR', 0, 'C');
         $this->Cell(0, 8, '', 'TR');
         $this->Ln();
-        
+
 
         $xCoor = $this->getX();
         $yCoor = $this->getY();
@@ -70,7 +70,7 @@ class DocObligationRequestStatus extends PDF {
                 "verify_peer_name" => false,
             ],
         ];
-        $img = file_get_contents(url('images/logo/dostlogo.png'), false,
+        $img = file_get_contents(url('images/logo/dostlogo_update.png'), false,
                                 stream_context_create($arrContextOptions));
         $this->Image('@' . $img, $xCoor + 4, $yCoor, 16, 0, 'PNG');
         $this->SetFont('helvetica', '', 10 + ($fontScale * 10));
@@ -80,7 +80,7 @@ class DocObligationRequestStatus extends PDF {
             $this->SetTextColor(0, 0, 0);
         }
 
-        $this->Cell($pageWidth * 0.466667, 4, 'Republic of the Philippines', 'R');
+        $this->Cell($pageWidth * 0.466667, 4, '', 'R');
         $this->SetFont('helvetica','IB', 10 + ($fontScale * 10));
         $this->SetTextColor(0, 0, 0);
         $this->Cell(0, 4, "Serial No. \t\t\t\t\t\t\t\t\t: " . $data->ors->serial_no, 'R');
@@ -93,7 +93,7 @@ class DocObligationRequestStatus extends PDF {
             $this->SetTextColor(0, 0, 0);
         }
 
-        $this->Cell($pageWidth * 0.466667, 4, 'DEPARTMENT OF SCIENCE AND TECHNOLOGY', 'R');
+        $this->Cell($pageWidth * 0.466667, 4, '', 'R');
         $this->SetTextColor(0, 0, 0);
         $this->Cell(0, 4, '', 'R');
         $this->Ln();
@@ -105,7 +105,7 @@ class DocObligationRequestStatus extends PDF {
             $this->SetTextColor(0, 0, 0);
         }
 
-        $this->Cell($pageWidth * 0.466667,4, 'Cordillera Administrative Region', 'R');
+        $this->Cell($pageWidth * 0.466667,4, '', 'R');
         $this->SetFont('helvetica','B', 10 + ($fontScale * 10));
         $this->SetTextColor(0, 0, 0);
         $this->Cell(0, 4, "Date \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t: " . $orsDate, 'R');
