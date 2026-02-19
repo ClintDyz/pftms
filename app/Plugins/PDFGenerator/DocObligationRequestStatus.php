@@ -83,7 +83,7 @@ $logoAndTextWidth = $pageWidth * 0.57;  // Left side for logo (which includes te
 $rightBoxWidth = $pageWidth * 0.43;     // Right side for Serial No. and Date
 
 // Draw left cell WITH TOP, LEFT, BOTTOM borders only (no right border - that's the line to remove)
-$this->Cell($logoAndTextWidth, 12, '', 'TL', 0, 'L');
+$this->Cell($logoAndTextWidth, 12, '', 'LR', 0, 'L');
 
 // Insert the logo into the left cell area
 $this->Image('@' . $img, $xCoor + 3, $yCoor + 1, 100, 0, 'PNG');
@@ -93,11 +93,11 @@ $currentX = $this->GetX();
 $this->SetFont('helvetica', '', 9 + ($fontScale * 9));
 
 // Serial No. line - with TOP and RIGHT borders only
-$this->Cell($rightBoxWidth, 6, 'Serial No.  : ' . $data->ors->serial_no, 'R', 2, 'L');
+$this->Cell($rightBoxWidth, 6, 'Serial No.  : ' . $data->ors->serial_no, 'LR', 2, 'L');
 
 // Date line - with RIGHT and BOTTOM borders only
 $this->SetX($currentX);
-$this->Cell($rightBoxWidth, 6, 'Date          : ' . $orsDate, 'R', 1, 'L');
+$this->Cell($rightBoxWidth, 6, 'Date          : ' . $orsDate, 'LR', 1, 'L');
 
 // Move to next row (Entity Name)
 $this->Ln(0);
