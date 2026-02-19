@@ -68,20 +68,22 @@ $arrContextOptions = [
 $img = file_get_contents(url('images/logo/dostlogoupdate.png'), false,
                         stream_context_create($arrContextOptions));
 
-// Make the logo much larger since it includes text
+// Logo dimensions and position
 $logoX = $xCoor + 4;
 $logoY = $yCoor;
-$logoWidth = 100; // Increased from 16 to 100
+$logoWidth = 100;
 
-// Draw left border cell
+// Draw the complete bordered section
 $this->SetXY($xCoor, $yCoor);
-$this->Cell($pageWidth * 0.71, 13, '', 'TL', 0);
 
-// Place the large logo
-$this->Image('@' . $img, $logoX, $logoY, $logoWidth, 0, 'PNG');
+// Full width cell with top, left, right, bottom borders
+$this->Cell($pageWidth, 13, '', 'LR', 0, 'L');
 
-// Right border
-$this->Cell($pageWidth * 0.29, 13, '', 'BR', 1);
+// Place the logo on top of the bordered cell
+$this->Image('@' . $img, $logoX, $logoY + 0.5, $logoWidth, 0, 'PNG');
+
+// Move to next line
+$this->Ln();
 
         // $xCoor = $this->getX();
         // $yCoor = $this->getY();
