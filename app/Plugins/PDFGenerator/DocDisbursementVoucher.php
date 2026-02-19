@@ -53,7 +53,8 @@ class DocDisbursementVoucher extends PDF {
         $yCoor = $this->GetY();
 
         $this->Cell($pageWidth * 0.71, 1, '', "TL", 0, 'C');
-        $this->Cell(0, 1, '', 'TR');
+        $this->Cell($pageWidth * 0.29, 1, '', 'TR', 1); // Changed 0 to 0.29 and added parameter 1
+        // $this->Cell(0, 1, '', 'TR');
         $this->Ln();
 
 $xCoor = $this->getX();
@@ -77,7 +78,7 @@ $logoWidth = 100;
 $this->SetXY($xCoor, $yCoor);
 
 // Full width cell with top, left, right, bottom borders
-$this->Cell($pageWidth, 13, '', 'LR', 0, 'L');
+$this->Cell($pageWidth, 13, '', 'LRB', 0, 'L');
 
 // Place the logo on top of the bordered cell
 $this->Image('@' . $img, $logoX, $logoY + 0.5, $logoWidth, 0, 'PNG');
@@ -129,10 +130,10 @@ $this->Ln();
         // $this->Ln();
 
         // --- UPDATED SECTION ---
-        $this->SetX($xCoor);
-        $this->Cell($pageWidth * 0.55, 4, '', 'BL', 0, 'C'); // Changed from 0.71 to 0.55
-        $this->Cell($pageWidth * 0, 4, '', 'BR');
-        $this->Ln();
+        // $this->SetX($xCoor);
+        // $this->Cell($pageWidth * 0.55, 4, '', 'BL', 0); // Changed from 0.71 to 0.55
+        // $this->Cell($pageWidth * 0, 4, '', 'BR', 1);
+        // $this->Ln();
 
         $this->Cell($pageWidth * 0.55, 5,'', 'L', '', 'C'); // Changed from 0.71 to 0.55
         $this->Cell($pageWidth * 0, 5, "Fund Cluster : 01", 'LR');

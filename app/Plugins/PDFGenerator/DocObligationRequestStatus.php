@@ -84,7 +84,7 @@ $logoAndTextWidth = $pageWidth * 0.5714;   // Left side for logo
 $rightBoxWidth = $pageWidth * 0.4286;      // Right side for Serial No. and Date
 
 // Draw left cell with LEFT and TOP borders
-$this->Cell($logoAndTextWidth, 6, '', 'LT', 0, 'L');
+$this->Cell($logoAndTextWidth, 6, '', 'L', 0, 'L');
 
 // Insert the logo
 $this->Image('@' . $img, $startX + 3, $yCoor, 100, 0, 'PNG');
@@ -94,7 +94,7 @@ $rightStartX = $this->GetX();
 
 // Draw right section - Serial No. line with TOP, LEFT, RIGHT borders
 $this->SetFont('helvetica', '', 9 + ($fontScale * 9));
-$this->Cell($rightBoxWidth, 6, 'Serial No.  : ' . $data->ors->serial_no, 'TLR', 2, 'L');
+$this->Cell($rightBoxWidth, 6, 'Serial No.  : ' . $data->ors->serial_no, 'LR', 2, 'L');
 
 // Continue left logo area - second row with LEFT border only
 $this->SetX($startX);
@@ -106,8 +106,8 @@ $this->Cell($rightBoxWidth, 6, 'Date          : ' . $orsDate, 'LR', 1, 'L');
 
 // Close the bottom borders
 $this->SetX($startX);
-$this->Cell($logoAndTextWidth, 0, '', 'LB', 0, 'L');
-$this->Cell($rightBoxWidth, 0, '', 'RB', 1, 'L');
+$this->Cell($logoAndTextWidth, 0, '', 'L', 0, 'L');
+$this->Cell($rightBoxWidth, 0, '', 'R', 1, 'L');
 
 // Entity Name row
 $this->SetFont('helvetica','IB', 11 + ($fontScale * 11));
