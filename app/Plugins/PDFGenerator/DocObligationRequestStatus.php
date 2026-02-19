@@ -70,7 +70,7 @@ class DocObligationRequestStatus extends PDF {
                 "verify_peer_name" => false,
             ],
         ];
-        
+
 //start
 $img = file_get_contents(
     url('images/logo/dostlogoupdate.png'),
@@ -82,12 +82,12 @@ $img = file_get_contents(
 $logoAndTextWidth = $pageWidth * 0.57;  // Left side for logo (which includes text)
 $rightBoxWidth = $pageWidth * 0.43;     // Right side for Serial No. and Date
 
-// Draw left cell with logo (logo already contains the text)
-$this->Cell($logoAndTextWidth, 12, '', 'TLB', 0, 'L');
+// Draw left cell WITHOUT BORDERS (remove 'TLB')
+$this->Cell($logoAndTextWidth, 12, '', '', 0, 'L');
 
-// Insert the logo into the left cell area
-// The logo is wider now because it includes the text
-$this->Image('@' . $img, $xCoor + 5, $yCoor + 2, 85, 0, 'PNG');
+// Insert the logo into the left cell area - MADE LARGER
+// Changed from 85 to 110 (you can adjust this number to make it bigger/smaller)
+$this->Image('@' . $img, $xCoor + 3, $yCoor + 1, 110, 0, 'PNG');
 
 // Draw right section box (Serial No. and Date)
 $currentX = $this->GetX();
@@ -102,7 +102,6 @@ $this->Cell($rightBoxWidth, 6, 'Date          : ' . $orsDate, 'RB', 1, 'L');
 
 // Move to next row (Entity Name)
 $this->Ln(0);
-
 
         // $img = file_get_contents(url('images/logo/dostlogo_update.png'), false,
         //                         stream_context_create($arrContextOptions));
