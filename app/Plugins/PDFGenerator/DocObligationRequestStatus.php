@@ -70,46 +70,127 @@ class DocObligationRequestStatus extends PDF {
                 "verify_peer_name" => false,
             ],
         ];
-        $img = file_get_contents(url('images/logo/dostlogo_update.png'), false,
-                                stream_context_create($arrContextOptions));
-        $this->Image('@' . $img, $xCoor + 4, $yCoor, 16, 0, 'PNG');
-        $this->SetFont('helvetica', '', 10 + ($fontScale * 10));
-        $this->Cell($pageWidth * 0.10476, 4, '', 'L');
 
-        if (strtolower($data->ors->document_type) == 'ors') {
+        // Load the updated DOST logo image from the public URL
+            $img = file_get_contents(
+                url('images/logo/dostlogo_update.png'),
+                false,
+                stream_context_create($arrContextOptions)
+            );
+
+            /*
+            |--------------------------------------------------------------------------
+            | UPDATED: Make logo larger to occupy removed header text area
+            |--------------------------------------------------------------------------
+            | Old width: 16
+            | New width: 45 (you can adjust if needed)
+            |
+            | Since we removed:
+            | - Republic of the Philippines
+            | - DEPARTMENT OF SCIENCE AND TECHNOLOGY
+            | - Cordillera Administrative Region
+            |
+            | The logo will now occupy that vertical space.
+            */
+            $this->Image('@' . $img, $xCoor + 4, $yCoor, 55, 0, 'PNG');
+
+            $this->SetFont('helvetica', '', 10 + ($fontScale * 10));
+            $this->Cell($pageWidth * 0.10476, 4, '', 'L');
+
+            if (strtolower($data->ors->document_type) == 'ors') {
+                $this->SetTextColor(0, 0, 0);
+            }
+
+            /*
+            |--------------------------------------------------------------------------
+            | REMOVED HEADER TEXT (commented only, not deleted)
+            |--------------------------------------------------------------------------
+            */
+            // $this->Cell($pageWidth * 0.466667, 4, 'Republic of the Philippines', 'R');
+
+            $this->SetFont('helvetica','IB', 10 + ($fontScale * 10));
             $this->SetTextColor(0, 0, 0);
-        }
+            $this->Cell(0, 4, "Serial No. \t\t\t\t\t\t\t\t\t: " . $data->ors->serial_no, 'R');
+            $this->Ln();
 
-        $this->Cell($pageWidth * 0.466667, 4, '', 'R');
-        $this->SetFont('helvetica','IB', 10 + ($fontScale * 10));
-        $this->SetTextColor(0, 0, 0);
-        $this->Cell(0, 4, "Serial No. \t\t\t\t\t\t\t\t\t: " . $data->ors->serial_no, 'R');
-        $this->Ln();
+            $this->Cell($pageWidth * 0.10476, 4, '', 'L');
+            $this->SetFont('helvetica', 'B', 10 + ($fontScale * 10));
 
-        $this->Cell($pageWidth * 0.10476, 4, '', 'L');
-        $this->SetFont('helvetica', 'B', 10 + ($fontScale * 10));
+            if (strtolower($data->ors->document_type) == 'ors') {
+                $this->SetTextColor(0, 0, 0);
+            }
 
-        if (strtolower($data->ors->document_type) == 'ors') {
+            /*
+            |--------------------------------------------------------------------------
+            | REMOVED HEADER TEXT (commented only, not deleted)
+            |--------------------------------------------------------------------------
+            */
+            // $this->Cell($pageWidth * 0.466667, 4, 'DEPARTMENT OF SCIENCE AND TECHNOLOGY', 'R');
+
             $this->SetTextColor(0, 0, 0);
-        }
+            $this->Cell(0, 4, '', 'R');
+            $this->Ln();
 
-        $this->Cell($pageWidth * 0.466667, 4, '', 'R');
-        $this->SetTextColor(0, 0, 0);
-        $this->Cell(0, 4, '', 'R');
-        $this->Ln();
+            $this->SetFont('helvetica', '', 9 + ($fontScale * 9));
+            $this->Cell($pageWidth * 0.10476,4, '', 'L');
 
-        $this->SetFont('helvetica', '', 9 + ($fontScale * 9));
-        $this->Cell($pageWidth * 0.10476,4, '', 'L');
+            if (strtolower($data->ors->document_type) == 'ors') {
+                $this->SetTextColor(0, 0, 0);
+            }
 
-        if (strtolower($data->ors->document_type) == 'ors') {
+            /*
+            |--------------------------------------------------------------------------
+            | REMOVED HEADER TEXT (commented only, not deleted)
+            |--------------------------------------------------------------------------
+            */
+            // $this->Cell($pageWidth * 0.466667,4, 'Cordillera Administrative Region', 'R');
+
+            $this->SetFont('helvetica','B', 10 + ($fontScale * 10));
             $this->SetTextColor(0, 0, 0);
-        }
+            $this->Cell(0, 4, "Date \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t: " . $orsDate, 'R');
+            $this->Ln();
 
-        $this->Cell($pageWidth * 0.466667,4, '', 'R');
-        $this->SetFont('helvetica','B', 10 + ($fontScale * 10));
-        $this->SetTextColor(0, 0, 0);
-        $this->Cell(0, 4, "Date \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t: " . $orsDate, 'R');
-        $this->Ln();
+
+        // $img = file_get_contents(url('images/logo/dostlogo_update.png'), false,
+        //                         stream_context_create($arrContextOptions));
+        // $this->Image('@' . $img, $xCoor + 4, $yCoor, 16, 0, 'PNG');
+        // $this->SetFont('helvetica', '', 10 + ($fontScale * 10));
+        // $this->Cell($pageWidth * 0.10476, 4, '', 'L');
+
+        // if (strtolower($data->ors->document_type) == 'ors') {
+        //     $this->SetTextColor(0, 0, 0);
+        // }
+
+        // $this->Cell($pageWidth * 0.466667, 4, 'Republic of the Philippines', 'R');
+        // $this->SetFont('helvetica','IB', 10 + ($fontScale * 10));
+        // $this->SetTextColor(0, 0, 0);
+        // $this->Cell(0, 4, "Serial No. \t\t\t\t\t\t\t\t\t: " . $data->ors->serial_no, 'R');
+        // $this->Ln();
+
+        // $this->Cell($pageWidth * 0.10476, 4, '', 'L');
+        // $this->SetFont('helvetica', 'B', 10 + ($fontScale * 10));
+
+        // if (strtolower($data->ors->document_type) == 'ors') {
+        //     $this->SetTextColor(0, 0, 0);
+        // }
+
+        // $this->Cell($pageWidth * 0.466667, 4, 'DEPARTMENT OF SCIENCE AND TECHNOLOGY', 'R');
+        // $this->SetTextColor(0, 0, 0);
+        // $this->Cell(0, 4, '', 'R');
+        // $this->Ln();
+
+        // $this->SetFont('helvetica', '', 9 + ($fontScale * 9));
+        // $this->Cell($pageWidth * 0.10476,4, '', 'L');
+
+        // if (strtolower($data->ors->document_type) == 'ors') {
+        //     $this->SetTextColor(0, 0, 0);
+        // }
+
+        // $this->Cell($pageWidth * 0.466667,4, 'Cordillera Administrative Region', 'R');
+        // $this->SetFont('helvetica','B', 10 + ($fontScale * 10));
+        // $this->SetTextColor(0, 0, 0);
+        // $this->Cell(0, 4, "Date \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t: " . $orsDate, 'R');
+        // $this->Ln();
 
 
         $this->SetFont('helvetica','', 9 + ($fontScale * 9));
