@@ -82,23 +82,22 @@ $img = file_get_contents(
 $logoAndTextWidth = $pageWidth * 0.57;  // Left side for logo (which includes text)
 $rightBoxWidth = $pageWidth * 0.43;     // Right side for Serial No. and Date
 
-// Draw left cell WITHOUT BORDERS (remove 'TLB')
-$this->Cell($logoAndTextWidth, 12, '', '', 0, 'L');
+// Draw left cell WITH TOP, LEFT, BOTTOM borders only (no right border - that's the line to remove)
+$this->Cell($logoAndTextWidth, 12, '', 'TL', 0, 'L');
 
-// Insert the logo into the left cell area - MADE LARGER
-// Changed from 85 to 110 (you can adjust this number to make it bigger/smaller)
-$this->Image('@' . $img, $xCoor + 3, $yCoor + 1, 110, 0, 'PNG');
+// Insert the logo into the left cell area
+$this->Image('@' . $img, $xCoor + 3, $yCoor + 1, 100, 0, 'PNG');
 
-// Draw right section box (Serial No. and Date)
+// Draw right section WITHOUT LEFT BORDER (to remove the dividing line)
 $currentX = $this->GetX();
 $this->SetFont('helvetica', '', 9 + ($fontScale * 9));
 
-// Serial No. line
-$this->Cell($rightBoxWidth, 6, 'Serial No.  : ' . $data->ors->serial_no, 'TR', 2, 'L');
+// Serial No. line - with TOP and RIGHT borders only
+$this->Cell($rightBoxWidth, 6, 'Serial No.  : ' . $data->ors->serial_no, 'R', 2, 'L');
 
-// Date line
+// Date line - with RIGHT and BOTTOM borders only
 $this->SetX($currentX);
-$this->Cell($rightBoxWidth, 6, 'Date          : ' . $orsDate, 'RB', 1, 'L');
+$this->Cell($rightBoxWidth, 6, 'Date          : ' . $orsDate, 'R', 1, 'L');
 
 // Move to next row (Entity Name)
 $this->Ln(0);
