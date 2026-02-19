@@ -78,25 +78,30 @@ $img = file_get_contents(
     stream_context_create($arrContextOptions)
 );
 
+// Save the starting X position
+$startX = $this->GetX();
+
 // Define layout widths
 $logoAndTextWidth = $pageWidth * 0.57;  // Left side for logo (which includes text)
 $rightBoxWidth = $pageWidth * 0.43;     // Right side for Serial No. and Date
 
-// Draw left cell WITH TOP, LEFT, BOTTOM borders only (no right border - that's the line to remove)
-$this->Cell($logoAndTextWidth, 12, '', 'LR', 0, 'L');
+// Draw left cell with LEFT border only
+$this->Cell($logoAndTextWidth, 12, '', 'L', 0, 'L');
 
 // Insert the logo into the left cell area
-$this->Image('@' . $img, $xCoor + 3, $yCoor + 1, 100, 0, 'PNG');
+$this->Image('@' . $img, $startX + 3, $yCoor + 1, 100, 0, 'PNG');
 
-// Draw right section WITHOUT LEFT BORDER (to remove the dividing line)
-$currentX = $this->GetX();
+// Get the X position for the right section
+$rightStartX = $this->GetX();
+
+// Draw right section WITH LEFT and RIGHT borders
 $this->SetFont('helvetica', '', 9 + ($fontScale * 9));
 
-// Serial No. line - with TOP and RIGHT borders only
+// Serial No. line
 $this->Cell($rightBoxWidth, 6, 'Serial No.  : ' . $data->ors->serial_no, 'LR', 2, 'L');
 
-// Date line - with RIGHT and BOTTOM borders only
-$this->SetX($currentX);
+// Date line - need to reset X to align properly
+$this->SetX($rightStartX);
 $this->Cell($rightBoxWidth, 6, 'Date          : ' . $orsDate, 'LR', 1, 'L');
 
 // Move to next row (Entity Name)
