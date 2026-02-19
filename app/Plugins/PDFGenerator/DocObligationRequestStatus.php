@@ -148,13 +148,21 @@ $this->Ln(0);
         // $this->Cell(0, 4, "Date \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t: " . $orsDate, 'R');
         // $this->Ln();
 
+        // This section closes the bottom border of the logo/Serial No. area
+$this->SetFont('helvetica','', 9 + ($fontScale * 9));
 
-        $this->SetFont('helvetica','', 9 + ($fontScale * 9));
-        $this->Cell($pageWidth * 0.10476,4,'','L');
+// Left section - add BOTTOM border
+$this->Cell($pageWidth * 0.57, 4, '', 'LB', 0, 'L');
 
-        if (strtolower($data->ors->document_type) == 'ors') {
-            $this->SetTextColor(0, 0, 0);
-        }
+// Right section - add BOTTOM border
+$this->Cell($pageWidth * 0.43, 4, '', 'RB', 1, 'L');
+
+        // $this->SetFont('helvetica','', 9 + ($fontScale * 9));
+        // $this->Cell($pageWidth * 0.10476,4,'','L');
+
+        // if (strtolower($data->ors->document_type) == 'ors') {
+        //     $this->SetTextColor(0, 0, 0);
+        // }
 
         $this->Cell($pageWidth * 0.466667,4,'','R');
         $this->SetTextColor(0, 0, 0);
