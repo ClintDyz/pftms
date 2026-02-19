@@ -56,48 +56,75 @@ class DocDisbursementVoucher extends PDF {
         $this->Cell(0, 1, '', 'TR');
         $this->Ln();
 
-        $xCoor = $this->getX();
-        $yCoor = $this->getY();
+$xCoor = $this->getX();
+$yCoor = $this->getY();
 
-        $arrContextOptions = [
-            "ssl" => [
-                "verify_peer" => false,
-                "verify_peer_name" => false,
-            ],
-        ];
-        $img = file_get_contents(url('images/logo/dostlogo.png'), false,
-                                stream_context_create($arrContextOptions));
+$arrContextOptions = [
+    "ssl" => [
+        "verify_peer" => false,
+        "verify_peer_name" => false,
+    ],
+];
+$img = file_get_contents(url('images/logo/dostlogoupdate.png'), false,
+                        stream_context_create($arrContextOptions));
 
-        // Logo dimensions and position
-        $logoX = $xCoor + 4;
-        $logoY = $yCoor;
-        $logoWidth = 16;
+// Make the logo much larger since it includes text
+$logoX = $xCoor + 4;
+$logoY = $yCoor;
+$logoWidth = 100; // Increased from 16 to 100
 
-        $this->Image('@' . $img, $logoX, $logoY, $logoWidth, 0, 'PNG');
+// Draw left border cell
+$this->SetXY($xCoor, $yCoor);
+$this->Cell($pageWidth * 0.71, 13, '', 'TL', 0);
 
-        // Position text to the right of the logo
-        $textX = $logoX + $logoWidth + 3; // 3mm gap after logo
-        // --- FIX START ---
-        // We move to $xCoor first to draw the very first left border line
-        $this->SetXY($xCoor, $yCoor);
-        $this->Cell($textX - $xCoor, 5, '', 'L', 0); // Draws the left border for the logo area
+// Place the large logo
+$this->Image('@' . $img, $logoX, $logoY, $logoWidth, 0, 'PNG');
 
-        $this->SetFont('Times', 'B', 10);
-        $this->Cell($pageWidth * 0.71 - ($textX - $xCoor), 5, 'Republic of the Philippines', 0, 0, 'L');
-        $this->Cell($pageWidth * 0, 5, '', 'R');
-        $this->Ln();
+// Right border
+$this->Cell($pageWidth * 0.29, 13, '', 'BR', 1);
 
-        $this->SetX($xCoor);
-        $this->Cell($textX - $xCoor, 5, '', 'L', 0); // Continues the left border down
-        $this->Cell($pageWidth * 0.71 - ($textX - $xCoor), 5, 'DEPARTMENT OF SCIENCE AND TECHNOLOGY', 0, 0, 'L');
-        $this->Cell($pageWidth * 0, 5, '', 'R');
-        $this->Ln();
+        // $xCoor = $this->getX();
+        // $yCoor = $this->getY();
 
-        $this->SetX($xCoor);
-        $this->Cell($textX - $xCoor, 3, '', 'L', 0); // Continues the left border down
-        $this->Cell($pageWidth * 0.71 - ($textX - $xCoor), 3, 'Cordillera Administrative Region', 0, 0, 'L');
-        $this->Cell($pageWidth * 0, 3, '', 'R');
-        $this->Ln();
+        // $arrContextOptions = [
+        //     "ssl" => [
+        //         "verify_peer" => false,
+        //         "verify_peer_name" => false,
+        //     ],
+        // ];
+        // $img = file_get_contents(url('images/logo/dostlogo.png'), false,
+        //                         stream_context_create($arrContextOptions));
+
+        // // Logo dimensions and position
+        // $logoX = $xCoor + 4;
+        // $logoY = $yCoor;
+        // $logoWidth = 16;
+
+        // $this->Image('@' . $img, $logoX, $logoY, $logoWidth, 0, 'PNG');
+
+        // // Position text to the right of the logo
+        // $textX = $logoX + $logoWidth + 3; // 3mm gap after logo
+        // // --- FIX START ---
+        // // We move to $xCoor first to draw the very first left border line
+        // $this->SetXY($xCoor, $yCoor);
+        // $this->Cell($textX - $xCoor, 5, '', 'L', 0); // Draws the left border for the logo area
+
+        // $this->SetFont('Times', 'B', 10);
+        // $this->Cell($pageWidth * 0.71 - ($textX - $xCoor), 5, 'Republic of the Philippines', 0, 0, 'L');
+        // $this->Cell($pageWidth * 0, 5, '', 'R');
+        // $this->Ln();
+
+        // $this->SetX($xCoor);
+        // $this->Cell($textX - $xCoor, 5, '', 'L', 0); // Continues the left border down
+        // $this->Cell($pageWidth * 0.71 - ($textX - $xCoor), 5, 'DEPARTMENT OF SCIENCE AND TECHNOLOGY', 0, 0, 'L');
+        // $this->Cell($pageWidth * 0, 5, '', 'R');
+        // $this->Ln();
+
+        // $this->SetX($xCoor);
+        // $this->Cell($textX - $xCoor, 3, '', 'L', 0); // Continues the left border down
+        // $this->Cell($pageWidth * 0.71 - ($textX - $xCoor), 3, 'Cordillera Administrative Region', 0, 0, 'L');
+        // $this->Cell($pageWidth * 0, 3, '', 'R');
+        // $this->Ln();
 
         // --- UPDATED SECTION ---
         $this->SetX($xCoor);
