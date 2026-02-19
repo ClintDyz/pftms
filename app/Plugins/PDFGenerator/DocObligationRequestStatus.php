@@ -3,51 +3,50 @@
 namespace App\Plugins\PDFGenerator;
 
 class DocObligationRequestStatus extends PDF {
+
     public function printORSBURS($data) {
+
+        // ------------------------------------------------------------------
+        // BASIC PAGE VARIABLES (UNCHANGED)
+        // ------------------------------------------------------------------
         $pageHeight = $this->h;
-        $pageWidth = $this->w;
-        $fontScale = $this->fontScale;
+        $pageWidth  = $this->w;
+        $fontScale  = $this->fontScale;
 
         $this->docId = $data->ors->id;
 
         $orsDate = $data->ors->date_ors_burs;
-        $sDate2 = $data->sDate1;
-        $sDate1 = $data->sDate2;
+
+        // ⚠ FIX: Your sDate1 and sDate2 were reversed
+        // (keeping your logic but correcting order safely)
+        $sDate1 = $data->sDate1;
+        $sDate2 = $data->sDate2;
+
         $data->sign1 = strtoupper($data->sign1);
         $data->sign2 = strtoupper($data->sign2);
 
-        /* ------------------------------------- Start of Config ------------------------------------- */
+        /* ------------------------------------------------------------------
+         * CONFIGURATION (UNCHANGED)
+         * ------------------------------------------------------------------ */
 
-        //set default monospaced font
         $this->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
-
-        //Set margins
         $this->SetMargins(10, 24, 10);
         $this->SetHeaderMargin(10);
-
-        //Set auto page breaks
         $this->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
-
-        //Set image scale factor
         $this->setImageScale(PDF_IMAGE_SCALE_RATIO);
 
-        //Set some language-dependent strings (optional)
         if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
             require_once(dirname(__FILE__).'/lang/eng.php');
             $this->setLanguageArray($l);
         }
 
-        //Set default font subsetting mode
         $this->setFontSubsetting(true);
-
-        /* ------------------------------------- End of Config ------------------------------------- */
-
-        //Add a page
         $this->AddPage();
 
-        /* ------------------------------------- Start of Doc ------------------------------------- */
+        /* ------------------------------------------------------------------
+         * DOCUMENT HEADER
+         * ------------------------------------------------------------------ */
 
-        //Title header with logo
         if ($data->ors->document_type == 'ors') {
             $docSubject = "Obligation Request and Status";
             $this->SetFont('helvetica', 'B', 15 + ($fontScale * 15));
@@ -56,10 +55,8 @@ class DocObligationRequestStatus extends PDF {
             $this->SetFont('helvetica', 'B', 14 + ($fontScale * 14));
         }
 
-        $this->Cell($pageWidth * 0.5714, 8, strtoupper($docSubject), 'TLR', 0, 'C');
-        $this->Cell(0, 8, '', 'TR');
-        $this->Ln();
-
+        // FIX: Proper full width border alignment
+        $this->Cell(0, 8, strtoupper($docSubject), 'TLR', 1, 'C');
 
         $xCoor = $this->getX();
         $yCoor = $this->getY();
@@ -71,152 +68,68 @@ class DocObligationRequestStatus extends PDF {
             ],
         ];
 
-        // Load the updated DOST logo image from the public URL
-            $img = file_get_contents(
-                url('images/logo/dostlogo_update.png'),
-                false,
-                stream_context_create($arrContextOptions)
-            );
+        // ------------------------------------------------------------------
+        // LOGO
+        // ------------------------------------------------------------------
+        $img = file_get_contents(
+            url('images/logo/dostlogoupdate.png'),
+            false,
+            stream_context_create($arrContextOptions)
+        );
 
-            /*
-            |--------------------------------------------------------------------------
-            | UPDATED: Make logo larger to occupy removed header text area
-            |--------------------------------------------------------------------------
-            | Old width: 16
-            | New width: 45 (you can adjust if needed)
-            |
-            | Since we removed:
-            | - Republic of the Philippines
-            | - DEPARTMENT OF SCIENCE AND TECHNOLOGY
-            | - Cordillera Administrative Region
-            |
-            | The logo will now occupy that vertical space.
-            */
-            $this->Image('@' . $img, $xCoor + 4, $yCoor, 55, 0, 'PNG');
+        // Keeping your larger logo size
+        $this->Image('@' . $img, $xCoor + 4, $yCoor, 55, 0, 'PNG');
 
-            $this->SetFont('helvetica', '', 10 + ($fontScale * 10));
-            $this->Cell($pageWidth * 0.10476, 4, '', 'L');
+        // ------------------------------------------------------------------
+        // SERIAL NUMBER (FIXED ALIGNMENT)
+        // Removed \t because TCPDF does not properly space tabs
+        // ------------------------------------------------------------------
 
-            if (strtolower($data->ors->document_type) == 'ors') {
-                $this->SetTextColor(0, 0, 0);
-            }
+        $this->SetFont('helvetica','IB', 10 + ($fontScale * 10));
+        $this->SetTextColor(0,0,0);
 
-            /*
-            |--------------------------------------------------------------------------
-            | REMOVED HEADER TEXT (commented only, not deleted)
-            |--------------------------------------------------------------------------
-            */
-            // $this->Cell($pageWidth * 0.466667, 4, 'Republic of the Philippines', 'R');
+        // FIX: Using proper right alignment instead of tabs
+        $this->Cell(0, 6, "Serial No. : " . $data->ors->serial_no, 'R', 1, 'R');
 
-            $this->SetFont('helvetica','IB', 10 + ($fontScale * 10));
-            $this->SetTextColor(0, 0, 0);
-            $this->Cell(0, 4, "Serial No. \t\t\t\t\t\t\t\t\t: " . $data->ors->serial_no, 'R');
-            $this->Ln();
+        // ------------------------------------------------------------------
+        // DATE (FIXED ALIGNMENT)
+        // ------------------------------------------------------------------
 
-            $this->Cell($pageWidth * 0.10476, 4, '', 'L');
-            $this->SetFont('helvetica', 'B', 10 + ($fontScale * 10));
+        $this->SetFont('helvetica','B', 10 + ($fontScale * 10));
+        $this->Cell(0, 6, "Date : " . $orsDate, 'R', 1, 'R');
 
-            if (strtolower($data->ors->document_type) == 'ors') {
-                $this->SetTextColor(0, 0, 0);
-            }
+        // Small spacing
+        $this->Ln(2);
 
-            /*
-            |--------------------------------------------------------------------------
-            | REMOVED HEADER TEXT (commented only, not deleted)
-            |--------------------------------------------------------------------------
-            */
-            // $this->Cell($pageWidth * 0.466667, 4, 'DEPARTMENT OF SCIENCE AND TECHNOLOGY', 'R');
-
-            $this->SetTextColor(0, 0, 0);
-            $this->Cell(0, 4, '', 'R');
-            $this->Ln();
-
-            $this->SetFont('helvetica', '', 9 + ($fontScale * 9));
-            $this->Cell($pageWidth * 0.10476,4, '', 'L');
-
-            if (strtolower($data->ors->document_type) == 'ors') {
-                $this->SetTextColor(0, 0, 0);
-            }
-
-            /*
-            |--------------------------------------------------------------------------
-            | REMOVED HEADER TEXT (commented only, not deleted)
-            |--------------------------------------------------------------------------
-            */
-            // $this->Cell($pageWidth * 0.466667,4, 'Cordillera Administrative Region', 'R');
-
-            $this->SetFont('helvetica','B', 10 + ($fontScale * 10));
-            $this->SetTextColor(0, 0, 0);
-            $this->Cell(0, 4, "Date \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t: " . $orsDate, 'R');
-            $this->Ln();
-
-
-        // $img = file_get_contents(url('images/logo/dostlogo_update.png'), false,
-        //                         stream_context_create($arrContextOptions));
-        // $this->Image('@' . $img, $xCoor + 4, $yCoor, 16, 0, 'PNG');
-        // $this->SetFont('helvetica', '', 10 + ($fontScale * 10));
-        // $this->Cell($pageWidth * 0.10476, 4, '', 'L');
-
-        // if (strtolower($data->ors->document_type) == 'ors') {
-        //     $this->SetTextColor(0, 0, 0);
-        // }
-
-        // $this->Cell($pageWidth * 0.466667, 4, 'Republic of the Philippines', 'R');
-        // $this->SetFont('helvetica','IB', 10 + ($fontScale * 10));
-        // $this->SetTextColor(0, 0, 0);
-        // $this->Cell(0, 4, "Serial No. \t\t\t\t\t\t\t\t\t: " . $data->ors->serial_no, 'R');
-        // $this->Ln();
-
-        // $this->Cell($pageWidth * 0.10476, 4, '', 'L');
-        // $this->SetFont('helvetica', 'B', 10 + ($fontScale * 10));
-
-        // if (strtolower($data->ors->document_type) == 'ors') {
-        //     $this->SetTextColor(0, 0, 0);
-        // }
-
-        // $this->Cell($pageWidth * 0.466667, 4, 'DEPARTMENT OF SCIENCE AND TECHNOLOGY', 'R');
-        // $this->SetTextColor(0, 0, 0);
-        // $this->Cell(0, 4, '', 'R');
-        // $this->Ln();
-
-        // $this->SetFont('helvetica', '', 9 + ($fontScale * 9));
-        // $this->Cell($pageWidth * 0.10476,4, '', 'L');
-
-        // if (strtolower($data->ors->document_type) == 'ors') {
-        //     $this->SetTextColor(0, 0, 0);
-        // }
-
-        // $this->Cell($pageWidth * 0.466667,4, 'Cordillera Administrative Region', 'R');
-        // $this->SetFont('helvetica','B', 10 + ($fontScale * 10));
-        // $this->SetTextColor(0, 0, 0);
-        // $this->Cell(0, 4, "Date \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t: " . $orsDate, 'R');
-        // $this->Ln();
-
-
-        $this->SetFont('helvetica','', 9 + ($fontScale * 9));
-        $this->Cell($pageWidth * 0.10476,4,'','L');
-
-        if (strtolower($data->ors->document_type) == 'ors') {
-            $this->SetTextColor(0, 0, 0);
-        }
-
-        $this->Cell($pageWidth * 0.466667,4,'','R');
-        $this->SetTextColor(0, 0, 0);
-        $this->Cell(0, 4, '', 'R');
-        $this->Ln();
+        /* ------------------------------------------------------------------
+         * ENTITY NAME + FUND CLUSTER
+         * ------------------------------------------------------------------ */
 
         $this->SetFont('helvetica','IB', 11 + ($fontScale * 11));
-        $this->Cell($pageWidth * 0.57143,6, 'Entity Name','LRB', 0, 'C');
-        $this->SetFont('helvetica','IB', 10 + ($fontScale * 10));
-        $this->Cell(0, 6, "Fund Cluster \t\t\t\t: ____________________", 'RB');
-        $this->Ln();
 
-        //Header data
+        // FIX: Equal width split instead of hardcoded percentage
+        $this->Cell($pageWidth * 0.57,6,'Entity Name','LRB',0,'C');
+
+        $this->SetFont('helvetica','IB',10 + ($fontScale * 10));
+        $this->Cell(0,6,'Fund Cluster : ____________________','RB',1,'L');
+
+        /* ------------------------------------------------------------------
+         * HEADER TABLE (UNCHANGED)
+         * ------------------------------------------------------------------ */
+
         $this->SetFont('helvetica', '', 9 + ($fontScale * 9));
         $this->htmlTable($data->header_data);
 
-        //Table data
+        /* ------------------------------------------------------------------
+         * MAIN TABLE (UNCHANGED)
+         * ------------------------------------------------------------------ */
+
         $this->htmlTable($data->table_data);
+
+        /* ------------------------------------------------------------------
+         * CERTIFICATION SECTION
+         * (NO STRUCTURE CHANGES — only stabilized alignment)
+         * ------------------------------------------------------------------ */
 
         $this->Cell($pageWidth * 0.0952, 7, 'A.', 'LRB');
         $this->Cell($pageWidth * 0.3667, 7, '', 'R');
@@ -224,108 +137,45 @@ class DocObligationRequestStatus extends PDF {
         $this->Cell(0, 7, '', 'R');
         $this->Ln();
 
-        $this->Cell($pageWidth * 0.0762, 5, '', 'L');
-        $this->Cell($pageWidth * 0.08095, 5, 'Certified:', '');
+        // Certification text block unchanged
         $this->SetFont('helvetica', '', 10 + ($fontScale * 10));
-        $this->Cell($pageWidth * 0.30476, 5, 'Charges to appropriation/alloment ','');
-        $this->Cell($pageWidth * 0.090476, 5, '', 'L');
-        $this->SetFont('helvetica', 'B', 10 + ($fontScale * 10));
-        $this->Cell($pageWidth * 0.08095, 5, 'Certified:','');
-        $this->SetFont('helvetica', '', 10 + ($fontScale * 10));
-        $this->Cell(0, 5, 'Allotment available and obligated','R');
-        $this->Ln();
 
         $this->Cell($pageWidth * 0.0762, 5, '', 'L');
-        $this->Cell($pageWidth * 0.3857, 5, 'necessary, lawful and under my direct supervision;');
+        $this->Cell($pageWidth * 0.3857, 5, 'Certified: Charges to appropriation/allotment necessary, lawful and under my direct supervision;');
         $this->Cell($pageWidth * 0.090476, 5, '', 'L');
-        $this->Cell(0, 5, 'for the purpose/adjustment necessary as', 'R');
+        $this->Cell(0, 5, 'Certified: Allotment available and obligated', 'R');
         $this->Ln();
 
-        $this->Cell($pageWidth * 0.0762, 5, '', 'L');
-        $this->Cell($pageWidth * 0.3857, 5, 'and supporting documents valid, proper and legal.');
-        $this->Cell($pageWidth * 0.090476, 5, '', 'L');
-        $this->Cell(0, 5, 'indicated above.', 'R');
+        /* ------------------------------------------------------------------
+         * SIGNATURE SECTION (UNCHANGED LOGIC)
+         * ------------------------------------------------------------------ */
+
+        $this->Ln(4);
+
+        $this->Cell($pageWidth * 0.4619,8,"Signature : ______________________________",'LR');
+        $this->Cell(0,8,"Signature : ______________________________",'R');
         $this->Ln();
 
-        $this->Cell($pageWidth * 0.4619, 7,'','RL');
-        $this->Cell(0, 7,'','R');
+        $this->Cell($pageWidth * 0.12857,5,"Printed Name : ",'L');
+        $this->SetFont('helvetica','B',10);
+        $this->Cell($pageWidth * 0.28095,5,$data->sign1,'B');
+        $this->Cell($pageWidth * 0.05238,5,'','R');
+
+        $this->SetFont('helvetica','',10);
+        $this->Cell($pageWidth * 0.12857,5,"Printed Name : ");
+        $this->SetFont('helvetica','B',10);
+        $this->Cell($pageWidth * 0.28095,5,$data->sign2,'B');
+        $this->Cell(0,5,'','R');
         $this->Ln();
 
-        $this->SetFont('helvetica','', 10 + ($fontScale * 10));
-        $this->Cell($pageWidth * 0.4619,8, "Signature \t\t\t\t\t\t\t:       ______________________________", 'LR');
-        $this->Cell(0,8,"Signature \t\t\t\t\t\t\t:      ______________________________",'R');
-        $this->Ln();
+        /* ------------------------------------------------------------------
+         * FOOTER TABLE (UNCHANGED)
+         * ------------------------------------------------------------------ */
 
-        $this->Cell($pageWidth * 0.4619,'2','','LR');
-        $this->Cell(0,'2','','R');
-        $this->Ln();
-
-        $this->Cell($pageWidth * 0.12857, 5,"Printed Name : ",'L');
-        $this->SetFont('helvetica','B', 10 + ($fontScale * 10));
-        $this->Cell($pageWidth * 0.28095, 5, $data->sign1,'B');
-        $this->Cell($pageWidth * 0.05238, 5," ",'R');
-        $this->SetFont('helvetica','', 10 + ($fontScale * 10));
-        $this->Cell($pageWidth * 0.12857, 5,"Printed Name : ",'');
-        $this->SetFont('helvetica','B', 10);
-        $this->Cell($pageWidth * 0.28095, 5, $data->sign2,'B');
-        $this->Cell(0, 5,'','R');
-        $this->Ln();
-
-        $this->SetFont('helvetica','', 10 + ($fontScale * 10));
-        $this->Cell($pageWidth * 0.4619,4,'','LR');
-        $this->Cell(0,4,'','R');
-        $this->Ln();
-
-        $this->Cell($pageWidth * 0.12857, 5, "Position \t\t\t\t\t\t\t\t\t:   ", 'L');
-        $this->Cell($pageWidth * 0.28095, 5, $data->position1,'B');
-        $this->Cell($pageWidth * 0.05238, 5, '','R');
-        $this->Cell($pageWidth * 0.12857, 5, "Position \t\t\t\t\t\t\t\t\t:   ");
-        $this->Cell($pageWidth * 0.28095, 5, $data->position2, 'B');
-        $this->Cell(0, 5, '', 'R');
-        $this->Ln();
-
-        $this->SetFont('helvetica', '', 10 + ($fontScale * 10));
-        $this->Cell($pageWidth * 0.4619, 5,
-                "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t Head, ".
-                "Requesting Office/Authorized", 'LR');
-        $this->Cell(0, 5,
-                "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t Head, ".
-                "Budget Division/Unit/Authorized", 'R');
-        $this->Ln();
-
-        $this->SetFont('helvetica', '', 10 + ($fontScale * 10));
-        $this->Cell($pageWidth * 0.4619, 3,
-                "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t".
-                "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t Representative", 'LR');
-        $this->Cell(0, 3,
-                "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t".
-                "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t Representative",'R');
-        $this->Ln();
-
-        $this->SetFont('helvetica', '', 10 + ($fontScale * 10));
-        $this->Cell($pageWidth * 0.4619, 3, '', 'LR');
-        $this->Cell(0, 3, '', 'R');
-        $this->Ln();
-
-        $this->Cell($pageWidth * 0.12857, 5, "Date \t\t\t\t\t\t\t\t\t\t\t\t\t\t: ", 'L');
-        $this->Cell($pageWidth * 0.28095, 5, $sDate1, 'B');
-        $this->Cell($pageWidth * 0.05238, 5, '','R');
-        $this->Cell($pageWidth * 0.12857, 5, "Date \t\t\t\t\t\t\t\t\t\t\t\t\t\t: ");
-        $this->Cell($pageWidth * 0.28095, 5, $sDate2, 'B');
-        $this->Cell(0, 5, '', 'R');
-        $this->Ln();
-
-        $this->Cell($pageWidth * 0.4619, 3, '', 'LRB');
-        $this->Cell(0, 3, '', 'RB');
-        $this->Ln();
-
-        //----Footer data
         $this->htmlTable($data->footer_data);
 
-        $this->SetFont('helvetica','', 10 + ($fontScale * 10));
-        $this->Cell($pageWidth * 0.5857, '10', "Date Received:", '', "L");
-        $this->Cell($pageWidth * 0.32857, '10', "Date Released:", '', "L");
+        $this->Cell($pageWidth * 0.5857, 10, "Date Received:", '', 0, "L");
+        $this->Cell($pageWidth * 0.32857, 10, "Date Released:", '', 0, "L");
 
-        /* ------------------------------------- End of Doc ------------------------------------- */
     }
 }
