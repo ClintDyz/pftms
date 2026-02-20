@@ -47,7 +47,8 @@ class DocDisbursementVoucher extends PDF {
         $this->AddPage();
 
         /* ------------------------------------- Start of Doc ------------------------------------- */
-
+   // Add space below the metadata box
+    $this->Ln(8);  // Add 10mm of space (adjust this number as needed)
 
         //Title header with Logo
         $xCoor = $this->GetX();
@@ -56,8 +57,7 @@ class DocDisbursementVoucher extends PDF {
         $this->Cell($pageWidth * 0.71, 1, '', "TL", 0, 'C');
         $this->Cell(0, 1, '', 'TR');
         $this->Ln();
-   // Add space below the metadata box
-    $this->Ln(5);  // Add 10mm of space (adjust this number as needed)
+
 $xCoor = $this->getX();
 $yCoor = $this->getY();
 
@@ -245,6 +245,9 @@ $this->Image('@' . $img, $logoX, $logoY + 0.5, $logoWidth, 0, 'PNG');
                                     "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t".
                                     "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t".
                                     "_____________________\n\n", 1);
+
+        // Add space below the metadata box
+            $this->Ln(3);  // Add 10mm of space (adjust this number as needed)
 
         //Table data
         $this->SetFont('Times', '', 10 + ($fontScale * 10));

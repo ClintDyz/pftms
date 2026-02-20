@@ -46,7 +46,10 @@ class DocObligationRequestStatus extends PDF {
         $this->AddPage();
 
         /* ------------------------------------- Start of Doc ------------------------------------- */
-//Title header with logo
+   // Add space below the metadata box
+    $this->Ln(8);  // Add 10mm of space (adjust this number as needed)
+
+        //Title header with logo
 if ($data->ors->document_type == 'ors') {
     $docSubject = "Obligation Request and Status";
     $this->SetFont('helvetica', 'B', 15 + ($fontScale * 15));
