@@ -309,6 +309,11 @@ class PDF extends TCPDF {
             $this->SetFont('helvetica', '', 8);
             $this->Cell(0, 4, "\tPage 2 of 2", 'LRB');  // FIXED: Combined text properly
             $this->Ln();
+            $this->Ln();
+            $this->Ln();
+            $this->Ln();
+
+
         }
     }
 
