@@ -71,7 +71,7 @@ $img = file_get_contents(url('images/logo/dostlogoupdate.png'), false,
 // Logo dimensions and position
 $logoX = $xCoor + 4;
 $logoY = $yCoor;
-$logoWidth = 100;
+$logoWidth = 90;
 
 // Draw the complete bordered section
 $this->SetXY($xCoor, $yCoor);

@@ -87,7 +87,7 @@ $rightBoxWidth = $pageWidth * 0.4286;      // Right side for Serial No. and Date
 $this->Cell($logoAndTextWidth, 6, '', 'L', 0, 'L');
 
 // Insert the logo
-$this->Image('@' . $img, $startX + 3, $yCoor, 100, 0, 'PNG');
+$this->Image('@' . $img, $startX + 3, $yCoor, 90, 0, 'PNG');
 
 // Get the X position for the right section
 $rightStartX = $this->GetX();
