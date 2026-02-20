@@ -3137,7 +3137,7 @@ class PrintController extends Controller
         $dataHeader = [
             [
                 'aligns' => ['L', 'L', 'L', 'L'],
-                'widths' => [13.4762 * $multiplier, 35.095 * $multiplier,
+                'widths' => [10.4762 * $multiplier, 38.095 * $multiplier,
                              26.19 * $multiplier, 16.6684 * $multiplier],
                 'font-styles' => ['B', 'B', '', ''],
                 'type' => 'other',
@@ -3148,7 +3148,7 @@ class PrintController extends Controller
                 'col-span' => true,
                 'col-span-key' => ['0', '1-3'],
                 'aligns' => ['L', 'L', 'L', 'L'],
-                'widths' => [13.4762 * $multiplier, 77.9534 * $multiplier, '', ''],
+                'widths' => [10.4762 * $multiplier, 80.9534 * $multiplier, '', ''],
                 'font-styles' => ['B', 'B', 'B', 'B'],
                 'type' => 'other',
                 'data' => [["Address", $dv->address]]
