@@ -77,13 +77,15 @@ $logoWidth = 90;
 $this->SetXY($xCoor, $yCoor);
 
 // Full width cell with top, left, right, bottom borders
-$this->Cell($pageWidth, 13, '', 'LR', 0, 'L');
+// $this->Cell($pageWidth, 13, '', 'LR', 0, 'L');
+$this->Cell($pageWidth, 13, '', 'LR', 1, 'L');  // Changed parameter from 0 to 1
+
 
 // Place the logo on top of the bordered cell
 $this->Image('@' . $img, $logoX, $logoY + 0.5, $logoWidth, 0, 'PNG');
 
 // Move to next line
-$this->Ln();
+// $this->Ln();
 
         // $xCoor = $this->getX();
         // $yCoor = $this->getY();
@@ -132,7 +134,7 @@ $this->Ln();
         $this->SetX($xCoor);
         $this->Cell($pageWidth * 0.71, 4, '', 'BL', 0); // Changed from 0.71 to 0.55
         $this->Cell($pageWidth * 0, 4, '', 'BR', 1);
-        $this->Ln();
+        // $this->Ln();
 
         $this->Cell($pageWidth * 0.55, 5,'', 'L', '', 'C'); // Changed from 0.71 to 0.55
         $this->Cell($pageWidth * 0, 5, "Fund Cluster : 01", 'LR');
