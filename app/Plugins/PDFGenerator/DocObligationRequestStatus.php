@@ -81,7 +81,8 @@ $startX = $this->GetX();
 
 // Define layout widths
 $logoAndTextWidth = $pageWidth * 0.5714;   // Left side for logo
-$rightBoxWidth = $pageWidth * 0.4286;      // Right side for Serial No. and Date
+// $rightBoxWidth = $pageWidth * 0.4286;      // Right side for Serial No. and Date
+$rightBoxWidth = $pageWidth - $logoAndTextWidth;  // Right side - CHANGED THIS LINE
 
 // Draw left cell with LEFT and TOP borders
 $this->Cell($logoAndTextWidth, 6, '', 'L', 0, 'L');
@@ -105,9 +106,9 @@ $this->SetX($rightStartX);
 $this->Cell($rightBoxWidth, 6, 'Date          : ' . $orsDate, 'LR', 1, 'L');
 
 // Close the bottom borders
-$this->SetX($startX);
-$this->Cell($logoAndTextWidth, 0, '', 'L', 0, 'L');
-$this->Cell($rightBoxWidth, 0, '', 'R', 1, 'L');
+// $this->SetX($startX);
+// $this->Cell($logoAndTextWidth, 0, '', 'L', 0, 'L');
+// $this->Cell($rightBoxWidth, 0, '', 'R', 1, 'L');
 
 // Entity Name row
 $this->SetFont('helvetica','IB', 11 + ($fontScale * 11));
