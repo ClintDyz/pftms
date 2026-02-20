@@ -68,21 +68,54 @@ $arrContextOptions = [
 $img = file_get_contents(url('images/logo/dostlogoupdate.png'), false,
                         stream_context_create($arrContextOptions));
 
-// Logo dimensions and position
 $logoX = $xCoor + 4;
 $logoY = $yCoor;
 $logoWidth = 90;
 
-// Draw the complete bordered section
+// Define widths
+$leftWidth = $pageWidth * 0.71;
+$rightWidth = $pageWidth - $leftWidth;
+
+// Logo section
 $this->SetXY($xCoor, $yCoor);
-
-// Full width cell with top, left, right, bottom borders
-// $this->Cell($pageWidth, 13, '', 'LR', 0, 'L');
-$this->Cell($pageWidth, 13, '', 'LR', 1, 'L');  // Changed parameter from 0 to 1
-
-
-// Place the logo on top of the bordered cell
+$this->Cell($pageWidth, 13, '', 'LR', 1, 'L');
 $this->Image('@' . $img, $logoX, $logoY + 0.5, $logoWidth, 0, 'PNG');
+
+// Bottom border of logo section
+$this->Cell($leftWidth, 0, '', 'BL', 0);
+$this->Cell($rightWidth, 0, '', 'BR', 1);
+
+// Fund Cluster row
+$this->Cell($leftWidth, 5, '', 'L', 0, 'C');
+$this->Cell($rightWidth, 5, "Fund Cluster : 01", 'LR', 1, 'L');
+
+// DISBURSEMENT VOUCHER / Date row
+$this->Cell($leftWidth, 5, "DISBURSEMENT VOUCHER", 'L', 0, 'C');
+$this->Cell($rightWidth, 5, "Date : " . $dvDate, 'LR', 1, 'L');
+
+// DV No. row
+$this->Cell($leftWidth, 5, '', 'BL', 0, 'C');
+$this->Cell($rightWidth, 5, "DV No. : " . $data->dv->dv_no, 'BLR', 1, 'L');
+
+
+// $img = file_get_contents(url('images/logo/dostlogoupdate.png'), false,
+//                         stream_context_create($arrContextOptions));
+
+// // Logo dimensions and position
+// $logoX = $xCoor + 4;
+// $logoY = $yCoor;
+// $logoWidth = 90;
+
+// // Draw the complete bordered section
+// $this->SetXY($xCoor, $yCoor);
+
+// // Full width cell with top, left, right, bottom borders
+// // $this->Cell($pageWidth, 13, '', 'LR', 0, 'L');
+// $this->Cell($pageWidth, 13, '', 'LR', 1, 'L');  // Changed parameter from 0 to 1
+
+
+// // Place the logo on top of the bordered cell
+// $this->Image('@' . $img, $logoX, $logoY + 0.5, $logoWidth, 0, 'PNG');
 
 // Move to next line
 // $this->Ln();
@@ -130,22 +163,22 @@ $this->Image('@' . $img, $logoX, $logoY + 0.5, $logoWidth, 0, 'PNG');
         // $this->Cell($pageWidth * 0, 3, '', 'R');
         // $this->Ln();
 
-        // --- UPDATED SECTION ---
-        $this->SetX($xCoor);
-        $this->Cell($pageWidth * 0.71, 4, '', 'BL', 0); // Changed from 0.71 to 0.55
-        $this->Cell($pageWidth * 0, 4, '', 'BR', 1);
+        // // --- UPDATED SECTION ---
+        // $this->SetX($xCoor);
+        // $this->Cell($pageWidth * 0.71, 4, '', 'BL', 0); // Changed from 0.71 to 0.55
+        // $this->Cell($pageWidth * 0, 4, '', 'BR', 1);
+        // // $this->Ln();
+
+        // $this->Cell($pageWidth * 0.55, 5,'', 'L', '', 'C'); // Changed from 0.71 to 0.55
+        // $this->Cell($pageWidth * 0, 5, "Fund Cluster : 01", 'LR');
         // $this->Ln();
 
-        $this->Cell($pageWidth * 0.55, 5,'', 'L', '', 'C'); // Changed from 0.71 to 0.55
-        $this->Cell($pageWidth * 0, 5, "Fund Cluster : 01", 'LR');
-        $this->Ln();
+        // $this->Cell($pageWidth * 0.55, 5, "DISBURSEMENT VOUCHER", 'L', '', 'C'); // Changed from 0.71 to 0.55
+        // $this->Cell($pageWidth * 0, 5, "Date : " . $dvDate, 'LR');
+        // $this->Ln();
 
-        $this->Cell($pageWidth * 0.55, 5, "DISBURSEMENT VOUCHER", 'L', '', 'C'); // Changed from 0.71 to 0.55
-        $this->Cell($pageWidth * 0, 5, "Date : " . $dvDate, 'LR');
-        $this->Ln();
-
-        $this->Cell($pageWidth * 0.55, 5, '', 'BL', '', 'C'); // Changed from 0.71 to 0.55
-        $this->Cell($pageWidth * 0, 5, "DV No. : " . $data->dv->dv_no, 'BLR');
+        // $this->Cell($pageWidth * 0.55, 5, '', 'BL', '', 'C'); // Changed from 0.71 to 0.55
+        // $this->Cell($pageWidth * 0, 5, "DV No. : " . $data->dv->dv_no, 'BLR');
         $this->Ln();
 
         $x = $this->getX();

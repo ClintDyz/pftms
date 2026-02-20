@@ -69,7 +69,6 @@ $arrContextOptions = [
     ],
 ];
 
-// Load logo
 $img = file_get_contents(
     url('images/logo/dostlogoupdate.png'),
     false,
@@ -81,10 +80,9 @@ $startX = $this->GetX();
 
 // Define layout widths
 $logoAndTextWidth = $pageWidth * 0.5714;   // Left side for logo
-// $rightBoxWidth = $pageWidth * 0.4286;      // Right side for Serial No. and Date
-$rightBoxWidth = $pageWidth - $logoAndTextWidth;  // Right side - CHANGED THIS LINE
+$rightBoxWidth = $pageWidth - $logoAndTextWidth;  // Right side - ensures exact fit
 
-// Draw left cell with LEFT and TOP borders
+// Draw left cell with LEFT border
 $this->Cell($logoAndTextWidth, 6, '', 'L', 0, 'L');
 
 // Insert the logo
@@ -93,7 +91,7 @@ $this->Image('@' . $img, $startX + 3, $yCoor, 90, 0, 'PNG');
 // Get the X position for the right section
 $rightStartX = $this->GetX();
 
-// Draw right section - Serial No. line with TOP, LEFT, RIGHT borders
+// Draw right section - Serial No. line with LEFT and RIGHT borders
 $this->SetFont('helvetica', '', 9 + ($fontScale * 9));
 $this->Cell($rightBoxWidth, 6, 'Serial No.  : ' . $data->ors->serial_no, 'LR', 2, 'L');
 
@@ -105,17 +103,11 @@ $this->Cell($logoAndTextWidth, 6, '', 'L', 0, 'L');
 $this->SetX($rightStartX);
 $this->Cell($rightBoxWidth, 6, 'Date          : ' . $orsDate, 'LR', 1, 'L');
 
-// Close the bottom borders
-// $this->SetX($startX);
-// $this->Cell($logoAndTextWidth, 0, '', 'L', 0, 'L');
-// $this->Cell($rightBoxWidth, 0, '', 'R', 1, 'L');
-
-// Entity Name row
+// Entity Name row - FIXED THE TYPO HERE
 $this->SetFont('helvetica','IB', 11 + ($fontScale * 11));
-$this->Cell($logoAndTextWidth * 0.5714, 6, 'Entity Name', 'LRB', 0, 'C');
+$this->Cell($logoAndTextWidth, 6, 'Entity Name', 'LRB', 0, 'C');  // FIXED: removed 'z' from variable name
 $this->SetFont('helvetica','IB', 10 + ($fontScale * 10));
-$this->Cell(0, 6, "Fund Cluster \t\t\t\t: ____________________", 'RB');
-$this->Ln();
+$this->Cell($rightBoxWidth, 6, "Fund Cluster \t\t\t\t: ____________________", 'RB', 1, 'L');  // FIXED: use $rightBoxWidth
 
 //         //Title header with logo
 //         if ($data->ors->document_type == 'ors') {
