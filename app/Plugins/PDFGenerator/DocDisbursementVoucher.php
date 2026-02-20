@@ -89,8 +89,8 @@ $this->Cell($pageWidth, 13, '', 'LR', 1, 'L');  // Changed parameter from 0 to 1
 $this->Image('@' . $img, $logoX, $logoY + 0.5, $logoWidth, 0, 'PNG');
 
 // Bottom border row - USE CALCULATED WIDTHS
-$this->Cell($leftWidth, 0, '', 'BL', 0);
-$this->Cell($rightWidth, 0, '', 'BR', 1);  // Changed from $pageWidth * 0 to $rightWidth
+// $this->Cell($leftWidth, 0, '', 'BL', 0);
+// $this->Cell($rightWidth, 0, '', 'BR', 1);  // Changed from $pageWidth * 0 to $rightWidth
 
 // Move to next line
 // $this->Ln();
@@ -139,9 +139,9 @@ $this->Cell($rightWidth, 0, '', 'BR', 1);  // Changed from $pageWidth * 0 to $ri
         // $this->Ln();
 
         // --- UPDATED SECTION ---
-        // $this->SetX($xCoor);
-        // $this->Cell($pageWidth * 0.71, 4, '', 'BL', 0); // Changed from 0.71 to 0.55
-        // $this->Cell($pageWidth * 0, 4, '', 'BR', 1);
+        $this->SetX($xCoor);
+        $this->Cell($pageWidth * 0.71, 4, '', 'BL', 0); // Changed from 0.71 to 0.55
+        $this->Cell($pageWidth * 0, 4, '', 'BR', 1);
         // $this->Ln();
 
         $this->Cell($pageWidth * 0.55, 5,'', 'L', '', 'C'); // Changed from 0.71 to 0.55
