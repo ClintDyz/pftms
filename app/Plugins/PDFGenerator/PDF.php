@@ -294,7 +294,13 @@ class PDF extends TCPDF {
             $this->Cell($pageWidth * $mulltiplier1, 4, '');
             $this->Cell($pageWidth * $mulltiplier2, 4, '');
             $this->SetFont('helvetica', '', 8);
-            $this->Cell(0, 4, "\t".$this->docRevDate, 'LRB');
+            $this->Cell(0, 4, "\t".$this->docRevDate, 'LR');
+
+            $this->SetFont('helvetica', '', 9);
+            $this->Cell($pageWidth * $mulltiplier1, 4, '');
+            $this->Cell($pageWidth * $mulltiplier2, 4, '');
+            $this->SetFont('helvetica', '', 8);
+            $this->Cell(0, 4, "\t".$this->pageNo, 'LRB');
             $this->Ln();
         }
     }
