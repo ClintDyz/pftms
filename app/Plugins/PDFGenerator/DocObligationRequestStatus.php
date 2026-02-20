@@ -78,9 +78,14 @@ $img = file_get_contents(
 // Save the starting X position
 $startX = $this->GetX();
 
-// Define layout widths
-$logoAndTextWidth = $pageWidth * 0.5714;   // Left side for logo
-$rightBoxWidth = $pageWidth - $logoAndTextWidth;  // Right side - ensures exact fit
+// Get margins to calculate exact available width
+$leftMargin = $this->getMargins()['left'];
+$rightMargin = $this->getMargins()['right'];
+$availableWidth = $this->w - $leftMargin - $rightMargin;
+
+// Define layout widths based on available width (not pageWidth)
+$logoAndTextWidth = $availableWidth * 0.5714;   // Left side for logo
+$rightBoxWidth = $availableWidth - $logoAndTextWidth;  // Right side - ensures exact fit
 
 // Draw left cell with LEFT border
 $this->Cell($logoAndTextWidth, 6, '', 'L', 0, 'L');
@@ -103,11 +108,12 @@ $this->Cell($logoAndTextWidth, 6, '', 'L', 0, 'L');
 $this->SetX($rightStartX);
 $this->Cell($rightBoxWidth, 6, 'Date          : ' . $orsDate, 'LR', 1, 'L');
 
-// Entity Name row - FIXED THE TYPO HERE
+// Entity Name row
 $this->SetFont('helvetica','IB', 11 + ($fontScale * 11));
-$this->Cell($logoAndTextWidth, 6, 'Entity Name', 'LRB', 0, 'C');  // FIXED: removed 'z' from variable name
+$this->Cell($logoAndTextWidth, 6, 'Entity Name', 'LRB', 0, 'C');
 $this->SetFont('helvetica','IB', 10 + ($fontScale * 10));
-$this->Cell($rightBoxWidth, 6, "Fund Cluster \t\t\t\t: ____________________", 'RB', 1, 'L');  // FIXED: use $rightBoxWidth
+$this->Cell($rightBoxWidth, 6, "Fund Cluster \t\t\t\t: ____________________", 'RB');
+$this->Ln();
 
 //         //Title header with logo
 //         if ($data->ors->document_type == 'ors') {
