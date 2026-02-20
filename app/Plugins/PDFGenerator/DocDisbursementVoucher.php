@@ -47,8 +47,7 @@ class DocDisbursementVoucher extends PDF {
         $this->AddPage();
 
         /* ------------------------------------- Start of Doc ------------------------------------- */
-
-        //Title header with Logo
+//Title header with Logo
         $xCoor = $this->GetX();
         $yCoor = $this->GetY();
 
@@ -73,20 +72,67 @@ $logoX = $xCoor + 4;
 $logoY = $yCoor;
 $logoWidth = 90;
 
-// Calculate widths to avoid rounding errors
-$leftWidth = $pageWidth * 0.71;
-$rightWidth = $pageWidth - $leftWidth;  // This ensures exact fit
+// Get exact available width including margins
+$leftMargin = $this->getMargins()['left'];
+$rightMargin = $this->getMargins()['right'];
+$availableWidth = $this->w - $leftMargin - $rightMargin;
+
+// Calculate widths based on available width
+$leftWidth = $availableWidth * 0.71;
+$rightWidth = $availableWidth - $leftWidth;
 
 // Draw the complete bordered section
 $this->SetXY($xCoor, $yCoor);
 
-// Full width cell with top, left, right, bottom borders
-// $this->Cell($pageWidth, 13, '', 'LR', 0, 'L');
-$this->Cell($pageWidth, 13, '', 'LR', 1, 'L');  // Changed parameter from 0 to 1
-
+// Full width cell with left and right borders
+$this->Cell($availableWidth, 13, '', 'LR', 1, 'L');
 
 // Place the logo on top of the bordered cell
 $this->Image('@' . $img, $logoX, $logoY + 0.5, $logoWidth, 0, 'PNG');
+
+        // --- UPDATED SECTION ---
+        $this->Cell($leftWidth, 0, '', 'BL', 0);
+        $this->Cell($rightWidth, 0, '', 'BR', 1);
+
+//         //Title header with Logo
+//         $xCoor = $this->GetX();
+//         $yCoor = $this->GetY();
+
+//         $this->Cell($pageWidth * 0.71, 1, '', "TL", 0, 'C');
+//         $this->Cell(0, 1, '', 'TR');
+//         $this->Ln();
+
+// $xCoor = $this->getX();
+// $yCoor = $this->getY();
+
+// $arrContextOptions = [
+//     "ssl" => [
+//         "verify_peer" => false,
+//         "verify_peer_name" => false,
+//     ],
+// ];
+// $img = file_get_contents(url('images/logo/dostlogoupdate.png'), false,
+//                         stream_context_create($arrContextOptions));
+
+// // Logo dimensions and position
+// $logoX = $xCoor + 4;
+// $logoY = $yCoor;
+// $logoWidth = 90;
+
+// // Calculate widths to avoid rounding errors
+// $leftWidth = $pageWidth * 0.71;
+// $rightWidth = $pageWidth - $leftWidth;  // This ensures exact fit
+
+// // Draw the complete bordered section
+// $this->SetXY($xCoor, $yCoor);
+
+// // Full width cell with top, left, right, bottom borders
+// // $this->Cell($pageWidth, 13, '', 'LR', 0, 'L');
+// $this->Cell($pageWidth, 13, '', 'LR', 1, 'L');  // Changed parameter from 0 to 1
+
+
+// // Place the logo on top of the bordered cell
+// $this->Image('@' . $img, $logoX, $logoY + 0.5, $logoWidth, 0, 'PNG');
 
 // Bottom border row - USE CALCULATED WIDTHS
 // $this->Cell($leftWidth, 0, '', 'BL', 0);
@@ -139,9 +185,9 @@ $this->Image('@' . $img, $logoX, $logoY + 0.5, $logoWidth, 0, 'PNG');
         // $this->Ln();
 
         // --- UPDATED SECTION ---
-        $this->SetX($xCoor);
-        $this->Cell($pageWidth * 0.71, 4, '', 'BL', 0); // Changed from 0.71 to 0.55
-        $this->Cell($pageWidth * 0, 4, '', 'BR', 1);
+        // $this->SetX($xCoor);
+        // $this->Cell($pageWidth * 0.71, 4, '', 'BLR', 0); // Changed from 0.71 to 0.55
+        // $this->Cell($pageWidth * 0, 4, '', 'BR', 1);
         // $this->Ln();
 
         $this->Cell($pageWidth * 0.55, 5,'', 'L', '', 'C'); // Changed from 0.71 to 0.55
