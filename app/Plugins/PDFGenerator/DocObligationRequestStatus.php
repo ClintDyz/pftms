@@ -55,9 +55,18 @@ if ($data->ors->document_type == 'ors') {
     $this->SetFont('helvetica', 'B', 14 + ($fontScale * 14));
 }
 
-$this->Cell($pageWidth * 0.5714, 8, strtoupper($docSubject), 'TLR', 0, 'C');
-$this->Cell(0, 8, '', 'TR');
-$this->Ln();
+// Get margins to calculate exact available width
+$leftMargin = $this->getMargins()['left'];
+$rightMargin = $this->getMargins()['right'];
+$availableWidth = $this->w - $leftMargin - $rightMargin;
+
+// Define layout widths - MOVED UP HERE
+$logoAndTextWidth = $availableWidth * 0.5714;   // Left side for logo
+$rightBoxWidth = $availableWidth - $logoAndTextWidth;  // Right side
+
+// Title header - USE THE SAME WIDTHS
+$this->Cell($logoAndTextWidth, 8, strtoupper($docSubject), 'TLR', 0, 'C');
+$this->Cell($rightBoxWidth, 8, '', 'TR', 1, 'L');  // Changed from 0 to $rightBoxWidth
 
 $xCoor = $this->getX();
 $yCoor = $this->getY();
@@ -77,15 +86,6 @@ $img = file_get_contents(
 
 // Save the starting X position
 $startX = $this->GetX();
-
-// Get margins to calculate exact available width
-$leftMargin = $this->getMargins()['left'];
-$rightMargin = $this->getMargins()['right'];
-$availableWidth = $this->w - $leftMargin - $rightMargin;
-
-// Define layout widths based on available width (not pageWidth)
-$logoAndTextWidth = $availableWidth * 0.5714;   // Left side for logo
-$rightBoxWidth = $availableWidth - $logoAndTextWidth;  // Right side - ensures exact fit
 
 // Draw left cell with LEFT border
 $this->Cell($logoAndTextWidth, 6, '', 'L', 0, 'L');

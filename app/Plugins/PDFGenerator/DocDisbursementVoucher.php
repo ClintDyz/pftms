@@ -73,6 +73,10 @@ $logoX = $xCoor + 4;
 $logoY = $yCoor;
 $logoWidth = 90;
 
+// Calculate widths to avoid rounding errors
+$leftWidth = $pageWidth * 0.71;
+$rightWidth = $pageWidth - $leftWidth;  // This ensures exact fit
+
 // Draw the complete bordered section
 $this->SetXY($xCoor, $yCoor);
 
@@ -83,6 +87,10 @@ $this->Cell($pageWidth, 13, '', 'LR', 1, 'L');  // Changed parameter from 0 to 1
 
 // Place the logo on top of the bordered cell
 $this->Image('@' . $img, $logoX, $logoY + 0.5, $logoWidth, 0, 'PNG');
+
+// Bottom border row - USE CALCULATED WIDTHS
+$this->Cell($leftWidth, 0, '', 'BL', 0);
+$this->Cell($rightWidth, 0, '', 'BR', 1);  // Changed from $pageWidth * 0 to $rightWidth
 
 // Move to next line
 // $this->Ln();
@@ -131,9 +139,9 @@ $this->Image('@' . $img, $logoX, $logoY + 0.5, $logoWidth, 0, 'PNG');
         // $this->Ln();
 
         // --- UPDATED SECTION ---
-        $this->SetX($xCoor);
-        $this->Cell($pageWidth * 0.71, 4, '', 'BL', 0); // Changed from 0.71 to 0.55
-        $this->Cell($pageWidth * 0, 4, '', 'BR', 1);
+        // $this->SetX($xCoor);
+        // $this->Cell($pageWidth * 0.71, 4, '', 'BL', 0); // Changed from 0.71 to 0.55
+        // $this->Cell($pageWidth * 0, 4, '', 'BR', 1);
         // $this->Ln();
 
         $this->Cell($pageWidth * 0.55, 5,'', 'L', '', 'C'); // Changed from 0.71 to 0.55
