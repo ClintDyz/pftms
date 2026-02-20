@@ -3148,8 +3148,8 @@ class PrintController extends Controller
                 'font-styles' => ['B', 'B', '', ''],
                 'type' => 'other',
                 'data' => [['Payee', $payee,
-                            'TIN/Employee No.:<br>_____________________________',
-                            'ORS/BURS No.:<br>'. ($dv->serial_no ?? 'N/A')]]
+                            'TIN/Employee No.:_____________________________',
+                            'ORS/BURS No.:'. ($dv->serial_no ?? 'N/A')]]
             ], [
                 'col-span' => true,
                 'col-span-key' => ['0', '1-3'],
