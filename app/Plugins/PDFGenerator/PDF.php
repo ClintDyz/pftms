@@ -309,8 +309,9 @@ class PDF extends TCPDF {
             $this->SetFont('helvetica', '', 8);
             $this->Cell(0, 4, "\tPage 2 of 2", 'LRB');  // FIXED: Combined text properly
             $this->Ln();
-            // Add space below the metadata box
-            $this->Ln(8);  // Add 10mm of space (adjust this number as needed)
+            // Add empty cell with specific height for spacing
+            $this->Cell(0, 8, '', 0, 1);  // Creates 8mm empty space
+
         }
     }
 
