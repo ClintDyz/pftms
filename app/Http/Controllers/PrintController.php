@@ -3134,26 +3134,37 @@ class PrintController extends Controller
                         $dv->responsibility_center,
                         $mfoPAP, $amount];
 
-        $dataHeader = [
-            [
-                'aligns' => ['L', 'L', 'L', 'L'],
-                'widths' => [10.4762 * $multiplier, 38.095 * $multiplier,
-                             26.19 * $multiplier, 16.6684 * $multiplier],
-                'font-styles' => ['B', 'B', '', ''],
-                'type' => 'other',
-                'data' => [['Payee', $payee,
-                            'TIN/Employee No.:_____________________________',
-                            'ORS/BURS No.:'. ($dv->serial_no ?? 'N/A')]]
-            ], [
-                'col-span' => true,
-                'col-span-key' => ['0', '1-3'],
-                'aligns' => ['L', 'L', 'L', 'L'],
-                'widths' => [10.4762 * $multiplier, 80.9534 * $multiplier, '', ''],
-                'font-styles' => ['B', 'B', 'B', 'B'],
-                'type' => 'other',
-                'data' => [["Address", $dv->address]]
-            ]
-        ];
+            $dataHeader = [
+                [
+                    'aligns' => ['L', 'L', 'L', 'L'],
+                    'widths' => [10.4762 * $multiplier, 38.095 * $multiplier,
+                                26.19 * $multiplier, 16.6684 * $multiplier],
+                    'font-styles' => ['B', 'B', '', ''],  // Bold for labels only
+                    'type' => 'other',
+                    'data' => [['Payee', $payee,
+                                'TIN/Employee No.:',
+                                'ORS/BURS No.:']]  // First row - labels only
+                ],
+                [
+                    'aligns' => ['L', 'L', 'L', 'L'],
+                    'widths' => [10.4762 * $multiplier, 38.095 * $multiplier,
+                                26.19 * $multiplier, 16.6684 * $multiplier],
+                    'font-styles' => ['', '', '', ''],
+                    'type' => 'other',
+                    'data' => [['', '',
+                                '_____________________________',
+                                $dv->serial_no ?? 'N/A']]  // Second row - values/underlines
+                ],
+                [
+                    'col-span' => true,
+                    'col-span-key' => ['0', '1-3'],
+                    'aligns' => ['L', 'L', 'L', 'L'],
+                    'widths' => [10.4762 * $multiplier, 80.9534 * $multiplier, '', ''],
+                    'font-styles' => ['B', '', '', ''],
+                    'type' => 'other',
+                    'data' => [["Address", $dv->address]]
+                ]
+            ];
         $data = [
             [
                 'aligns' => ['C', 'C', 'C', 'C'],
