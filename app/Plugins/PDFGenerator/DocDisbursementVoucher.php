@@ -47,14 +47,17 @@ class DocDisbursementVoucher extends PDF {
         $this->AddPage();
 
         /* ------------------------------------- Start of Doc ------------------------------------- */
-//Title header with Logo
+
+
+        //Title header with Logo
         $xCoor = $this->GetX();
         $yCoor = $this->GetY();
 
         $this->Cell($pageWidth * 0.71, 1, '', "TL", 0, 'C');
         $this->Cell(0, 1, '', 'TR');
         $this->Ln();
-
+   // Add space below the metadata box
+    $this->Ln(5);  // Add 10mm of space (adjust this number as needed)
 $xCoor = $this->getX();
 $yCoor = $this->getY();
 
