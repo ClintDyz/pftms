@@ -244,32 +244,38 @@ class PDF extends TCPDF {
                     "verify_peer_name" => false,
                 ],
             ];
-            $img = file_get_contents(url('images/logo/dostlogo.png'), false,
+            $img = file_get_contents(url('images/logo/dostlogoupdate.png'), false,
                                      stream_context_create($arrContextOptions));
-            $this->Image('@'.$img, $xCoor + 1, $yCoor, 16, 0);
+
+             // Calculate logo width - make it larger since it now includes text
+            $logoWidth = 90; // Adjust this value to make logo bigger/smaller
+
+            // $this->Image('@'.$img, $xCoor + 1, $yCoor, 16, 0);
+
+            $this->Image('@'.$img, $xCoor + 1, $yCoor, $logoWidth, 0);
 
             $this->SetFont('helvetica', '', 9);
             $this->Cell($pageWidth * $mulltiplier1, 4, '');
-            $this->Cell($pageWidth * $mulltiplier2, 4, 'Republic of the Philippines', 0, 0, 'L');
+            $this->Cell($pageWidth * $mulltiplier2, 4, '', 0, 0, 'L');
             $this->SetFont('helvetica', 'B', 9);
             $this->Cell(0, 4, "\t".$this->docCode, 'LRT');
             $this->Ln();
 
-            $this->SetFont('helvetica', 'B', 10);
+            // $this->SetFont('helvetica', 'B', 10);
             $this->Cell($pageWidth * $mulltiplier1, 4, '');
-            $this->Cell($pageWidth * $mulltiplier2, 4, 'DEPARTMENT OF SCIENCE AND TECHNOLOGY', 0, 0, 'L');
+            $this->Cell($pageWidth * $mulltiplier2, 4, '', 0, 0, 'L');
             $this->SetFont('helvetica', '', 8);
             $this->Cell(0, 4, "\t".$this->docRev, 'LR');
             $this->Ln();
 
-            $this->SetFont('helvetica', '', 9);
+            // $this->SetFont('helvetica', '', 9);
             $this->Cell($pageWidth * $mulltiplier1, 4, '');
-            $this->Cell($pageWidth * $mulltiplier2, 4, 'Cordillera Administrative Region', 0, 0, 'L');
+            $this->Cell($pageWidth * $mulltiplier2, 4, '', 0, 0, 'L');
             $this->SetFont('helvetica', '', 8);
             $this->Cell(0, 4, "\t".$pageNo, 'LR');
             $this->Ln();
 
-            $this->SetFont('helvetica', '', 9);
+            // $this->SetFont('helvetica', '', 9);
             $this->Cell($pageWidth * $mulltiplier1, 4, '');
             $this->Cell($pageWidth * $mulltiplier2, 4, '');
             $this->SetFont('helvetica', '', 8);
@@ -296,12 +302,6 @@ class PDF extends TCPDF {
             $this->SetFont('helvetica', '', 8);
             $this->Cell(0, 4, "\t".$this->docRevDate, 'LR');
 
-            $this->SetFont('helvetica', '', 9);
-            $this->Cell($pageWidth * $mulltiplier1, 4, '');
-            $this->Cell($pageWidth * $mulltiplier2, 4, '');
-            $this->SetFont('helvetica', '', 8);
-            $this->Cell(0, 4, "\t".$this->pageNo, 'LRB');
-            $this->Ln();
         }
     }
 
