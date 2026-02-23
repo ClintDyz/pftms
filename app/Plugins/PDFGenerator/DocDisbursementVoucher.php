@@ -244,7 +244,7 @@ $this->Image('@' . $img, $logoX, $logoY + 0.5, $logoWidth, 0, 'PNG');
                                     "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t".
                                     "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t".
                                     "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t".
-                                    "_____________________\n\n", 1);
+                                    "_____________________\n\n\n\n", 1);
 
         //Table data
         $this->SetFont('Times', '', 10 + ($fontScale * 10));
