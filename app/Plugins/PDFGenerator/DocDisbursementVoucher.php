@@ -246,9 +246,6 @@ $this->Image('@' . $img, $logoX, $logoY + 0.5, $logoWidth, 0, 'PNG');
                                     "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t".
                                     "_____________________\n\n", 1);
 
-        // Add space below the metadata box
-            $this->Ln(3);  // Add 10mm of space (adjust this number as needed)
-
         //Table data
         $this->SetFont('Times', '', 10 + ($fontScale * 10));
         $this->htmlTable($data->header_data);
