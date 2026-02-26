@@ -129,7 +129,7 @@ class ReportController extends Controller
                     <td width="7%">' . ($i + 1) . '</td>
                     <td width="20%">' . htmlspecialchars($row->pr_no) . '</td>
                     <td width="40%">' . nl2br(htmlspecialchars($row->purpose)) . '</td>
-                    <td width="18%">₱' . number_format($row->total_cost, 2) . '</td>
+                    <td width="18%">' . number_format($row->total_cost, 2) . '</td>
                     <td width="15%">' . $row->created_date . '</td>
                 </tr>';
         }
