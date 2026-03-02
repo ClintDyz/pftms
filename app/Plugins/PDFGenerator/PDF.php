@@ -248,7 +248,7 @@ class PDF extends TCPDF {
                                      stream_context_create($arrContextOptions));
 
              // Calculate logo width - make it larger since it now includes text
-            $logoWidth = 90; // Adjust this value to make logo bigger/smaller
+            $logoWidth = 100; // Adjust this value to make logo bigger/smaller
 
             // $this->Image('@'.$img, $xCoor + 1, $yCoor, 16, 0);
 
