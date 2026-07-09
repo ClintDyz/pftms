@@ -48,7 +48,7 @@ class DocDisbursementVoucher extends PDF {
 
         /* ------------------------------------- Start of Doc ------------------------------------- */
    // Add space below the metadata box
-    $this->Ln(8);  // Add 10mm of space (adjust this number as needed)
+    $this->Ln(6);  // Add 10mm of space (adjust this number as needed)
 
         //Title header with Logo
         $xCoor = $this->GetX();
@@ -73,7 +73,7 @@ $img = file_get_contents(url('images/logo/dostlogoupdate.png'), false,
 // Logo dimensions and position
 $logoX = $xCoor + 4;
 $logoY = $yCoor;
-$logoWidth = 100;
+$logoWidth = 102;
 
 // Get exact available width including margins
 $leftMargin = $this->getMargins()['left'];
