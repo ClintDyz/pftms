@@ -328,33 +328,6 @@
                             </table>
                         </div>
 
-                        <!-- Report Footer / Signatures -->
-                        {{-- <div class="row signature-section">
-                            <div class="col-md-4 signature-box">
-                                <p><strong>Prepared by:</strong></p>
-                                <br><br><br>
-                                <p style="border-top: 1px solid black; display: inline-block; padding-top: 5px;">
-                                    <strong>MARIA CELESTE R. DELA CRUZ</strong><br>
-                                    BAC Secretariat
-                                </p>
-                            </div>
-                            <div class="col-md-4 signature-box">
-                                <p><strong>Recommended for Approval by:</strong></p>
-                                <br><br><br>
-                                <p style="border-top: 1px solid black; display: inline-block; padding-top: 5px;">
-                                    <strong>NANCY A. BANTOG</strong><br>
-                                    BAC Chairperson
-                                </p>
-                            </div>
-                            <div class="col-md-4 signature-box">
-                                <p><strong>APPROVED:</strong></p>
-                                <br><br><br>
-                                <p style="border-top: 1px solid black; display: inline-block; padding-top: 5px;">
-                                    <strong>SHEILA MARIE B. SINGA-CLAVER</strong><br>
-                                    Head of the Procuring Entity
-                                </p>
-                            </div>
-                        </div> --}}
 
                     @elseif(isset($reportData))
                         <div class="alert alert-warning">
