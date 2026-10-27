@@ -51,7 +51,7 @@
                                         name="bidder_count[{{ $grpCtr }}]">
                                     <option value="0" disabled selected>Choose the number of supplier</option>
 
-                                    @for ($countSupplier = 0; $countSupplier <= 10; $countSupplier++)
+                                    @for ($countSupplier = 0; $countSupplier <= 20; $countSupplier++)
                                         <option {{ $countSupplier == $abstract->bidder_count ? 'selected' : '' }}
                                                 value="{{ $countSupplier }}">
                                             Number of Supplier: {{ $countSupplier }}
